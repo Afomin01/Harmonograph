@@ -30,3 +30,8 @@ float Harmonograph::getY(float t) {
 	}
 	return y;
 }
+void Harmonograph::update() {
+	for (Pendulum* p : pendlums) {
+		p->update();
+	}
+}

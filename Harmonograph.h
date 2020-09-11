@@ -13,6 +13,7 @@ public:
 
 	float getX(float t);
 	float getY(float t);
+	void update();
 
 private:
 	std::vector<Pendulum*> pendlums;

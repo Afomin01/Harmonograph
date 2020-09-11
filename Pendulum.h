@@ -26,6 +26,7 @@ public:
 
 	float getX(float t);
 	float getY(float t);
+	void update();
 
 private:
 	float xDumping = 0.1;
