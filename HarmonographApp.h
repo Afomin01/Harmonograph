@@ -1,5 +1,6 @@
 #pragma once
 
+#include <QTimer>
 #include <QtWidgets/QMainWindow>
 #include "Harmonograph.h"
 #include <QGraphicsPixmapItem>
@@ -28,8 +29,12 @@ private:
     QImage* image;
     QPainter* painter;
     QPen pen;
+    QTimer* autoRotationTimer;
 
     void drawImage();
+
 private slots:
     void updateImage();
+    void autoRotate();
+    void autoRotationTimerTimeout();
 };

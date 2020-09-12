@@ -16,12 +16,26 @@ HarmonographApp::HarmonographApp(QWidget *parent) : QMainWindow(parent)
     painter->setPen(pen);
     pen.setColor(Qt::black);
     pen.setWidth(1);
+    autoRotationTimer = new QTimer(this);
     
     drawImage();
+
+    autoRotationTimer->setInterval(17);
+    connect(autoRotationTimer, SIGNAL(timeout()), this, SLOT(autoRotationTimerTimeout()));
 }
 
-void HarmonographApp::drawImage() {
+void HarmonographApp::updateImage() {
+    
+    QElapsedTimer timer;
+    timer.start();
     harmonograph->update();
+    drawImage();
+
+    ui.label->setText(QString::number(timer.elapsed()));
+}
+
+void HarmonographApp::drawImage(){
+
     painter->fillRect(0, 0, drawImgWidth, drawImgHeight, Qt::white);
 
     float xLast = (harmonograph->getX(0) * zoom) + (drawImgWidth / 2);
@@ -44,13 +58,18 @@ void HarmonographApp::drawImage() {
     scene->addItem(item);
 }
 
-void HarmonographApp::updateImage() {
-    
-    QElapsedTimer timer;
-    timer.start();
+void HarmonographApp::autoRotate()
+{
+    if (autoRotationTimer->isActive()) {
+        autoRotationTimer->stop();
+    }
+    else {
+        autoRotationTimer->start();
+    }
+}
 
+void HarmonographApp::autoRotationTimerTimeout()
+{
+    harmonograph->rotateYAxis(0.1);
     drawImage();
-
-    ui.label->setText(QString::number(timer.elapsed()));
-    ui.label->setText(QString::number(rand()));
 }
