@@ -24,7 +24,7 @@ HarmonographApp::HarmonographApp(QWidget *parent) : QMainWindow(parent)
     connect(autoRotationTimer, SIGNAL(timeout()), this, SLOT(autoRotationTimerTimeout()));
 }
 
-void HarmonographApp::updateImage() {
+void HarmonographApp::updateImage(){
     
     QElapsedTimer timer;
     timer.start();
@@ -42,9 +42,20 @@ void HarmonographApp::drawImage(){
     float yLast = (harmonograph->getY(0) * zoom) + (drawImgHeight / 2);
     float xCurrent = 0;
     float yCurrent = 0;
+    QColor colorA = Qt::blue;
+    QColor colorB = Qt::red;
+
+
+    int stepCount = (int)(255 / 1e-02);
+    float stepR = ((float)(colorB.red() - colorA.red()) / (stepCount + 10));
+    float stepG = ((float)(colorB.green() - colorA.green()) / (stepCount + 10));
+    float stepB = ((float)(colorB.blue() - colorA.blue()) / (stepCount + 10));
+    int i = 1;
 
     for (float t = 1e-02; t < 255; t += 1e-02) {
 
+        pen.setColor(QColor(colorA.red() + stepR * i, colorA.green() + stepG * i, colorA.blue() + stepB * i, 255));
+        painter->setPen(pen);
         xCurrent = (harmonograph->getX(t) * zoom) + (drawImgWidth / 2);
         yCurrent = (harmonograph->getY(t) * zoom) + (drawImgHeight / 2);
 
@@ -52,7 +63,10 @@ void HarmonographApp::drawImage(){
 
         xLast = xCurrent;
         yLast = yCurrent;
+        i++;
+
     }
+
     scene->clear();
     QGraphicsPixmapItem* item = new QGraphicsPixmapItem(QPixmap::fromImage(*image));
     scene->addItem(item);
