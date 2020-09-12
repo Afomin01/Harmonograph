@@ -32,6 +32,14 @@ void Pendulum::update() {
 	//yFreq = 2 + 1e-01 + static_cast <float> (r) / (static_cast <float> (RAND_MAX / (1e-02 - 1e-01)));
 	//yAmplitude = 1;
 }
+void Pendulum::changeXPhase(float radians)
+{
+	xPhase += radians;
+}
+void Pendulum::changeYPhase(float radians)
+{
+	yPhase += radians;
+}
 Pendulum::Pendulum() {
 	srand(unsigned int(time(NULL)));
 	xDumping = static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (1e-02)));

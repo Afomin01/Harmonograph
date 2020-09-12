@@ -5,7 +5,7 @@
 #include <cmath>
 
 class Harmonograph
-{
+{ 
 public:
 	Harmonograph(int n);
 	Harmonograph();
@@ -14,6 +14,7 @@ public:
 	float getX(float t);
 	float getY(float t);
 	void update();
+	void rotateYAxis(float radians);
 
 private:
 	std::vector<Pendulum*> pendlums;

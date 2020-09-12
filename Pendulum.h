@@ -16,6 +16,8 @@ public:
 	float getX(float t);
 	float getY(float t);
 	void update();
+	void changeXPhase(float radians);
+	void changeYPhase(float radians);
 
 private:
 	float xDumping = 0.1;
