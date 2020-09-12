@@ -4,6 +4,7 @@
 #include "Harmonograph.h"
 #include <QGraphicsPixmapItem>
 #include <ui_HarmonographApp.h>
+#include "GLWidget.h"
 
 class HarmonographApp : public QMainWindow
 {

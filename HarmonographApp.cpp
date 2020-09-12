@@ -1,7 +1,8 @@
 #include "HarmonographApp.h"
 #include <QElapsedTimer>
 #include "Harmonograph.h"
-
+#include "GLWidget.h"
+#include <cstdlib>
 HarmonographApp::HarmonographApp(QWidget *parent) : QMainWindow(parent)
 {
     ui.setupUi(this);
@@ -30,4 +31,5 @@ void HarmonographApp::updateImage() {
     drawImage();
 
     ui.label->setText(QString::number(timer.elapsed()));
+    ui.label->setText(QString::number(rand()));
 }
