@@ -96,7 +96,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="GLWidget.cpp" />
     <ClCompile Include="Pendulum.cpp" />
     <QtRcc Include="HarmonographApp.qrc" />
     <QtUic Include="HarmonographApp.ui" />
@@ -106,7 +105,6 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <QtMoc Include="GLWidget.h" />
     <ClInclude Include="Harmonograph.h" />
     <ClInclude Include="Pendulum.h" />
   </ItemGroup>

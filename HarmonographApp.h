@@ -4,7 +4,9 @@
 #include "Harmonograph.h"
 #include <QGraphicsPixmapItem>
 #include <ui_HarmonographApp.h>
-#include "GLWidget.h"
+#include <QElapsedTimer>
+#include "Harmonograph.h"
+#include <cstdlib>
 
 class HarmonographApp : public QMainWindow
 {
@@ -27,31 +29,7 @@ private:
     QPainter* painter;
     QPen pen;
 
-    void drawImage() {
-
-        harmonograph->update();
-        painter->fillRect(0, 0, drawImgWidth, drawImgHeight, Qt::white);
-
-        float xLast = (harmonograph->getX(0) * zoom) + (drawImgWidth / 2);
-        float yLast = (harmonograph->getY(0) * zoom) + (drawImgHeight / 2);
-        float xCurrent = 0;
-        float yCurrent = 0;
-
-        for (float t = 1e-02; t < 255; t += 1e-02) {
-
-            xCurrent = (harmonograph->getX(t) * zoom) + (drawImgWidth / 2);
-            yCurrent = (harmonograph->getY(t) * zoom) + (drawImgHeight / 2);
-
-            painter->drawLine(xLast, yLast, xCurrent, yCurrent);
-
-            xLast = xCurrent;
-            yLast = yCurrent;
-        }
-        scene->clear();
-        QGraphicsPixmapItem* item = new QGraphicsPixmapItem(QPixmap::fromImage(*image));
-        scene->addItem(item);
-
-    }
+    void drawImage();
 private slots:
     void updateImage();
 };

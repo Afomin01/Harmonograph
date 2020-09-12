@@ -53,29 +53,6 @@
      <string>TextLabel</string>
     </property>
    </widget>
-   <widget class="GLWidget" name="openGLWidget">
-    <property name="geometry">
-     <rect>
-      <x>1400</x>
-      <y>40</y>
-      <width>1280</width>
-      <height>720</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="pushButton">
-    <property name="geometry">
-     <rect>
-      <x>200</x>
-      <y>10</y>
-      <width>75</width>
-      <height>23</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>UpdateGL</string>
-    </property>
-   </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
@@ -98,16 +75,6 @@
   <widget class="QStatusBar" name="statusBar"/>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <customwidgets>
-  <customwidget>
-   <class>GLWidget</class>
-   <extends>QOpenGLWidget</extends>
-   <header>glwidget.h</header>
-   <slots>
-    <slot>updateImageGL()</slot>
-   </slots>
-  </customwidget>
- </customwidgets>
  <resources>
   <include location="HarmonographApp.qrc"/>
  </resources>
@@ -125,22 +92,6 @@
     <hint type="destinationlabel">
      <x>132</x>
      <y>67</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>pushButton</sender>
-   <signal>clicked()</signal>
-   <receiver>openGLWidget</receiver>
-   <slot>updateImageGL()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>214</x>
-     <y>57</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>308</x>
-     <y>207</y>
     </hint>
    </hints>
   </connection>
