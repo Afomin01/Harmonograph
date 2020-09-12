@@ -32,4 +32,5 @@ private:
     void drawImage();
 private slots:
     void updateImage();
+    void autoRotate();
 };
