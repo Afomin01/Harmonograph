@@ -47,12 +47,30 @@
     <ClCompile Include="Pendulum.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="HarmonographManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ImagePainter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ImageSaver.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Harmonograph.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Pendulum.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HarmonographManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ImagePainter.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ImageSaver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

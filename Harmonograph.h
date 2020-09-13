@@ -14,7 +14,7 @@ public:
 	float getX(float t);
 	float getY(float t);
 	void update();
-	void rotateYAxis(float radians);
+	void rotateXAxis(float radians);
 
 private:
 	std::vector<Pendulum*> pendlums;

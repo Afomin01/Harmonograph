@@ -36,7 +36,7 @@ void Harmonograph::update() {
 	}
 }
 
-void Harmonograph::rotateYAxis(float radians)
+void Harmonograph::rotateXAxis(float radians)
 {
 	for (Pendulum* p : pendlums) {
 		p->changeXPhase(radians);

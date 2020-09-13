@@ -8,6 +8,7 @@
 #include <QElapsedTimer>
 #include "Harmonograph.h"
 #include <cstdlib>
+#include "HarmonographManager.h"
 
 class HarmonographApp : public QMainWindow
 {
@@ -17,7 +18,7 @@ public:
     HarmonographApp(QWidget *parent = Q_NULLPTR);
 
 private:
-    Harmonograph *harmonograph;
+    HarmonographManager* manager;
     
     int const drawImgWidth = 1280;
     int const drawImgHeight = 720;
@@ -26,15 +27,13 @@ private:
     Ui::HarmonographAppClass ui;
 
     QGraphicsScene* scene;
-    QImage* image;
-    QPainter* painter;
-    QPen pen;
     QTimer* autoRotationTimer;
 
-    void drawImage();
+    void redrawImage();
 
 private slots:
     void updateImage();
     void autoRotate();
     void autoRotationTimerTimeout();
+    void saveImage();
 };

@@ -96,6 +96,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="HarmonographManager.cpp" />
+    <ClCompile Include="ImagePainter.cpp" />
+    <ClCompile Include="ImageSaver.cpp" />
     <ClCompile Include="Pendulum.cpp" />
     <QtRcc Include="HarmonographApp.qrc" />
     <QtUic Include="HarmonographApp.ui" />
@@ -106,6 +109,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Harmonograph.h" />
+    <ClInclude Include="HarmonographManager.h" />
+    <ClInclude Include="ImagePainter.h" />
+    <ClInclude Include="ImageSaver.h" />
     <ClInclude Include="Pendulum.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
