@@ -1,4 +1,6 @@
 <RCC>
-    <qresource prefix="HarmonographApp">
+    <qresource prefix="/HarmonographApp">
+        <file>assets/update.png</file>
+        <file>assets/autoRotate.png</file>
     </qresource>
 </RCC>
