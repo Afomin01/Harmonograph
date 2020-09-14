@@ -18,6 +18,5 @@ private:
 	Harmonograph* harmonograph;
 	ImagePainter* imagePainter;
 	ImageSaver* imageSaver;
-
 };
 

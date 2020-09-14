@@ -14,7 +14,7 @@ public:
 private:
     int const drawImgWidth = 1280;
     int const drawImgHeight = 720;
-    float zoom = 100;
+    float zoom = 125;
 
     QImage* image;
     QPainter* painter;

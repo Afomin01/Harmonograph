@@ -52,6 +52,7 @@ QImage ImagePainter::getImageToSave(Harmonograph* harmonograph, int width, int h
     QPainter* savePainter = new QPainter(imageToSave.get());
     QPen savePen;
     savePainter->setPen(savePen);
+    //savePainter->setRenderHint(QPainter::Antialiasing, true);
     savePen.setColor(Qt::black);
     savePen.setWidth(1);
 
@@ -59,9 +60,10 @@ QImage ImagePainter::getImageToSave(Harmonograph* harmonograph, int width, int h
 
     float widthAdd = width / 2;
     float heightAdd = height / 2;
+    int saveZoom = (int)(zoom / ((drawImgWidth * 1.0) / width));
 
-    float xLast = (harmonograph->getX(0) * zoom) + widthAdd;
-    float yLast = (harmonograph->getY(0) * zoom) + heightAdd;
+    float xLast = (harmonograph->getX(0) * saveZoom) + widthAdd;
+    float yLast = (harmonograph->getY(0) * saveZoom) + heightAdd;
 
     float xCurrent = 0;
     float yCurrent = 0;
@@ -78,8 +80,8 @@ QImage ImagePainter::getImageToSave(Harmonograph* harmonograph, int width, int h
 
         savePen.setColor(QColor(colorA.red() + stepR * i, colorA.green() + stepG * i, colorA.blue() + stepB * i, 255));
         savePainter->setPen(savePen);
-        xCurrent = (harmonograph->getX(t) * zoom) + widthAdd;
-        yCurrent = (harmonograph->getY(t) * zoom) + heightAdd;
+        xCurrent = (harmonograph->getX(t) * saveZoom) + widthAdd;
+        yCurrent = (harmonograph->getY(t) * saveZoom) + heightAdd;
 
         savePainter->drawLine(xLast, yLast, xCurrent, yCurrent);
 
