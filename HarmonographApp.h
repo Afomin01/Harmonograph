@@ -5,7 +5,6 @@
 #include "Harmonograph.h"
 #include <QGraphicsPixmapItem>
 #include <ui_HarmonographApp.h>
-#include <QElapsedTimer>
 #include "Harmonograph.h"
 #include <cstdlib>
 #include "HarmonographManager.h"
@@ -37,4 +36,6 @@ private slots:
     void autoRotationTimerTimeout();
     void saveImage();
     void zoomInOut();
+    void saveParametersToFile();
+    void loadParametersFromFile();
 };

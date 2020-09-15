@@ -18,12 +18,8 @@ HarmonographApp::HarmonographApp(QWidget *parent) : QMainWindow(parent)
 
 void HarmonographApp::updateImage(){
     
-    QElapsedTimer timer;
-    timer.start();
     manager->updateRandomValues();
     redrawImage();
-
-    ui.label->setText(QString::number(timer.elapsed()));
 }
 
 void HarmonographApp::redrawImage() {
@@ -35,18 +31,11 @@ void HarmonographApp::redrawImage() {
 
 void HarmonographApp::autoRotate()
 {
-    //if (autoRotationTimer->isActive()) {
-    //    autoRotationTimer->stop();
-    //}
-    //else {
-    //    autoRotationTimer->start();
-    //}
-    QString fileName = QFileDialog::getOpenFileName(this,
-        tr("Open Address Book"), "",
-        tr("json (*.json);;All Files (*)"));
-    if (!fileName.isEmpty()) {
-        manager->loadParametersFromFile(fileName);
-        redrawImage();
+    if (autoRotationTimer->isActive()) {
+        autoRotationTimer->stop();
+    }
+    else {
+        autoRotationTimer->start();
     }
 }
 
@@ -59,14 +48,27 @@ void HarmonographApp::autoRotationTimerTimeout()
 void HarmonographApp::saveImage() {
     QString fileName = QFileDialog::getSaveFileName(this,
         tr("Save Harmonograph Image"), "",
-        tr("png image (*.json);;All Files (*)"));
-    //if(!fileName.isEmpty()) manager->saveCurrentImage(fileName);
-    if (!fileName.isEmpty()) manager->saveParametersToFile(fileName);
-
-
-
+        tr("png image (*.png);;All Files (*)"));
+    if(!fileName.isEmpty()) manager->saveCurrentImage(fileName);
 }
 
 void HarmonographApp::zoomInOut() {
 
+}
+
+void HarmonographApp::saveParametersToFile() {
+    QString fileName = QFileDialog::getSaveFileName(this,
+        tr("Save Harmonograph Image"), "",
+        tr("JSON (*.json);;All Files (*)"));
+    if (!fileName.isEmpty()) manager->saveParametersToFile(fileName);
+}
+
+void HarmonographApp::loadParametersFromFile() {
+    QString fileName = QFileDialog::getOpenFileName(this,
+        tr("Open Address Book"), "",
+        tr("JSON (*.json);;All Files (*)"));
+    if (!fileName.isEmpty()) {
+        manager->loadParametersFromFile(fileName);
+        redrawImage();
+    }
 }
