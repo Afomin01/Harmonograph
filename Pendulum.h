@@ -9,17 +9,6 @@ class Pendulum
 public:
 	float const pi = atan(1) * 4;
 
-	Pendulum();
-	~Pendulum() {
-	}
-
-	float getX(float t);
-	float getY(float t);
-	void update();
-	void changeXPhase(float radians);
-	void changeYPhase(float radians);
-
-private:
 	float xDumping = 0.1;
 	float xPhase = 0;
 	float xFreq = 0.1;
@@ -29,5 +18,19 @@ private:
 	float yPhase = 0;
 	float yFreq = 0.1;
 	float yAmplitude = 1;
+
+	Pendulum(Pendulum* pendulum);
+	Pendulum(float xDamp, float xPhase, float xFreq, float xAmpl, float yDamp, float yPhase, float yFreq, float yAmpl);
+	Pendulum();
+	~Pendulum() {
+	}
+
+	float getX(float t);
+	float getY(float t);
+	void update(float frequencyPoint, bool isCircle, bool isStar, int firstRatioValue, int secondRatioValue);
+	void changeXPhase(float radians);
+	void changeYPhase(float radians);
+
+private:
 };
 

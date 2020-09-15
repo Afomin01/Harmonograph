@@ -36,4 +36,5 @@ private slots:
     void autoRotate();
     void autoRotationTimerTimeout();
     void saveImage();
+    void zoomInOut();
 };

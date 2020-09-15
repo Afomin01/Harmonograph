@@ -70,6 +70,9 @@
     <ClInclude Include="ImagePainter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="json.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="ImageSaver.h">
       <Filter>Header Files</Filter>
     </ClInclude>

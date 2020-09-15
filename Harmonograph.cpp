@@ -8,6 +8,28 @@ Harmonograph::Harmonograph(int n) {
 	}
 }
 
+Harmonograph::Harmonograph(Harmonograph* harmonograph) {
+	numOfPendulums = harmonograph->numOfPendulums;
+	frequencyPoint = harmonograph->frequencyPoint;
+	isStar = harmonograph->isStar;
+	isCircle = harmonograph->isCircle;
+	firstRatioValue = harmonograph->firstRatioValue;
+	secondRatioValue = harmonograph->secondRatioValue;
+
+	pendlums = harmonograph->getPundlumsCopy();
+}
+
+Harmonograph::Harmonograph(std::vector<Pendulum*> newPendulums, int firstRatioValue, int secondRatioValue, bool isStar, bool isCircle, float frequencyPoint) {
+	pendlums = newPendulums;
+	numOfPendulums = pendlums.size();
+
+	this->firstRatioValue = firstRatioValue;
+	this->secondRatioValue = secondRatioValue;
+	this->isStar = isStar;
+	this->isCircle = isCircle;
+	this->frequencyPoint = frequencyPoint;
+}
+
 Harmonograph::~Harmonograph() {
 	for(Pendulum *p : pendlums){
 		delete p;
@@ -30,9 +52,16 @@ float Harmonograph::getY(float t) {
 	}
 	return y;
 }
+std::vector<Pendulum*> Harmonograph::getPundlumsCopy() {
+	std::vector<Pendulum*> copies;
+	for (Pendulum* p : pendlums) {
+		copies.push_back(new Pendulum(p));
+	}
+	return copies;
+}
 void Harmonograph::update() {
 	for (Pendulum* p : pendlums) {
-		p->update();
+		p->update(frequencyPoint, isCircle, isStar, firstRatioValue, secondRatioValue);
 	}
 }
 

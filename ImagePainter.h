@@ -8,13 +8,19 @@
 
 class ImagePainter{
 public:
+    float zoom = 125;
+    bool useTwoColors = true;
+    QColor firstColor = Qt::blue;
+    QColor secondColor = Qt::red;
+    QColor backgroundColor = Qt::white;
+
     ImagePainter();
+    ImagePainter(ImagePainter* imagePainter);
     QImage getImage(Harmonograph* harmonograph);
     QImage getImageToSave(Harmonograph* harmonograph, int width, int height);
 private:
     int const drawImgWidth = 1280;
     int const drawImgHeight = 720;
-    float zoom = 125;
 
     QImage* image;
     QPainter* painter;

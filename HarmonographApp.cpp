@@ -12,7 +12,7 @@ HarmonographApp::HarmonographApp(QWidget *parent) : QMainWindow(parent)
 
     ui.graphicsView->setScene(scene);
     autoRotationTimer->setInterval(17);
-
+    
     redrawImage();
 }
 
@@ -28,28 +28,45 @@ void HarmonographApp::updateImage(){
 
 void HarmonographApp::redrawImage() {
     scene->clear();
-    scene->addItem(manager->getRenderedGraphicsItem());
+    QGraphicsPixmapItem* item = manager->getRenderedGraphicsItem();
+    //item->pixmap().scaled();
+    scene->addItem(item);
 }
 
 void HarmonographApp::autoRotate()
 {
-    if (autoRotationTimer->isActive()) {
-        autoRotationTimer->stop();
-    }
-    else {
-        autoRotationTimer->start();
+    //if (autoRotationTimer->isActive()) {
+    //    autoRotationTimer->stop();
+    //}
+    //else {
+    //    autoRotationTimer->start();
+    //}
+    QString fileName = QFileDialog::getOpenFileName(this,
+        tr("Open Address Book"), "",
+        tr("json (*.json);;All Files (*)"));
+    if (!fileName.isEmpty()) {
+        manager->loadParametersFromFile(fileName);
+        redrawImage();
     }
 }
 
 void HarmonographApp::autoRotationTimerTimeout()
 {
-    manager->changeXAxisRotation(0.1);
+    manager->changeXAxisRotation(0.05);
     redrawImage();
 }
 
 void HarmonographApp::saveImage() {
     QString fileName = QFileDialog::getSaveFileName(this,
         tr("Save Harmonograph Image"), "",
-        tr("png image (*.png);;All Files (*)"));
-    if(!fileName.isEmpty()) manager->saveCurrentImage(fileName);
+        tr("png image (*.json);;All Files (*)"));
+    //if(!fileName.isEmpty()) manager->saveCurrentImage(fileName);
+    if (!fileName.isEmpty()) manager->saveParametersToFile(fileName);
+
+
+
+}
+
+void HarmonographApp::zoomInOut() {
+
 }

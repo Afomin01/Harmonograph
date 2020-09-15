@@ -120,6 +120,7 @@
     <ClInclude Include="HarmonographManager.h" />
     <ClInclude Include="ImagePainter.h" />
     <ClInclude Include="ImageSaver.h" />
+    <ClInclude Include="json.hpp" />
     <ClInclude Include="Pendulum.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

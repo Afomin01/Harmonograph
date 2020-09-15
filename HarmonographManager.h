@@ -12,6 +12,14 @@ public:
 	void updateRandomValues();
 	void changeXAxisRotation(float radians);
 	void saveCurrentImage(QString filename);
+	void saveParametersToFile(QString filename);
+	void loadParametersFromFile(QString filename);
+	void changeZoom(float value);
+	void changeFirstColor(QColor color);
+	void changeSecondColor(QColor color);
+	void enableTwoColorMode(bool isEnabled);
+
+
 
 
 private:
