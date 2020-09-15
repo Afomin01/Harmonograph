@@ -122,6 +122,14 @@
     <ClInclude Include="ImageSaver.h" />
     <ClInclude Include="json.hpp" />
     <ClInclude Include="Pendulum.h" />
+    <ClInclude Include="resource.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Harmonograph.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="assets\autoRotate.png" />
+    <Image Include="assets\update.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">
