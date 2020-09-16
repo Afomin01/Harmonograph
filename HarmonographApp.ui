@@ -46,6 +46,7 @@
    </attribute>
    <addaction name="actionUpdate"/>
    <addaction name="actionAutoRotate"/>
+   <addaction name="separator"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <widget class="QMenuBar" name="menuBar">

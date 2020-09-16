@@ -1,6 +1,7 @@
 #pragma once
 
 #include <QTimer>
+#include <QtWidgets>
 #include <QtWidgets/QMainWindow>
 #include "Harmonograph.h"
 #include <QGraphicsPixmapItem>
@@ -28,6 +29,13 @@ private:
     QGraphicsScene* scene;
     QTimer* autoRotationTimer;
 
+    QCheckBox* ratioCheckBox;
+    QComboBox* numeratorCombo;
+    QComboBox* denominatorCombo;
+    QLabel* colon;
+
+    QCheckBox* circleCheckBox;
+
     void redrawImage();
 
 private slots:
@@ -38,4 +46,5 @@ private slots:
     void zoomInOut();
     void saveParametersToFile();
     void loadParametersFromFile();
+    void ratioCheckBoxCliked(bool checked);
 };

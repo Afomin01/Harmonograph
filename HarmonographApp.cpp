@@ -3,7 +3,7 @@
 HarmonographApp::HarmonographApp(QWidget *parent) : QMainWindow(parent)
 {
     ui.setupUi(this);
-
+    QApplication::setStyle(QStyleFactory::create("Fusion"));
     manager = new HarmonographManager();
     scene = new QGraphicsScene(this);
     autoRotationTimer = new QTimer(this);
@@ -13,6 +13,31 @@ HarmonographApp::HarmonographApp(QWidget *parent) : QMainWindow(parent)
     ui.graphicsView->setScene(scene);
     autoRotationTimer->setInterval(17);
     
+    ratioCheckBox = new QCheckBox("Ratio", this);
+    ui.mainToolBar->addWidget(ratioCheckBox);
+
+    numeratorCombo = new QComboBox(this);
+    for (int i = 0; i < 6; i++) numeratorCombo->addItem(QString::number(i));
+    numeratorCombo->setEnabled(false);
+    ui.mainToolBar->addWidget(numeratorCombo);
+
+    colon = new QLabel(this);
+    colon->setText(" : ");
+    colon->setEnabled(false);
+    ui.mainToolBar->addWidget(colon);
+
+    denominatorCombo = new QComboBox(this);
+    for (int i = 0; i < 6; i++) denominatorCombo->addItem(QString::number(i));
+    denominatorCombo->setEnabled(false);
+    ui.mainToolBar->addWidget(denominatorCombo);
+
+    ui.mainToolBar->addSeparator();
+
+    circleCheckBox = new QCheckBox("Circle mode", this);
+    ui.mainToolBar->addWidget(circleCheckBox);
+
+    connect(ratioCheckBox, SIGNAL(clicked(bool)), this, SLOT(ratioCheckBoxCliked(bool)));
+
     redrawImage();
 }
 
@@ -71,4 +96,10 @@ void HarmonographApp::loadParametersFromFile() {
         manager->loadParametersFromFile(fileName);
         redrawImage();
     }
+}
+
+void HarmonographApp::ratioCheckBoxCliked(bool checked) {
+    numeratorCombo->setEnabled(checked);
+    colon->setEnabled(checked);
+    denominatorCombo->setEnabled(checked);
 }
