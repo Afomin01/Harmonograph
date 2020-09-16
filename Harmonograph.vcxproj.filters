@@ -30,9 +30,6 @@
     <QtUic Include="HarmonographApp.ui">
       <Filter>Resource Files</Filter>
     </QtUic>
-    <QtMoc Include="HarmonographApp.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
     <ClCompile Include="HarmonographApp.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -58,29 +55,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Harmonograph.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Pendulum.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="HarmonographManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ImagePainter.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="json.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ImageSaver.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="resource.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
     <ResourceCompile Include="Harmonograph.rc">
       <Filter>Resource Files</Filter>
     </ResourceCompile>
@@ -94,7 +68,33 @@
     </Image>
   </ItemGroup>
   <ItemGroup>
-    <QtMoc Include="ImageSaver.h">
+    <ClInclude Include="include\Harmonograph.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\HarmonographManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ImagePainter.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ImageSaver.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\json.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Pendulum.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\test.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="include\HarmonographApp.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>
