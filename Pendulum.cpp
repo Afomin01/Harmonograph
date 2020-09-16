@@ -1,6 +1,5 @@
 #include "Pendulum.h"
-
-
+#include <QRandomGenerator>
 
 float Pendulum::getX(float t) {
 	return exp(-xDumping * t) * cos(xFreq * t + xPhase);
@@ -11,14 +10,14 @@ float Pendulum::getY(float t) {
 void Pendulum::update(float frequencyPoint, bool isCircle, bool isStar, int firstRatioValue, int secondRatioValue) {
 
 	if (!isCircle) {
-		xDumping = static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (1e-02)));
-		xPhase = static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (pi)));
-		xFreq = frequencyPoint + 1e-01 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (1e-02 - 1e-01)));
+		xDumping = QRandomGenerator::global()->bounded(1e-02);
+		xPhase = QRandomGenerator::global()->bounded(pi);
+		xFreq = frequencyPoint + 1e-01 + QRandomGenerator::global()->bounded(1e-02 - 1e-01);
 		xAmplitude = 1;
 
-		yDumping = static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (1e-02)));
-		yPhase = static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (pi)));
-		yFreq = 2 + 1e-01 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (1e-02 - 1e-01)));
+		yDumping = QRandomGenerator::global()->bounded(1e-02);
+		yPhase = QRandomGenerator::global()->bounded(pi);
+		yFreq = frequencyPoint + 1e-01 + QRandomGenerator::global()->bounded(1e-02 - 1e-01);
 		yAmplitude = 1;
 	}
 	else {
@@ -65,14 +64,5 @@ Pendulum::Pendulum(float xDamp, float xPhase, float xFreq, float xAmpl, float yD
 	this->yAmplitude = yAmpl;
 }
 Pendulum::Pendulum() {
-	//srand(unsigned int(time(NULL)));
-	xDumping = static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (1e-02)));
-	xPhase = static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (pi)));
-	xFreq = 2 + 1e-01 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (1e-02 - 1e-01)));
-	xAmplitude = 1;
-
-	yDumping = static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (1e-02)));
-	yPhase = static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (pi)));
-	yFreq = 2 + 1e-01 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (1e-02 - 1e-01)));
-	yAmplitude = 1;
+	this->update(2, false, false, 1, 1);
 }
