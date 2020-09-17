@@ -7,7 +7,7 @@ float Pendulum::getX(float t) {
 float Pendulum::getY(float t) {
 	return exp(-yDumping * t) * sin(yFreq * t + yPhase);
 }
-void Pendulum::update(float frequencyPoint, bool isCircle, bool isStar, int firstRatioValue, int secondRatioValue) {
+void Pendulum::update(float frequencyPoint, bool isCircle) {
 
 	if (!isCircle) {
 		xDumping = QRandomGenerator::global()->bounded(1e-02);
@@ -64,5 +64,5 @@ Pendulum::Pendulum(float xDamp, float xPhase, float xFreq, float xAmpl, float yD
 	this->yAmplitude = yAmpl;
 }
 Pendulum::Pendulum() {
-	this->update(2, false, false, 1, 1);
+	this->update(2, false);
 }

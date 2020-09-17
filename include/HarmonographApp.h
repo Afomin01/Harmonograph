@@ -30,9 +30,9 @@ private:
     QTimer* autoRotationTimer;
 
     QCheckBox* ratioCheckBox;
-    QComboBox* numeratorCombo;
-    QComboBox* denominatorCombo;
-    QLabel* colon;
+    QComboBox* firstRatioValueCombo;
+    QComboBox* secondRatioValueCombo;
+    QLabel* colonLabel;
 
     QCheckBox* circleCheckBox;
 
@@ -47,4 +47,8 @@ private slots:
     void saveParametersToFile();
     void loadParametersFromFile();
     void ratioCheckBoxCliked(bool checked);
+    void circleCheckBoxClicked(bool checked);
+    void firstRatioPicked(const QString& text);
+    void secondRatioPicked(const QString& text);
+
 };

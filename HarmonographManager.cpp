@@ -47,12 +47,39 @@ void HarmonographManager::changeZoom(float value) {
 
 void HarmonographManager::changeFirstColor(QColor color) {
     imagePainter->firstColor = color;
+    harmonograph->update();
 }
 
 void HarmonographManager::changeSecondColor(QColor color) {
     imagePainter->secondColor = color;
+    harmonograph->update();
+}
+
+void HarmonographManager::ratioStateEnabled(bool isEnabled) {
+    harmonograph->isStar = isEnabled;
+    harmonograph->update();
+}
+
+void HarmonographManager::changeFirstRatioValue(int value) {
+    if (value > 0) {
+        harmonograph->firstRatioValue = value;
+        harmonograph->update();
+    }
+}
+
+void HarmonographManager::changeSecondRatioValue(int value) {
+    if (value > 0) {
+        harmonograph->secondRatioValue = value;
+        harmonograph->update();
+    }
+}
+
+void HarmonographManager::circleStateEnabled(bool isEnabled) {
+    harmonograph->isCircle = isEnabled;
+    harmonograph->update();
 }
 
 void HarmonographManager::enableTwoColorMode(bool isEnabled) {
     imagePainter->useTwoColors = isEnabled;
+    harmonograph->update();
 }

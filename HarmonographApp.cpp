@@ -8,35 +8,39 @@ HarmonographApp::HarmonographApp(QWidget *parent) : QMainWindow(parent)
     scene = new QGraphicsScene(this);
     autoRotationTimer = new QTimer(this);
 
-    connect(autoRotationTimer, SIGNAL(timeout()), this, SLOT(autoRotationTimerTimeout()));
-
     ui.graphicsView->setScene(scene);
     autoRotationTimer->setInterval(17);
     
     ratioCheckBox = new QCheckBox("Ratio", this);
     ui.mainToolBar->addWidget(ratioCheckBox);
 
-    numeratorCombo = new QComboBox(this);
-    for (int i = 0; i < 6; i++) numeratorCombo->addItem(QString::number(i));
-    numeratorCombo->setEnabled(false);
-    ui.mainToolBar->addWidget(numeratorCombo);
+    firstRatioValueCombo = new QComboBox(this);
+    for (int i = 0; i < 6; i++) firstRatioValueCombo->addItem(QString::number(i));
+    firstRatioValueCombo->setEnabled(false);
+    ui.mainToolBar->addWidget(firstRatioValueCombo);
 
-    colon = new QLabel(this);
-    colon->setText(" : ");
-    colon->setEnabled(false);
-    ui.mainToolBar->addWidget(colon);
+    colonLabel = new QLabel(this);
+    colonLabel->setText(" : ");
+    colonLabel->setEnabled(false);
+    ui.mainToolBar->addWidget(colonLabel);
 
-    denominatorCombo = new QComboBox(this);
-    for (int i = 0; i < 6; i++) denominatorCombo->addItem(QString::number(i));
-    denominatorCombo->setEnabled(false);
-    ui.mainToolBar->addWidget(denominatorCombo);
+    secondRatioValueCombo = new QComboBox(this);
+    for (int i = 0; i < 6; i++) secondRatioValueCombo->addItem(QString::number(i));
+    secondRatioValueCombo->setEnabled(false);
+    ui.mainToolBar->addWidget(secondRatioValueCombo);
 
     ui.mainToolBar->addSeparator();
 
     circleCheckBox = new QCheckBox("Circle mode", this);
     ui.mainToolBar->addWidget(circleCheckBox);
 
+    connect(autoRotationTimer, SIGNAL(timeout()), this, SLOT(autoRotationTimerTimeout()));
+
     connect(ratioCheckBox, SIGNAL(clicked(bool)), this, SLOT(ratioCheckBoxCliked(bool)));
+    connect(circleCheckBox, SIGNAL(clicked(bool)), this, SLOT(circleCheckBoxClicked(bool)));
+
+    connect(firstRatioValueCombo, SIGNAL(currentTextChanged(const QString&)), this, SLOT(firstRatioPicked(const QString&)));
+    connect(secondRatioValueCombo, SIGNAL(currentTextChanged(const QString&)), this, SLOT(secondRatioPicked(const QString&)));
 
     redrawImage();
 }
@@ -83,14 +87,14 @@ void HarmonographApp::zoomInOut() {
 
 void HarmonographApp::saveParametersToFile() {
     QString fileName = QFileDialog::getSaveFileName(this,
-        tr("Save Harmonograph Image"), "",
+        tr("Save Harmonogrph parameters"), "",
         tr("JSON (*.json);;All Files (*)"));
     if (!fileName.isEmpty()) manager->saveParametersToFile(fileName);
 }
 
 void HarmonographApp::loadParametersFromFile() {
     QString fileName = QFileDialog::getOpenFileName(this,
-        tr("Open Address Book"), "",
+        tr("Load Harmonogrph parameters"), "",
         tr("JSON (*.json);;All Files (*)"));
     if (!fileName.isEmpty()) {
         manager->loadParametersFromFile(fileName);
@@ -99,7 +103,25 @@ void HarmonographApp::loadParametersFromFile() {
 }
 
 void HarmonographApp::ratioCheckBoxCliked(bool checked) {
-    numeratorCombo->setEnabled(checked);
-    colon->setEnabled(checked);
-    denominatorCombo->setEnabled(checked);
+    firstRatioValueCombo->setEnabled(checked);
+    colonLabel->setEnabled(checked);
+    secondRatioValueCombo->setEnabled(checked);
+
+    manager->ratioStateEnabled(checked);
+    redrawImage();
+}
+
+void HarmonographApp::circleCheckBoxClicked(bool checked) {
+    manager->circleStateEnabled(checked);
+    redrawImage();
+}
+
+void HarmonographApp::firstRatioPicked(const QString& text) {
+    manager->changeFirstRatioValue(text.toInt());
+    redrawImage();
+}
+
+void HarmonographApp::secondRatioPicked(const QString& text) {
+    manager->changeSecondRatioValue(text.toInt());
+    redrawImage();
 }

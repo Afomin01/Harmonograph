@@ -27,7 +27,7 @@ public:
 
 	float getX(float t);
 	float getY(float t);
-	void update(float frequencyPoint, bool isCircle, bool isStar, int firstRatioValue, int secondRatioValue);
+	void update(float frequencyPoint, bool isCircle);
 	void changeXPhase(float radians);
 	void changeYPhase(float radians);
 
