@@ -61,14 +61,12 @@ std::vector<Pendulum*> Harmonograph::getPundlumsCopy() {
 }
 void Harmonograph::update() {
 	if (isStar && numOfPendulums > 1) {
-		frequencyPoint = 16; //delete this when frequencyPoint changer will be
 		pendlums.at(0)->update((frequencyPoint / (firstRatioValue + secondRatioValue)) * firstRatioValue, isCircle);
 		for (int i = 1; i < pendlums.size(); i++) {
 			pendlums.at(i)->update((frequencyPoint / (firstRatioValue + secondRatioValue)) * secondRatioValue, isCircle);
 		}
 	}
 	else {
-		frequencyPoint = 2; //delete this when frequencyPoint changer will be
 		for (Pendulum* p : pendlums) {
 			p->update(frequencyPoint, isCircle);
 		}

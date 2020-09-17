@@ -34,6 +34,18 @@ HarmonographApp::HarmonographApp(QWidget *parent) : QMainWindow(parent)
     circleCheckBox = new QCheckBox("Circle mode", this);
     ui.mainToolBar->addWidget(circleCheckBox);
 
+    ui.mainToolBar->addSeparator();
+
+    QLabel* freqPtLabel = new QLabel(this);
+    freqPtLabel->setText("Freq point: ");
+    ui.mainToolBar->addWidget(freqPtLabel);
+
+    freqPtSpinBox = new QDoubleSpinBox(this);
+    freqPtSpinBox->setMinimum(2);
+    freqPtSpinBox->setMaximum(20);
+    freqPtSpinBox->setSingleStep(0.01);
+    ui.mainToolBar->addWidget(freqPtSpinBox);
+
     connect(autoRotationTimer, SIGNAL(timeout()), this, SLOT(autoRotationTimerTimeout()));
 
     connect(ratioCheckBox, SIGNAL(clicked(bool)), this, SLOT(ratioCheckBoxCliked(bool)));
@@ -41,6 +53,8 @@ HarmonographApp::HarmonographApp(QWidget *parent) : QMainWindow(parent)
 
     connect(firstRatioValueCombo, SIGNAL(currentTextChanged(const QString&)), this, SLOT(firstRatioPicked(const QString&)));
     connect(secondRatioValueCombo, SIGNAL(currentTextChanged(const QString&)), this, SLOT(secondRatioPicked(const QString&)));
+
+    connect(freqPtSpinBox, SIGNAL(valueChanged(double)), this, SLOT(freqPtChanged(double)));
 
     redrawImage();
 }
@@ -123,5 +137,11 @@ void HarmonographApp::firstRatioPicked(const QString& text) {
 
 void HarmonographApp::secondRatioPicked(const QString& text) {
     manager->changeSecondRatioValue(text.toInt());
+    redrawImage();
+}
+
+void HarmonographApp::freqPtChanged(double freqPt) {
+    manager->setFreqPt(freqPt);
+    manager->updateRandomValues();
     redrawImage();
 }

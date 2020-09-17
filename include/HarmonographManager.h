@@ -30,6 +30,8 @@ public:
 
 	void circleStateEnabled(bool isEnabled);
 
+	void setFreqPt(float freqPt);
+
 
 
 

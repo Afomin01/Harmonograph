@@ -83,3 +83,8 @@ void HarmonographManager::enableTwoColorMode(bool isEnabled) {
     imagePainter->useTwoColors = isEnabled;
     harmonograph->update();
 }
+
+
+void HarmonographManager::setFreqPt(float freqPt) {
+    harmonograph->frequencyPoint = freqPt;
+}

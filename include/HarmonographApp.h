@@ -36,6 +36,8 @@ private:
 
     QCheckBox* circleCheckBox;
 
+    QDoubleSpinBox* freqPtSpinBox;
+
     void redrawImage();
 
 private slots:
@@ -50,5 +52,6 @@ private slots:
     void circleCheckBoxClicked(bool checked);
     void firstRatioPicked(const QString& text);
     void secondRatioPicked(const QString& text);
+    void freqPtChanged(double freqPt);
 
 };
