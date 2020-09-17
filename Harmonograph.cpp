@@ -79,3 +79,13 @@ void Harmonograph::rotateXAxis(float radians)
 		p->changeXPhase(radians);
 	}
 }
+
+void Harmonograph::setNumOfPendulums(int newNum) {
+	numOfPendulums = newNum;
+	pendlums.clear();
+
+	for (int i = 0; i < numOfPendulums; i++) {
+		Pendulum* createdPendulum = new Pendulum();
+		pendlums.push_back(createdPendulum);
+	}
+}

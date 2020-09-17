@@ -30,8 +30,8 @@ public:
 
 	void circleStateEnabled(bool isEnabled);
 
-	void setFreqPt(float freqPt);
-
+	void setFrequencyPoint(float freqPt);
+	void setNumOfPendulums(int newNum);
 
 
 

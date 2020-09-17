@@ -6,6 +6,8 @@ HarmonographApp::HarmonographApp(QWidget *parent) : QMainWindow(parent)
     QApplication::setStyle(QStyleFactory::create("Fusion"));
     manager = new HarmonographManager();
     scene = new QGraphicsScene(this);
+
+
     autoRotationTimer = new QTimer(this);
 
     ui.graphicsView->setScene(scene);
@@ -36,15 +38,28 @@ HarmonographApp::HarmonographApp(QWidget *parent) : QMainWindow(parent)
 
     ui.mainToolBar->addSeparator();
 
-    QLabel* freqPtLabel = new QLabel(this);
-    freqPtLabel->setText("Freq point: ");
-    ui.mainToolBar->addWidget(freqPtLabel);
+    QLabel* freqPointLabel = new QLabel(this);
+    freqPointLabel->setText("Freq point: ");
+    ui.mainToolBar->addWidget(freqPointLabel);
 
     freqPtSpinBox = new QDoubleSpinBox(this);
     freqPtSpinBox->setMinimum(2);
     freqPtSpinBox->setMaximum(20);
     freqPtSpinBox->setSingleStep(0.01);
     ui.mainToolBar->addWidget(freqPtSpinBox);
+    
+    ui.mainToolBar->addSeparator();
+
+    QLabel* numOfPendulumsLabel = new QLabel(this);
+    numOfPendulumsLabel->setText("Number of pendulums: ");
+    ui.mainToolBar->addWidget(numOfPendulumsLabel);
+
+    numOfPendulumsSpinBox = new QDoubleSpinBox(this);
+    numOfPendulumsSpinBox->setMinimum(1);
+    numOfPendulumsSpinBox->setMaximum(3);
+    numOfPendulumsSpinBox->setSingleStep(1);
+    numOfPendulumsSpinBox->setValue(3);
+    ui.mainToolBar->addWidget(numOfPendulumsSpinBox);
 
     connect(autoRotationTimer, SIGNAL(timeout()), this, SLOT(autoRotationTimerTimeout()));
 
@@ -54,7 +69,8 @@ HarmonographApp::HarmonographApp(QWidget *parent) : QMainWindow(parent)
     connect(firstRatioValueCombo, SIGNAL(currentTextChanged(const QString&)), this, SLOT(firstRatioPicked(const QString&)));
     connect(secondRatioValueCombo, SIGNAL(currentTextChanged(const QString&)), this, SLOT(secondRatioPicked(const QString&)));
 
-    connect(freqPtSpinBox, SIGNAL(valueChanged(double)), this, SLOT(freqPtChanged(double)));
+    connect(freqPtSpinBox, SIGNAL(valueChanged(double)), this, SLOT(freqPointChanged(double)));
+    connect(numOfPendulumsSpinBox, SIGNAL(valueChanged(double)), this, SLOT(numOfPendulumsChanged(double)));
 
     redrawImage();
 }
@@ -140,8 +156,13 @@ void HarmonographApp::secondRatioPicked(const QString& text) {
     redrawImage();
 }
 
-void HarmonographApp::freqPtChanged(double freqPt) {
-    manager->setFreqPt(freqPt);
+void HarmonographApp::freqPointChanged(double freqPoint) {
+    manager->setFrequencyPoint(freqPoint);
     manager->updateRandomValues();
+    redrawImage();
+}
+
+void HarmonographApp::numOfPendulumsChanged(double newNum) {
+    manager->setNumOfPendulums((int)newNum);
     redrawImage();
 }

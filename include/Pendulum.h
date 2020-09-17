@@ -22,6 +22,7 @@ public:
 	Pendulum(Pendulum* pendulum);
 	Pendulum(float xDamp, float xPhase, float xFreq, float xAmpl, float yDamp, float yPhase, float yFreq, float yAmpl);
 	Pendulum();
+	Pendulum(float frequencyPoint, bool isCircle);
 	~Pendulum() {
 	}
 

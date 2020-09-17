@@ -66,3 +66,7 @@ Pendulum::Pendulum(float xDamp, float xPhase, float xFreq, float xAmpl, float yD
 Pendulum::Pendulum() {
 	this->update(2, false);
 }
+
+Pendulum::Pendulum(float frequencyPoint, bool isCircle) {
+	this->update(frequencyPoint, isCircle);
+}

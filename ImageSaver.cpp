@@ -10,7 +10,7 @@ void ImageSaver::saveImage(QString filename, QImage image) {
 
 void ImageSaver::saveParametersToFile(QString filename, Harmonograph* harmonograph) {
 	json j;
-	j["numOfPendulums"] = harmonograph->numOfPendulums;
+	j["numOfPendulums"] = harmonograph->getNumOfPendulums();
 	j["frequencyRatio"] = std::to_string(harmonograph->firstRatioValue) + ":" + std::to_string(harmonograph->secondRatioValue);
 	j["frequencyPoint"] = harmonograph->frequencyPoint;
 	j["isStar"] = harmonograph->isStar;

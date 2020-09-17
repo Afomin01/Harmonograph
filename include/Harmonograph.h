@@ -7,7 +7,6 @@
 class Harmonograph
 { 
 public:
-	int numOfPendulums = 3;
 	float frequencyPoint = 2;
 	bool isStar = false;
 	bool isCircle = false;
@@ -22,11 +21,16 @@ public:
 
 	float getX(float t);
 	float getY(float t);
+	int getNumOfPendulums() {
+		return numOfPendulums;
+	}
 	std::vector<Pendulum*> getPundlumsCopy();
 	void update();
 	void rotateXAxis(float radians);
-
+	void setNumOfPendulums(int newNum);
+	
 private:
+	int numOfPendulums = 3;
 	std::vector<Pendulum*> pendlums;
 
 };

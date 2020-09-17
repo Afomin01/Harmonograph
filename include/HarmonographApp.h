@@ -26,6 +26,7 @@ private:
 
     Ui::HarmonographAppClass ui;
 
+    QGraphicsView* view;
     QGraphicsScene* scene;
     QTimer* autoRotationTimer;
 
@@ -37,6 +38,7 @@ private:
     QCheckBox* circleCheckBox;
 
     QDoubleSpinBox* freqPtSpinBox;
+    QDoubleSpinBox* numOfPendulumsSpinBox;
 
     void redrawImage();
 
@@ -52,6 +54,6 @@ private slots:
     void circleCheckBoxClicked(bool checked);
     void firstRatioPicked(const QString& text);
     void secondRatioPicked(const QString& text);
-    void freqPtChanged(double freqPt);
-
+    void freqPointChanged(double freqPoint);
+    void numOfPendulumsChanged(double newNum);
 };

@@ -85,6 +85,12 @@ void HarmonographManager::enableTwoColorMode(bool isEnabled) {
 }
 
 
-void HarmonographManager::setFreqPt(float freqPt) {
-    harmonograph->frequencyPoint = freqPt;
+void HarmonographManager::setFrequencyPoint(float freqPt) {
+    if(freqPt>0) harmonograph->frequencyPoint = freqPt;
+    harmonograph->update();
+}
+
+void HarmonographManager::setNumOfPendulums(int newNum) {
+    if (newNum > 0) harmonograph->setNumOfPendulums(newNum);
+    harmonograph->update();
 }
