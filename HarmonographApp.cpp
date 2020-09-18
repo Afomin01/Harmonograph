@@ -59,7 +59,7 @@ HarmonographApp::HarmonographApp(QWidget *parent) : QMainWindow(parent)
     numOfPendulumsLabel->setText("Number of pendulums: ");
     ui.mainToolBar->addWidget(numOfPendulumsLabel);
 
-    numOfPendulumsSpinBox = new QDoubleSpinBox(this);
+    numOfPendulumsSpinBox = new QSpinBox(this);
     numOfPendulumsSpinBox->setMinimum(1);
     numOfPendulumsSpinBox->setMaximum(3);
     numOfPendulumsSpinBox->setSingleStep(1);
@@ -75,7 +75,7 @@ HarmonographApp::HarmonographApp(QWidget *parent) : QMainWindow(parent)
     connect(secondRatioValueCombo, SIGNAL(currentTextChanged(const QString&)), this, SLOT(secondRatioPicked(const QString&)));
 
     connect(freqPtSpinBox, SIGNAL(valueChanged(double)), this, SLOT(freqPointChanged(double)));
-    connect(numOfPendulumsSpinBox, SIGNAL(valueChanged(double)), this, SLOT(numOfPendulumsChanged(double)));
+    connect(numOfPendulumsSpinBox, SIGNAL(valueChanged(int)), this, SLOT(numOfPendulumsChanged(int)));
 
     connect(customView, SIGNAL(zoomChanged(int)), this, SLOT(viewZoomChanged(int)));
 
@@ -165,8 +165,8 @@ void HarmonographApp::freqPointChanged(double freqPoint) {
     redrawImage();
 }
 
-void HarmonographApp::numOfPendulumsChanged(double newNum) {
-    manager->setNumOfPendulums((int)newNum);
+void HarmonographApp::numOfPendulumsChanged(int newNum) {
+    manager->setNumOfPendulums(newNum);
     redrawImage();
 }
 

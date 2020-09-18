@@ -40,7 +40,7 @@ private:
     QCheckBox* circleCheckBox;
 
     QDoubleSpinBox* freqPtSpinBox;
-    QDoubleSpinBox* numOfPendulumsSpinBox;
+    QSpinBox* numOfPendulumsSpinBox;
 
     void redrawImage();
 
@@ -56,7 +56,7 @@ private slots:
     void firstRatioPicked(const QString& text);
     void secondRatioPicked(const QString& text);
     void freqPointChanged(double freqPoint);
-    void numOfPendulumsChanged(double newNum);
+    void numOfPendulumsChanged(int newNum);
 
     void viewZoomChanged(int value);
 };
