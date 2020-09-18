@@ -27,6 +27,7 @@ public:
 	std::vector<Pendulum*> getPundlumsCopy();
 	void update();
 	void rotateXAxis(float radians);
+	void rotateXY(float x, float y);
 	void setNumOfPendulums(int newNum);
 	
 private:

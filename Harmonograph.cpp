@@ -80,6 +80,11 @@ void Harmonograph::rotateXAxis(float radians)
 	}
 }
 
+void Harmonograph::rotateXY(float x, float y) {
+	pendlums.at(0)->changeXPhase(x);
+	pendlums.at(0)->changeYPhase(y);
+}
+
 void Harmonograph::setNumOfPendulums(int newNum) {
 	numOfPendulums = newNum;
 	pendlums.clear();

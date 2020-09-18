@@ -7,23 +7,21 @@ HarmonographApp::HarmonographApp(QWidget *parent) : QMainWindow(parent)
     QApplication::setStyle(QStyleFactory::create("Fusion"));
     manager = new HarmonographManager();
     scene = new QGraphicsScene(this);
-    //view = new QGraphicsView(this);
     customView = new CustomGraphicsView(this);
     ui.centralWidget->layout()->addWidget(customView);
 
     autoRotationTimer = new QTimer(this);
 
-    //ui.graphicsView->setScene(scene);
     customView->setScene(scene);
-    //view->setScene(scene);
     autoRotationTimer->setInterval(17);
     
     ratioCheckBox = new QCheckBox("Ratio", this);
     ui.mainToolBar->addWidget(ratioCheckBox);
 
     firstRatioValueCombo = new QComboBox(this);
-    for (int i = 0; i < 6; i++) firstRatioValueCombo->addItem(QString::number(i));
+    for (int i = 1; i < 6; i++) firstRatioValueCombo->addItem(QString::number(i));
     firstRatioValueCombo->setEnabled(false);
+    firstRatioValueCombo->setCurrentIndex(0);
     ui.mainToolBar->addWidget(firstRatioValueCombo);
 
     colonLabel = new QLabel(this);
@@ -32,8 +30,9 @@ HarmonographApp::HarmonographApp(QWidget *parent) : QMainWindow(parent)
     ui.mainToolBar->addWidget(colonLabel);
 
     secondRatioValueCombo = new QComboBox(this);
-    for (int i = 0; i < 6; i++) secondRatioValueCombo->addItem(QString::number(i));
+    for (int i = 1; i < 6; i++) secondRatioValueCombo->addItem(QString::number(i));
     secondRatioValueCombo->setEnabled(false);
+    secondRatioValueCombo->setCurrentIndex(0);
     ui.mainToolBar->addWidget(secondRatioValueCombo);
 
     ui.mainToolBar->addSeparator();
@@ -78,6 +77,7 @@ HarmonographApp::HarmonographApp(QWidget *parent) : QMainWindow(parent)
     connect(numOfPendulumsSpinBox, SIGNAL(valueChanged(int)), this, SLOT(numOfPendulumsChanged(int)));
 
     connect(customView, SIGNAL(zoomChanged(int)), this, SLOT(viewZoomChanged(int)));
+    connect(customView, SIGNAL(rotateScene(float, float)), this, SLOT(rotateSceneXY(float, float)));
 
     redrawImage();
 }
@@ -172,5 +172,10 @@ void HarmonographApp::numOfPendulumsChanged(int newNum) {
 
 void HarmonographApp::viewZoomChanged(int value) {
     manager->changeZoom(value/2.0);
+    redrawImage();
+}
+
+void HarmonographApp::rotateSceneXY(float x, float y) {
+    manager->rotateXY(x, y);
     redrawImage();
 }

@@ -11,16 +11,15 @@
 #include "HarmonographManager.h"
 #include "CustomGraphicsView.h"
 
-class HarmonographApp : public QMainWindow
-{
+class HarmonographApp : public QMainWindow {
     Q_OBJECT
 
 public:
-    HarmonographApp(QWidget *parent = Q_NULLPTR);
+    HarmonographApp(QWidget* parent = Q_NULLPTR);
 
 private:
     HarmonographManager* manager;
-    
+
     int const drawImgWidth = 1280;
     int const drawImgHeight = 720;
     float zoom = 100;
@@ -59,4 +58,5 @@ private slots:
     void numOfPendulumsChanged(int newNum);
 
     void viewZoomChanged(int value);
+    void rotateSceneXY(float x, float y);
 };

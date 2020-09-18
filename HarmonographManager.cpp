@@ -11,11 +11,19 @@ QGraphicsPixmapItem* HarmonographManager::getRenderedGraphicsItem() {
 }
 
 void HarmonographManager::updateRandomValues() {
+    history.push_back(new Harmonograph(harmonograph));
     harmonograph->update();
+    if (history.size() > 10) {
+        history.pop_front();
+    }
 }
 
 void HarmonographManager::changeXAxisRotation(float radians) {
     harmonograph->rotateXAxis(radians);
+}
+
+void HarmonographManager::rotateXY(float x, float y) {
+    harmonograph->rotateXY(x, y);
 }
 
 void HarmonographManager::saveCurrentImage(QString filename) {
@@ -89,7 +97,7 @@ void HarmonographManager::enableTwoColorMode(bool isEnabled) {
 
 
 void HarmonographManager::setFrequencyPoint(float freqPt) {
-    if(freqPt>0) harmonograph->frequencyPoint = freqPt;
+    if (freqPt > 0) harmonograph->frequencyPoint = freqPt;
     harmonograph->update();
 }
 

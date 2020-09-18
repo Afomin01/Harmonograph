@@ -3,6 +3,7 @@
 #include "Harmonograph.h"
 #include "ImagePainter.h"
 #include "ImageSaver.h"
+#include <deque>
 
 class HarmonographManager{
 public:
@@ -12,6 +13,7 @@ public:
 	void updateRandomValues();
 
 	void changeXAxisRotation(float radians);
+	void rotateXY(float x, float y);
 
 	void saveCurrentImage(QString filename);
 
@@ -33,11 +35,21 @@ public:
 	void setFrequencyPoint(float freqPt);
 	void setNumOfPendulums(int newNum);
 
+	void undoUpdate() {
+		if (history.size() > 0) {
+			Harmonograph* undoHarm = new Harmonograph(history.back());
+			history.pop_back();
 
+			delete harmonograph;
+
+			harmonograph = undoHarm;
+		}
+	}
 
 private:
 	Harmonograph* harmonograph;
 	ImagePainter* imagePainter;
 	ImageSaver* imageSaver;
+	std::deque<Harmonograph*> history;
 };
 
