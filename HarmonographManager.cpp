@@ -27,15 +27,8 @@ void HarmonographManager::rotateXY(float x, float y) {
 }
 
 void HarmonographManager::saveCurrentImage(QString filename) {
-    std::unique_ptr<ImagePainter> copyPainter(new ImagePainter(imagePainter));
-    QImage imageToSave = copyPainter->getImageToSave(
-        new Harmonograph(harmonograph),
-        imageSaver->getSaveWidth(),
-        imageSaver->getSaveHeight());
-
-    imageSaver->saveImage(filename, imageToSave);
+    imageSaver->saveImage(harmonograph, filename, imagePainter);
 }
-
 void HarmonographManager::saveParametersToFile(QString filename) {
     Harmonograph* copyHarmonograph = new Harmonograph(harmonograph);
     imageSaver->saveParametersToFile(filename, copyHarmonograph);

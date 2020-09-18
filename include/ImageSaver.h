@@ -4,6 +4,7 @@
 #include <QFileDialog>
 #include "Harmonograph.h"
 #include "json.hpp"
+#include "ImagePainter.h"
 #include <fstream>
 #include "Pendulum.h"
 
@@ -12,7 +13,7 @@ using json = nlohmann::json;
 class ImageSaver {
 public:
 	ImageSaver();
-	void saveImage(QString filename, QImage image);
+	void saveImage(Harmonograph* harmonograph, QString filename, ImagePainter* imagePainter);
 	void saveParametersToFile(QString filename, Harmonograph* harmonograph);
 	Harmonograph* loadParametersFromFile(QString filename);
 

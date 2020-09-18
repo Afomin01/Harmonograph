@@ -1,11 +1,36 @@
 #include "ImageSaver.h"
+#include <QRunnable>
+#include <QThreadPool>
+
+class SaveImageTask : public QRunnable {
+public:
+	ImageSaver* imageSaver;
+	QString filename;
+	Harmonograph* harmonograph;
+	ImagePainter* imagePainter;
+
+	void run() override {
+		std::unique_ptr<ImagePainter> copyPainter(new ImagePainter(imagePainter));
+		QImage imageToSave = copyPainter->getImageToSave(
+			new Harmonograph(harmonograph),
+			imageSaver->getSaveWidth(),
+			imageSaver->getSaveHeight());
+
+		imageToSave.save(filename);
+	}
+};
 
 ImageSaver::ImageSaver() {
 	//load settings logic
 }
 
-void ImageSaver::saveImage(QString filename, QImage image) {
-	image.save(filename);
+void ImageSaver::saveImage(Harmonograph* harmonograph, QString filename, ImagePainter* imagePainter) {
+	SaveImageTask* task = new SaveImageTask();
+	task->imageSaver = this;
+	task->filename = filename;
+	task->harmonograph = harmonograph;
+	task->imagePainter = imagePainter;
+	QThreadPool::globalInstance()->start(task);
 }
 
 void ImageSaver::saveParametersToFile(QString filename, Harmonograph* harmonograph) {

@@ -114,6 +114,8 @@ void HarmonographApp::autoRotationTimerTimeout()
 }
 
 void HarmonographApp::saveImage() {
+    autoRotationTimer->stop();
+    ui.actionAutoRotate->setChecked(false);
     QString fileName = QFileDialog::getSaveFileName(this,
         tr("Save Harmonograph Image"), "",
         tr("png image (*.png);;All Files (*)"));
@@ -121,6 +123,8 @@ void HarmonographApp::saveImage() {
 }
 
 void HarmonographApp::saveParametersToFile() {
+    autoRotationTimer->stop();
+    ui.actionAutoRotate->setChecked(false);
     QString fileName = QFileDialog::getSaveFileName(this,
         tr("Save Harmonogrph parameters"), "",
         tr("JSON (*.json);;All Files (*)"));
