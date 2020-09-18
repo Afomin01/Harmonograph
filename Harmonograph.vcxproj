@@ -129,8 +129,11 @@
   <ItemGroup>
     <Image Include="assets\autoRotate.png" />
     <Image Include="assets\update.png" />
+    <Image Include="icon.ico" />
+    <Image Include="icon1.ico" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="resource.h" />
     <QtMoc Include="CustomGraphicsView.h" />
     <ClInclude Include="include\Harmonograph.h" />
     <ClInclude Include="include\HarmonographManager.h" />

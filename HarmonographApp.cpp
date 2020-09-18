@@ -5,6 +5,8 @@ HarmonographApp::HarmonographApp(QWidget *parent) : QMainWindow(parent)
 {
     ui.setupUi(this);
     QApplication::setStyle(QStyleFactory::create("Fusion"));
+    QApplication::setWindowIcon(QIcon("icon1.ico"));
+
     manager = new HarmonographManager();
     scene = new QGraphicsScene(this);
     customView = new CustomGraphicsView(this);
