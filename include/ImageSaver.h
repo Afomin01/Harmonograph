@@ -25,7 +25,7 @@ public:
 	}
 	
 private:
-	int saveImageWidth = 2560;
-	int saveImageHeight = 1440;
+	int saveImageWidth = 7680;//2560
+	int saveImageHeight = 4320;//1440
 };
 

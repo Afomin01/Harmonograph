@@ -114,28 +114,50 @@ void HarmonographApp::autoRotationTimerTimeout()
 }
 
 void HarmonographApp::saveImage() {
-    autoRotationTimer->stop();
-    ui.actionAutoRotate->setChecked(false);
-    QString fileName = QFileDialog::getSaveFileName(this,
-        tr("Save Harmonograph Image"), "",
-        tr("png image (*.png);;All Files (*)"));
-    if(!fileName.isEmpty()) manager->saveCurrentImage(fileName);
+    if (autoRotationTimer->isActive()) {
+        autoRotationTimer->stop();
+
+        QString fileName = QFileDialog::getSaveFileName(this,
+            tr("Save Harmonograph Image"), "",
+            tr("png image (*.png);;All Files (*)"));
+        if (!fileName.isEmpty()) manager->saveCurrentImage(fileName);
+
+        autoRotationTimer->start();
+    }
+    else {
+        QString fileName = QFileDialog::getSaveFileName(this,
+            tr("Save Harmonograph Image"), "",
+            tr("png image (*.png);;All Files (*)"));
+        if (!fileName.isEmpty()) manager->saveCurrentImage(fileName);
+    }
 }
 
 void HarmonographApp::saveParametersToFile() {
-    autoRotationTimer->stop();
-    ui.actionAutoRotate->setChecked(false);
-    QString fileName = QFileDialog::getSaveFileName(this,
-        tr("Save Harmonogrph parameters"), "",
-        tr("JSON (*.json);;All Files (*)"));
-    if (!fileName.isEmpty()) manager->saveParametersToFile(fileName);
+    if (autoRotationTimer->isActive()) {
+        autoRotationTimer->stop();
+
+        QString fileName = QFileDialog::getSaveFileName(this,
+            tr("Save Harmonogrph parameters"), "",
+            tr("JSON (*.json);;All Files (*)"));
+        if (!fileName.isEmpty()) manager->saveParametersToFile(fileName);
+
+        autoRotationTimer->start();
+    }
+    else {
+        QString fileName = QFileDialog::getSaveFileName(this,
+            tr("Save Harmonogrph parameters"), "",
+            tr("JSON (*.json);;All Files (*)"));
+        if (!fileName.isEmpty()) manager->saveParametersToFile(fileName);
+    }
 }
 
 void HarmonographApp::loadParametersFromFile() {
+
     QString fileName = QFileDialog::getOpenFileName(this,
         tr("Load Harmonogrph parameters"), "",
         tr("JSON (*.json);;All Files (*)"));
     if (!fileName.isEmpty()) {
+        autoRotationTimer->stop();
         manager->loadParametersFromFile(fileName);
         redrawImage();
     }

@@ -4,6 +4,13 @@
 
 class SaveImageTask : public QRunnable {
 public:
+	SaveImageTask(Harmonograph* harmonograph, ImageSaver* imageSaver, QString filename, ImagePainter* imagePainter) {
+		this->imageSaver = imageSaver;
+		this->filename = filename;
+		this->harmonograph = harmonograph;
+		this->imagePainter = imagePainter;
+	}
+
 	ImageSaver* imageSaver;
 	QString filename;
 	Harmonograph* harmonograph;
@@ -12,7 +19,7 @@ public:
 	void run() override {
 		std::unique_ptr<ImagePainter> copyPainter(new ImagePainter(imagePainter));
 		QImage imageToSave = copyPainter->getImageToSave(
-			new Harmonograph(harmonograph),
+			harmonograph,
 			imageSaver->getSaveWidth(),
 			imageSaver->getSaveHeight());
 
@@ -25,11 +32,11 @@ ImageSaver::ImageSaver() {
 }
 
 void ImageSaver::saveImage(Harmonograph* harmonograph, QString filename, ImagePainter* imagePainter) {
-	SaveImageTask* task = new SaveImageTask();
-	task->imageSaver = this;
-	task->filename = filename;
-	task->harmonograph = harmonograph;
-	task->imagePainter = imagePainter;
+	SaveImageTask* task = new SaveImageTask(harmonograph, this, filename, imagePainter);
+	//task->imageSaver = this;
+	//task->filename = filename;
+	//task->harmonograph = harmonograph;
+	//task->imagePainter = imagePainter;
 	QThreadPool::globalInstance()->start(task);
 }
 
