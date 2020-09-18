@@ -35,7 +35,6 @@ public:
 
 
 
-
 private:
 	Harmonograph* harmonograph;
 	ImagePainter* imagePainter;

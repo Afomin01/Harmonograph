@@ -112,6 +112,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="CustomGraphicsView.cpp" />
     <ClCompile Include="HarmonographManager.cpp" />
     <ClCompile Include="ImagePainter.cpp" />
     <ClCompile Include="ImageSaver.cpp" />
@@ -130,6 +131,7 @@
     <Image Include="assets\update.png" />
   </ItemGroup>
   <ItemGroup>
+    <QtMoc Include="CustomGraphicsView.h" />
     <ClInclude Include="include\Harmonograph.h" />
     <ClInclude Include="include\HarmonographManager.h" />
     <ClInclude Include="include\ImagePainter.h" />

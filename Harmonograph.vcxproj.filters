@@ -53,6 +53,9 @@
     <ClCompile Include="ImageSaver.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="CustomGraphicsView.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Harmonograph.rc">
@@ -95,6 +98,9 @@
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="include\HarmonographApp.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="CustomGraphicsView.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>

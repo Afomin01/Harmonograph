@@ -42,7 +42,10 @@ void HarmonographManager::loadParametersFromFile(QString filename) {
 }
 
 void HarmonographManager::changeZoom(float value) {
-    imagePainter->zoom += value;
+    float temp = imagePainter->zoom + value;
+    if (temp > 75 && temp < 200) {
+        imagePainter->zoom += value;
+    }
 }
 
 void HarmonographManager::changeFirstColor(QColor color) {

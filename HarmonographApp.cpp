@@ -1,16 +1,21 @@
 #include "HarmonographApp.h"
 
+
 HarmonographApp::HarmonographApp(QWidget *parent) : QMainWindow(parent)
 {
     ui.setupUi(this);
     QApplication::setStyle(QStyleFactory::create("Fusion"));
     manager = new HarmonographManager();
     scene = new QGraphicsScene(this);
-
+    //view = new QGraphicsView(this);
+    customView = new CustomGraphicsView(this);
+    ui.centralWidget->layout()->addWidget(customView);
 
     autoRotationTimer = new QTimer(this);
 
-    ui.graphicsView->setScene(scene);
+    //ui.graphicsView->setScene(scene);
+    customView->setScene(scene);
+    //view->setScene(scene);
     autoRotationTimer->setInterval(17);
     
     ratioCheckBox = new QCheckBox("Ratio", this);
@@ -72,6 +77,8 @@ HarmonographApp::HarmonographApp(QWidget *parent) : QMainWindow(parent)
     connect(freqPtSpinBox, SIGNAL(valueChanged(double)), this, SLOT(freqPointChanged(double)));
     connect(numOfPendulumsSpinBox, SIGNAL(valueChanged(double)), this, SLOT(numOfPendulumsChanged(double)));
 
+    connect(customView, SIGNAL(zoomChanged(int)), this, SLOT(viewZoomChanged(int)));
+
     redrawImage();
 }
 
@@ -109,10 +116,6 @@ void HarmonographApp::saveImage() {
         tr("Save Harmonograph Image"), "",
         tr("png image (*.png);;All Files (*)"));
     if(!fileName.isEmpty()) manager->saveCurrentImage(fileName);
-}
-
-void HarmonographApp::zoomInOut() {
-
 }
 
 void HarmonographApp::saveParametersToFile() {
@@ -164,5 +167,10 @@ void HarmonographApp::freqPointChanged(double freqPoint) {
 
 void HarmonographApp::numOfPendulumsChanged(double newNum) {
     manager->setNumOfPendulums((int)newNum);
+    redrawImage();
+}
+
+void HarmonographApp::viewZoomChanged(int value) {
+    manager->changeZoom(value/2.0);
     redrawImage();
 }

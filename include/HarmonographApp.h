@@ -9,6 +9,7 @@
 #include "Harmonograph.h"
 #include <cstdlib>
 #include "HarmonographManager.h"
+#include "CustomGraphicsView.h"
 
 class HarmonographApp : public QMainWindow
 {
@@ -27,6 +28,7 @@ private:
     Ui::HarmonographAppClass ui;
 
     QGraphicsView* view;
+    CustomGraphicsView* customView;
     QGraphicsScene* scene;
     QTimer* autoRotationTimer;
 
@@ -47,7 +49,6 @@ private slots:
     void autoRotate();
     void autoRotationTimerTimeout();
     void saveImage();
-    void zoomInOut();
     void saveParametersToFile();
     void loadParametersFromFile();
     void ratioCheckBoxCliked(bool checked);
@@ -56,4 +57,6 @@ private slots:
     void secondRatioPicked(const QString& text);
     void freqPointChanged(double freqPoint);
     void numOfPendulumsChanged(double newNum);
+
+    void viewZoomChanged(int value);
 };
