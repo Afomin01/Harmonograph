@@ -129,11 +129,10 @@
   <ItemGroup>
     <Image Include="assets\autoRotate.png" />
     <Image Include="assets\update.png" />
-    <Image Include="icon.ico" />
-    <Image Include="icon1.ico" />
+    <Image Include="icon1024.ico" />
+    <Image Include="icon256.ico" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="resource.h" />
     <QtMoc Include="CustomGraphicsView.h" />
     <ClInclude Include="include\Harmonograph.h" />
     <ClInclude Include="include\HarmonographManager.h" />
@@ -142,7 +141,6 @@
     <ClInclude Include="include\json.hpp" />
     <ClInclude Include="include\Pendulum.h" />
     <ClInclude Include="include\resource.h" />
-    <ClInclude Include="include\test.h" />
     <QtMoc Include="include\HarmonographApp.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

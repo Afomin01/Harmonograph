@@ -69,10 +69,10 @@
     <Image Include="assets\autoRotate.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="icon.ico">
+    <Image Include="icon256.ico">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="icon1.ico">
+    <Image Include="icon1024.ico">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>
@@ -96,12 +96,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\resource.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\test.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
