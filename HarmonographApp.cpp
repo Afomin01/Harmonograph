@@ -10,7 +10,16 @@ HarmonographApp::HarmonographApp(QWidget *parent) : QMainWindow(parent)
     manager = new HarmonographManager();
     scene = new QGraphicsScene(this);
     customView = new CustomGraphicsView(this);
-    ui.centralWidget->layout()->addWidget(customView);
+
+    auto gridLayout = dynamic_cast<QGridLayout*>(ui.centralWidget->layout());
+
+    customView->setMinimumHeight(720);
+    customView->setMinimumWidth(1280);
+
+    customView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    customView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+
+    gridLayout->addWidget(customView, 1, 1);
 
     autoRotationTimer = new QTimer(this);
 
@@ -67,6 +76,7 @@ HarmonographApp::HarmonographApp(QWidget *parent) : QMainWindow(parent)
     numOfPendulumsSpinBox->setValue(3);
     ui.mainToolBar->addWidget(numOfPendulumsSpinBox);
 
+
     connect(autoRotationTimer, SIGNAL(timeout()), this, SLOT(autoRotationTimerTimeout()));
 
     connect(ratioCheckBox, SIGNAL(clicked(bool)), this, SLOT(ratioCheckBoxCliked(bool)));
@@ -95,6 +105,11 @@ void HarmonographApp::redrawImage() {
     QGraphicsPixmapItem* item = manager->getRenderedGraphicsItem();
     //item->pixmap().scaled();
     scene->addItem(item);
+}
+
+void HarmonographApp::changeParameter(int pendulumNum, HarmonographParameters parameter, int value) {
+    manager->changeParameter(pendulumNum, parameter, value);
+    redrawImage();
 }
 
 void HarmonographApp::autoRotate()
@@ -196,6 +211,30 @@ void HarmonographApp::freqPointChanged(double freqPoint) {
 void HarmonographApp::numOfPendulumsChanged(int newNum) {
     manager->setNumOfPendulums(newNum);
     redrawImage();
+}
+
+void HarmonographApp::firstXDampingChanged(int value) {
+    changeParameter(1, HarmonographParameters::xDamping, value);
+}
+
+void HarmonographApp::firstXPhaseChanged(int value) {
+    changeParameter(1, HarmonographParameters::xPhase, value);
+}
+
+void HarmonographApp::firstXFrequencyChanged(int value) {
+    changeParameter(1, HarmonographParameters::xFrequency, value);
+}
+
+void HarmonographApp::firstYDampingChanged(int value) {
+    changeParameter(1, HarmonographParameters::yDamping, value);
+}
+
+void HarmonographApp::firstYPhaseChanged(int value) {
+    changeParameter(1, HarmonographParameters::yPhase, value);
+}
+
+void HarmonographApp::firstYFrequencyChanged(int value) {
+    changeParameter(1, HarmonographParameters::yFrequency, value);
 }
 
 void HarmonographApp::viewZoomChanged(int value) {

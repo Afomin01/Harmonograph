@@ -98,3 +98,43 @@ void HarmonographManager::setNumOfPendulums(int newNum) {
     if (newNum > 0) harmonograph->setNumOfPendulums(newNum);
     harmonograph->update();
 }
+
+void HarmonographManager::changeParameter(int pendulumNum, HarmonographParameters parameter, int value) {
+    float realValue;
+
+    switch (parameter) {
+        case HarmonographParameters::xPhase:
+            realValue = (2 * pi / sliderMaxValue) * value;
+            harmonograph->getPendulums().at(pendulumNum)->xPhase = realValue;
+            break;
+
+        case HarmonographParameters::xDamping:
+            realValue = (maxDampingValue / sliderMaxValue) * value;
+            harmonograph->getPendulums().at(pendulumNum)->xDumping = realValue;
+            break;
+
+        case HarmonographParameters::xFrequency:
+            realValue = (maxFreqModuleValue / (sliderMaxValue / 2)) * (value - (sliderMaxValue / 2)) + harmonograph->frequencyPoint;
+            harmonograph->getPendulums().at(pendulumNum)->xFreq = realValue;
+            break;
+
+        case HarmonographParameters::yPhase:
+            realValue = (2 * pi / 100) * value;
+            harmonograph->getPendulums().at(pendulumNum)->yPhase = realValue;
+            break;
+
+        case HarmonographParameters::yDamping:
+            realValue = (maxDampingValue / sliderMaxValue) * value;
+            harmonograph->getPendulums().at(pendulumNum)->yDumping = realValue;
+            break;
+
+        case HarmonographParameters::yFrequency:
+            realValue = (maxFreqModuleValue / (sliderMaxValue / 2)) * (value - (sliderMaxValue / 2)) + harmonograph->frequencyPoint;
+            harmonograph->getPendulums().at(pendulumNum)->yFreq = realValue;
+            break;
+
+        default:
+            break;
+    }
+   
+}

@@ -133,6 +133,7 @@
     <Image Include="icon1.ico" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="HarmonographParametersEnum.h" />
     <ClInclude Include="resource.h" />
     <QtMoc Include="CustomGraphicsView.h" />
     <ClInclude Include="include\Harmonograph.h" />
