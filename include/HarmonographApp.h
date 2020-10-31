@@ -67,6 +67,20 @@ private slots:
     void firstYPhaseChanged(int value);
     void firstYFrequencyChanged(int value);
 
+    void secondXDampingChanged(int value);
+    void secondXPhaseChanged(int value);
+    void secondXFrequencyChanged(int value);
+    void secondYDampingChanged(int value);
+    void secondYPhaseChanged(int value);
+    void secondYFrequencyChanged(int value);
+
+    void thirdXDampingChanged(int value);
+    void thirdXPhaseChanged(int value);
+    void thirdXFrequencyChanged(int value);
+    void thirdYDampingChanged(int value);
+    void thirdYPhaseChanged(int value);
+    void thirdYFrequencyChanged(int value);
+
 
     void viewZoomChanged(int value);
     void rotateSceneXY(float x, float y);

@@ -12,12 +12,14 @@ public:
 	float const pi = atan(1) * 4;
 	float const maxDampingValue = 0.01;
 	float const maxFreqModuleValue = 0.1;
-	int const sliderMaxValue = 100;
+	int const sliderMaxValue = 150;
 
 
 	HarmonographManager();
 
 	QGraphicsPixmapItem* getRenderedGraphicsItem();
+	Harmonograph* getHarmCopy();
+
 	void updateRandomValues();
 
 	void changeXAxisRotation(float radians);
@@ -55,6 +57,10 @@ public:
 	}
 
 	void changeParameter(int pendulumNum, HarmonographParameters parameter, int value);
+
+	std::vector<Pendulum*> getPendlumsCopy() {
+		return harmonograph->getPundlumsCopy();
+	}
 
 private:
 	Harmonograph* harmonograph;

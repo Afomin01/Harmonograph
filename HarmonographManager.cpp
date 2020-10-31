@@ -7,7 +7,12 @@ HarmonographManager::HarmonographManager() {
 }
 
 QGraphicsPixmapItem* HarmonographManager::getRenderedGraphicsItem() {
-    return new QGraphicsPixmapItem(QPixmap::fromImage(imagePainter->getImage(harmonograph)));
+    Harmonograph* copyHarmongraph = new Harmonograph(harmonograph);
+    return new QGraphicsPixmapItem(QPixmap::fromImage(imagePainter->getImage(copyHarmongraph)));
+}
+
+Harmonograph* HarmonographManager::getHarmCopy() {
+    return new Harmonograph(harmonograph);
 }
 
 void HarmonographManager::updateRandomValues() {
@@ -114,7 +119,8 @@ void HarmonographManager::changeParameter(int pendulumNum, HarmonographParameter
             break;
 
         case HarmonographParameters::xFrequency:
-            realValue = (maxFreqModuleValue / (sliderMaxValue / 2)) * (value - (sliderMaxValue / 2)) + harmonograph->frequencyPoint;
+            if(!harmonograph->isStar) realValue = (maxFreqModuleValue / (sliderMaxValue / 2)) * (value - (sliderMaxValue / 2)) + harmonograph->frequencyPoint;
+            else realValue = (maxFreqModuleValue / (sliderMaxValue / 2)) * (value - (sliderMaxValue / 2)) + (harmonograph->frequencyPoint/(harmonograph->firstRatioValue+harmonograph->secondRatioValue)*(pendulumNum == 0 ? harmonograph->firstRatioValue : harmonograph->secondRatioValue));
             harmonograph->getPendulums().at(pendulumNum)->xFreq = realValue;
             break;
 
@@ -129,7 +135,8 @@ void HarmonographManager::changeParameter(int pendulumNum, HarmonographParameter
             break;
 
         case HarmonographParameters::yFrequency:
-            realValue = (maxFreqModuleValue / (sliderMaxValue / 2)) * (value - (sliderMaxValue / 2)) + harmonograph->frequencyPoint;
+            if (!harmonograph->isStar) realValue = (maxFreqModuleValue / (sliderMaxValue / 2)) * (value - (sliderMaxValue / 2)) + harmonograph->frequencyPoint;
+            else realValue = (maxFreqModuleValue / (sliderMaxValue / 2)) * (value - (sliderMaxValue / 2)) + (harmonograph->frequencyPoint / (harmonograph->firstRatioValue + harmonograph->secondRatioValue) * (pendulumNum == 0 ? harmonograph->firstRatioValue : harmonograph->secondRatioValue));
             harmonograph->getPendulums().at(pendulumNum)->yFreq = realValue;
             break;
 
