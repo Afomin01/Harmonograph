@@ -29,6 +29,10 @@ public:
 	void rotateXAxis(float radians);
 	void rotateXY(float x, float y);
 	void setNumOfPendulums(int newNum);
+
+	std::vector<Pendulum*> getPendulums() {
+		return pendlums;
+	}
 	
 private:
 	int numOfPendulums = 3;

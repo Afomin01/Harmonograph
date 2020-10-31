@@ -7,7 +7,12 @@ HarmonographManager::HarmonographManager() {
 }
 
 QGraphicsPixmapItem* HarmonographManager::getRenderedGraphicsItem() {
-    return new QGraphicsPixmapItem(QPixmap::fromImage(imagePainter->getImage(harmonograph)));
+    Harmonograph* copyHarmongraph = new Harmonograph(harmonograph);
+    return new QGraphicsPixmapItem(QPixmap::fromImage(imagePainter->getImage(copyHarmongraph)));
+}
+
+Harmonograph* HarmonographManager::getHarmCopy() {
+    return new Harmonograph(harmonograph);
 }
 
 void HarmonographManager::updateRandomValues() {
@@ -97,4 +102,46 @@ void HarmonographManager::setFrequencyPoint(float freqPt) {
 void HarmonographManager::setNumOfPendulums(int newNum) {
     if (newNum > 0) harmonograph->setNumOfPendulums(newNum);
     harmonograph->update();
+}
+
+void HarmonographManager::changeParameter(int pendulumNum, HarmonographParameters parameter, int value) {
+    float realValue;
+
+    switch (parameter) {
+        case HarmonographParameters::xPhase:
+            realValue = (2 * pi / sliderMaxValue) * value;
+            harmonograph->getPendulums().at(pendulumNum)->xPhase = realValue;
+            break;
+
+        case HarmonographParameters::xDamping:
+            realValue = (maxDampingValue / sliderMaxValue) * value;
+            harmonograph->getPendulums().at(pendulumNum)->xDumping = realValue;
+            break;
+
+        case HarmonographParameters::xFrequency:
+            if(!harmonograph->isStar) realValue = (maxFreqModuleValue / (sliderMaxValue / 2)) * (value - (sliderMaxValue / 2)) + harmonograph->frequencyPoint;
+            else realValue = (maxFreqModuleValue / (sliderMaxValue / 2)) * (value - (sliderMaxValue / 2)) + (harmonograph->frequencyPoint/(harmonograph->firstRatioValue+harmonograph->secondRatioValue)*(pendulumNum == 0 ? harmonograph->firstRatioValue : harmonograph->secondRatioValue));
+            harmonograph->getPendulums().at(pendulumNum)->xFreq = realValue;
+            break;
+
+        case HarmonographParameters::yPhase:
+            realValue = (2 * pi / 100) * value;
+            harmonograph->getPendulums().at(pendulumNum)->yPhase = realValue;
+            break;
+
+        case HarmonographParameters::yDamping:
+            realValue = (maxDampingValue / sliderMaxValue) * value;
+            harmonograph->getPendulums().at(pendulumNum)->yDumping = realValue;
+            break;
+
+        case HarmonographParameters::yFrequency:
+            if (!harmonograph->isStar) realValue = (maxFreqModuleValue / (sliderMaxValue / 2)) * (value - (sliderMaxValue / 2)) + harmonograph->frequencyPoint;
+            else realValue = (maxFreqModuleValue / (sliderMaxValue / 2)) * (value - (sliderMaxValue / 2)) + (harmonograph->frequencyPoint / (harmonograph->firstRatioValue + harmonograph->secondRatioValue) * (pendulumNum == 0 ? harmonograph->firstRatioValue : harmonograph->secondRatioValue));
+            harmonograph->getPendulums().at(pendulumNum)->yFreq = realValue;
+            break;
+
+        default:
+            break;
+    }
+   
 }

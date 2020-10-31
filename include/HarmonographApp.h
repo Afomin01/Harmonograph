@@ -6,10 +6,11 @@
 #include "Harmonograph.h"
 #include <QGraphicsPixmapItem>
 #include <ui_HarmonographApp.h>
-#include "Harmonograph.h"
 #include <cstdlib>
 #include "HarmonographManager.h"
 #include "CustomGraphicsView.h"
+#include <ui_HarmonographApp.h>
+#include "HarmonographParametersEnum.h"
 
 class HarmonographApp : public QMainWindow {
     Q_OBJECT
@@ -42,6 +43,7 @@ private:
     QSpinBox* numOfPendulumsSpinBox;
 
     void redrawImage();
+    void changeParameter(int pendulumNum, HarmonographParameters parameter, int value);
 
 private slots:
     void updateImage();
@@ -56,6 +58,29 @@ private slots:
     void secondRatioPicked(const QString& text);
     void freqPointChanged(double freqPoint);
     void numOfPendulumsChanged(int newNum);
+
+
+    void firstXDampingChanged(int value);
+    void firstXPhaseChanged(int value);
+    void firstXFrequencyChanged(int value);
+    void firstYDampingChanged(int value);
+    void firstYPhaseChanged(int value);
+    void firstYFrequencyChanged(int value);
+
+    void secondXDampingChanged(int value);
+    void secondXPhaseChanged(int value);
+    void secondXFrequencyChanged(int value);
+    void secondYDampingChanged(int value);
+    void secondYPhaseChanged(int value);
+    void secondYFrequencyChanged(int value);
+
+    void thirdXDampingChanged(int value);
+    void thirdXPhaseChanged(int value);
+    void thirdXFrequencyChanged(int value);
+    void thirdYDampingChanged(int value);
+    void thirdYPhaseChanged(int value);
+    void thirdYFrequencyChanged(int value);
+
 
     void viewZoomChanged(int value);
     void rotateSceneXY(float x, float y);

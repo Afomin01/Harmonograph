@@ -2,7 +2,7 @@
 
 ImagePainter::ImagePainter() {
     image = new QImage(drawImgWidth, drawImgHeight, QImage::Format_RGB888);
-    image->fill(backgroundColor);
+    //image->fill(backgroundColor);
     painter = new QPainter(image);
     painter->setPen(pen);
     pen.setColor(Qt::black);
@@ -20,7 +20,8 @@ ImagePainter::ImagePainter(ImagePainter* imagePainter) {
 }
 
 QImage ImagePainter::getImage(Harmonograph* harmonograph) {
-    painter->fillRect(0, 0, drawImgWidth, drawImgHeight, backgroundColor);
+    //painter->fillRect(0, 0, drawImgWidth, drawImgHeight, backgroundColor);
+    painter->eraseRect(0, 0, drawImgWidth, drawImgHeight);
 
     float widthAdd = drawImgWidth / 2;
     float heightAdd = drawImgHeight / 2;
@@ -52,6 +53,7 @@ QImage ImagePainter::getImage(Harmonograph* harmonograph) {
         i++;
 
     }
+    delete harmonograph;
     return *image;
 }
 QImage ImagePainter::getImageToSave(Harmonograph* harmonograph, int width, int height) {
