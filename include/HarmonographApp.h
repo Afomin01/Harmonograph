@@ -24,6 +24,7 @@ private:
     int const drawImgWidth = 1280;
     int const drawImgHeight = 720;
     float zoom = 100;
+    bool tmp = false;
 
     Ui::HarmonographAppClass ui;
 
@@ -48,6 +49,7 @@ private:
 private slots:
     void updateImage();
     void autoRotate();
+    void undoUpdate();
     void autoRotationTimerTimeout();
     void saveImage();
     void saveParametersToFile();

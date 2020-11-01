@@ -98,14 +98,20 @@ void HarmonographApp::updateImage(){
     
     manager->updateRandomValues();
     redrawImage();
+    ui.actionUndoUpdate->setEnabled(true);
 }
 
 void HarmonographApp::redrawImage() {
     scene->clear();
+
     QGraphicsPixmapItem* item = manager->getRenderedGraphicsItem();
     scene->addItem(item);
 
 
+    if (tmp) {
+        QGraphicsPixmapItem* item2 = new QGraphicsPixmapItem(QPixmap::fromImage(QImage("C:/back.png")));
+        scene->addItem(item2);
+    }
 
     std::vector<Pendulum*> pendlums = manager->getPendlumsCopy();
     float pi = manager->pi;
@@ -205,6 +211,13 @@ void HarmonographApp::autoRotate()
     else {
         autoRotationTimer->start();
     }
+}
+
+void HarmonographApp::undoUpdate() {
+    manager->undoUpdate();
+    redrawImage();
+    if (manager->getHistorySize() > 0) ui.actionUndoUpdate->setEnabled(true);
+    else ui.actionUndoUpdate->setEnabled(false);
 }
 
 void HarmonographApp::autoRotationTimerTimeout()

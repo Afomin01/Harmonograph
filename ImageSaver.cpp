@@ -62,19 +62,31 @@ void ImageSaver::saveParametersToFile(QString filename, Harmonograph* harmonogra
 
 	}
 
-	std::ofstream file(filename.toStdString());
-	file << j.dump(4);
+	QFile file(filename);
+	file.open(QIODevice::ReadWrite);
+	QTextStream out(&file);
+	out << QString::fromStdString(j.dump(4)) << endl;
+
 	file.close();
+
+	//std::ofstream file(filename.toStdString());
+	//file << j.dump(4);
+	//file.close();
 
 	delete harmonograph;
 }
 
+
 Harmonograph* ImageSaver::loadParametersFromFile(QString filename) {
 	if (!filename.isEmpty()) {
 		try {
-			std::ifstream file(filename.toStdString());
 
-			json j = json::parse(file);
+			QFile qFile(filename);
+			qFile.open(QIODevice::ReadWrite);
+			QTextStream in(&qFile);
+			QString fileString(in.readAll());
+
+			json j = json::parse(fileString.toStdString());
 			int numOfPendulums = j["numOfPendulums"];
 			std::string ratio = j["frequencyRatio"];
 			int firstRatioValue = std::stoi(ratio.substr(0, ratio.find(':')));
@@ -97,6 +109,8 @@ Harmonograph* ImageSaver::loadParametersFromFile(QString filename) {
 
 				pendulums.push_back(pendulum);
 			}
+
+			qFile.close();
 
 			Harmonograph* harmonograph = new Harmonograph(pendulums, firstRatioValue, secondRatioValue, isStar, isCircle, frequencyPoint);
 			return harmonograph;

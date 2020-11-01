@@ -45,15 +45,9 @@ public:
 	void setFrequencyPoint(float freqPt);
 	void setNumOfPendulums(int newNum);
 
-	void undoUpdate() {
-		if (history.size() > 0) {
-			Harmonograph* undoHarm = new Harmonograph(history.back());
-			history.pop_back();
-
-			delete harmonograph;
-
-			harmonograph = undoHarm;
-		}
+	void undoUpdate();
+	int getHistorySize() {
+		return history.size();
 	}
 
 	void changeParameter(int pendulumNum, HarmonographParameters parameter, int value);

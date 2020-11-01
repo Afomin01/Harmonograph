@@ -56,12 +56,10 @@ void HarmonographManager::changeZoom(float value) {
 
 void HarmonographManager::changeFirstColor(QColor color) {
     imagePainter->firstColor = color;
-    harmonograph->update();
 }
 
 void HarmonographManager::changeSecondColor(QColor color) {
     imagePainter->secondColor = color;
-    harmonograph->update();
 }
 
 void HarmonographManager::ratioStateEnabled(bool isEnabled) {
@@ -90,7 +88,6 @@ void HarmonographManager::circleStateEnabled(bool isEnabled) {
 
 void HarmonographManager::enableTwoColorMode(bool isEnabled) {
     imagePainter->useTwoColors = isEnabled;
-    harmonograph->update();
 }
 
 
@@ -102,6 +99,17 @@ void HarmonographManager::setFrequencyPoint(float freqPt) {
 void HarmonographManager::setNumOfPendulums(int newNum) {
     if (newNum > 0) harmonograph->setNumOfPendulums(newNum);
     harmonograph->update();
+}
+
+void HarmonographManager::undoUpdate() {
+    if (history.size() > 0) {
+        Harmonograph* undoHarm = new Harmonograph(history.back());
+        history.pop_back();
+
+        delete harmonograph;
+
+        harmonograph = undoHarm;
+    }
 }
 
 void HarmonographManager::changeParameter(int pendulumNum, HarmonographParameters parameter, int value) {
