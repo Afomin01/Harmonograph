@@ -11,6 +11,7 @@
 #include "CustomGraphicsView.h"
 #include <ui_HarmonographApp.h>
 #include "HarmonographParametersEnum.h"
+#include "FlexWindow.h"
 
 class HarmonographApp : public QMainWindow {
     Q_OBJECT
@@ -50,6 +51,7 @@ private slots:
     void updateImage();
     void autoRotate();
     void undoUpdate();
+    void startFlex();
     void autoRotationTimerTimeout();
     void saveImage();
     void saveParametersToFile();

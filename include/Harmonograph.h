@@ -29,6 +29,7 @@ public:
 	void rotateXAxis(float radians);
 	void rotateXY(float x, float y);
 	void setNumOfPendulums(int newNum);
+	void changeFrequencyPointNoUpdate(float newFrequecnyPoint);
 
 	std::vector<Pendulum*> getPendulums() {
 		return pendlums;

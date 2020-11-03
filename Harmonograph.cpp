@@ -94,3 +94,18 @@ void Harmonograph::setNumOfPendulums(int newNum) {
 		pendlums.push_back(createdPendulum);
 	}
 }
+
+void Harmonograph::changeFrequencyPointNoUpdate(float newFrequecnyPoint) {
+	frequencyPoint = newFrequecnyPoint;
+	if (isStar && numOfPendulums > 1) {
+		pendlums.at(0)->updateFrequencyPoint((frequencyPoint / (firstRatioValue + secondRatioValue)) * firstRatioValue);
+		for (int i = 1; i < pendlums.size(); i++) {
+			pendlums.at(i)->updateFrequencyPoint((frequencyPoint / (firstRatioValue + secondRatioValue)) * secondRatioValue);
+		}
+	}
+	else {
+		for (Pendulum* p : pendlums) {
+			p->updateFrequencyPoint(frequencyPoint);
+		}
+	}
+}

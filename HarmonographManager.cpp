@@ -92,8 +92,8 @@ void HarmonographManager::enableTwoColorMode(bool isEnabled) {
 
 
 void HarmonographManager::setFrequencyPoint(float freqPt) {
-    if (freqPt > 0) harmonograph->frequencyPoint = freqPt;
-    harmonograph->update();
+    if (freqPt > 0) harmonograph->changeFrequencyPointNoUpdate(freqPt);
+
 }
 
 void HarmonographManager::setNumOfPendulums(int newNum) {
@@ -130,6 +130,7 @@ void HarmonographManager::changeParameter(int pendulumNum, HarmonographParameter
             if(!harmonograph->isStar) realValue = (maxFreqModuleValue / (sliderMaxValue / 2)) * (value - (sliderMaxValue / 2)) + harmonograph->frequencyPoint;
             else realValue = (maxFreqModuleValue / (sliderMaxValue / 2)) * (value - (sliderMaxValue / 2)) + (harmonograph->frequencyPoint/(harmonograph->firstRatioValue+harmonograph->secondRatioValue)*(pendulumNum == 0 ? harmonograph->firstRatioValue : harmonograph->secondRatioValue));
             harmonograph->getPendulums().at(pendulumNum)->xFreq = realValue;
+            harmonograph->getPendulums().at(pendulumNum)->xFrequencyNoise = (maxFreqModuleValue / (sliderMaxValue / 2)) * (value - (sliderMaxValue / 2));
             break;
 
         case HarmonographParameters::yPhase:
@@ -146,6 +147,7 @@ void HarmonographManager::changeParameter(int pendulumNum, HarmonographParameter
             if (!harmonograph->isStar) realValue = (maxFreqModuleValue / (sliderMaxValue / 2)) * (value - (sliderMaxValue / 2)) + harmonograph->frequencyPoint;
             else realValue = (maxFreqModuleValue / (sliderMaxValue / 2)) * (value - (sliderMaxValue / 2)) + (harmonograph->frequencyPoint / (harmonograph->firstRatioValue + harmonograph->secondRatioValue) * (pendulumNum == 0 ? harmonograph->firstRatioValue : harmonograph->secondRatioValue));
             harmonograph->getPendulums().at(pendulumNum)->yFreq = realValue;
+            harmonograph->getPendulums().at(pendulumNum)->yFrequencyNoise = (maxFreqModuleValue / (sliderMaxValue / 2)) * (value - (sliderMaxValue / 2));
             break;
 
         default:

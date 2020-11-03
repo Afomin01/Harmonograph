@@ -88,6 +88,7 @@
    <addaction name="actionUpdate"/>
    <addaction name="actionAutoRotate"/>
    <addaction name="actionUndoUpdate"/>
+   <addaction name="actionStartFlexMode"/>
    <addaction name="separator"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
@@ -1034,6 +1035,18 @@
     <string>Undo update</string>
    </property>
   </action>
+  <action name="actionStartFlexMode">
+   <property name="icon">
+    <iconset resource="HarmonographApp.qrc">
+     <normaloff>:/HarmonographApp/assets/FlexMode.png</normaloff>:/HarmonographApp/assets/FlexMode.png</iconset>
+   </property>
+   <property name="text">
+    <string>Start flex mode</string>
+   </property>
+   <property name="toolTip">
+    <string>Start flex mode</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources>
@@ -1424,6 +1437,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>actionStartFlexMode</sender>
+   <signal>triggered()</signal>
+   <receiver>HarmonographAppClass</receiver>
+   <slot>startFlex()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>955</x>
+     <y>523</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>updateImage()</slot>
@@ -1450,5 +1479,6 @@
   <slot>thirdYDampingChanged(int)</slot>
   <slot>thirdYPhaseChanged(int)</slot>
   <slot>undoUpdate()</slot>
+  <slot>startFlex()</slot>
  </slots>
 </ui>

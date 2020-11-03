@@ -56,6 +56,12 @@
     <ClCompile Include="CustomGraphicsView.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="FlexGraphicsView.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FlexWindow.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Harmonograph.rc">
@@ -73,6 +79,12 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="icon1.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\undo.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\FlexMode.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>
@@ -115,5 +127,16 @@
     <QtMoc Include="CustomGraphicsView.h">
       <Filter>Header Files</Filter>
     </QtMoc>
+    <QtMoc Include="FlexGraphicsView.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="FlexWindow.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+  </ItemGroup>
+  <ItemGroup>
+    <QtUic Include="FlexWindow.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
   </ItemGroup>
 </Project>

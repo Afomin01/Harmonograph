@@ -107,12 +107,6 @@ void HarmonographApp::redrawImage() {
     QGraphicsPixmapItem* item = manager->getRenderedGraphicsItem();
     scene->addItem(item);
 
-
-    if (tmp) {
-        QGraphicsPixmapItem* item2 = new QGraphicsPixmapItem(QPixmap::fromImage(QImage("C:/back.png")));
-        scene->addItem(item2);
-    }
-
     std::vector<Pendulum*> pendlums = manager->getPendlumsCopy();
     float pi = manager->pi;
 
@@ -126,11 +120,11 @@ void HarmonographApp::redrawImage() {
 
 
     ui.firstXDamping->setValue((pendlums.at(0)->xDumping * manager->sliderMaxValue) / manager->maxDampingValue);
-    ui.firstXFreq->setValue(((pendlums.at(0)->xFreq - round(pendlums.at(0)->xFreq)) * manager->sliderMaxValue) / (2 * manager->maxFreqModuleValue) + (manager->sliderMaxValue / 2));
+    ui.firstXFreq->setValue((pendlums.at(0)->xFrequencyNoise * manager->sliderMaxValue) / (2 * manager->maxFreqModuleValue) + (manager->sliderMaxValue / 2));
     ui.firstXPhase->setValue(((pendlums.at(0)->xPhase - (floor(pendlums.at(0)->xPhase / (2.0 * pi)) * 2.0 * pi)) / (2.0 * pi)) * 100);
 
     ui.firstYDamping->setValue((pendlums.at(0)->yDumping * manager->sliderMaxValue) / manager->maxDampingValue);
-    ui.firstYFreq->setValue(((pendlums.at(0)->yFreq - round(pendlums.at(0)->yFreq)) * manager->sliderMaxValue) / (2 * manager->maxFreqModuleValue) + (manager->sliderMaxValue / 2));
+    ui.firstYFreq->setValue((pendlums.at(0)->yFrequencyNoise * manager->sliderMaxValue) / (2 * manager->maxFreqModuleValue) + (manager->sliderMaxValue / 2));
     ui.firstYPhase->setValue(((pendlums.at(0)->yPhase - (floor(pendlums.at(0)->yPhase / (2.0 * pi)) * 2.0 * pi)) / (2.0 * pi)) * 100);
 
 
@@ -153,11 +147,11 @@ void HarmonographApp::redrawImage() {
 
 
         ui.secondXDamping->setValue((pendlums.at(1)->xDumping * manager->sliderMaxValue) / manager->maxDampingValue);
-        ui.secondXFrequency->setValue(((pendlums.at(1)->xFreq - round(pendlums.at(1)->xFreq)) * manager->sliderMaxValue) / (2 * manager->maxFreqModuleValue) + (manager->sliderMaxValue / 2));
+        ui.secondXFrequency->setValue((pendlums.at(1)->xFrequencyNoise * manager->sliderMaxValue) / (2 * manager->maxFreqModuleValue) + (manager->sliderMaxValue / 2));
         ui.secondXPhase->setValue(((pendlums.at(1)->xPhase - (floor(pendlums.at(1)->xPhase / (2.0 * pi)) * 2.0 * pi)) / (2.0 * pi)) * 100);
 
         ui.secondYDamping->setValue((pendlums.at(1)->yDumping * manager->sliderMaxValue) / manager->maxDampingValue);
-        ui.secondyFrequency->setValue(((pendlums.at(1)->yFreq - round(pendlums.at(1)->yFreq)) * manager->sliderMaxValue) / (2 * manager->maxFreqModuleValue) + (manager->sliderMaxValue / 2));
+        ui.secondyFrequency->setValue((pendlums.at(1)->yFrequencyNoise * manager->sliderMaxValue) / (2 * manager->maxFreqModuleValue) + (manager->sliderMaxValue / 2));
         ui.secondYPhase->setValue(((pendlums.at(1)->yPhase - (floor(pendlums.at(1)->yPhase / (2.0 * pi)) * 2.0 * pi)) / (2.0 * pi)) * 100);
 
 
@@ -180,11 +174,11 @@ void HarmonographApp::redrawImage() {
 
 
         ui.thridXDamping->setValue((pendlums.at(2)->xDumping * manager->sliderMaxValue) / manager->maxDampingValue);
-        ui.thirdXFrequency->setValue(((pendlums.at(2)->xFreq - round(pendlums.at(2)->xFreq)) * manager->sliderMaxValue) / (2 * manager->maxFreqModuleValue) + (manager->sliderMaxValue / 2));
+        ui.thirdXFrequency->setValue((pendlums.at(2)->xFrequencyNoise * manager->sliderMaxValue) / (2 * manager->maxFreqModuleValue) + (manager->sliderMaxValue / 2));
         ui.thirdXPhase->setValue(((pendlums.at(2)->xPhase - (floor(pendlums.at(2)->xPhase / (2.0 * pi)) * 2.0 * pi)) / (2.0 * pi)) * 100);
 
         ui.thirdYDamping->setValue((pendlums.at(2)->yDumping * manager->sliderMaxValue) / manager->maxDampingValue);
-        ui.thirdYFrequency->setValue(((pendlums.at(2)->yFreq - round(pendlums.at(2)->yFreq)) * manager->sliderMaxValue) / (2 * manager->maxFreqModuleValue) + (manager->sliderMaxValue / 2));
+        ui.thirdYFrequency->setValue((pendlums.at(2)->yFrequencyNoise * manager->sliderMaxValue) / (2 * manager->maxFreqModuleValue) + (manager->sliderMaxValue / 2));
         ui.thirdYPhase->setValue(((pendlums.at(2)->yPhase - (floor(pendlums.at(2)->yPhase / (2.0 * pi)) * 2.0 * pi)) / (2.0 * pi)) * 100);
 
 
@@ -218,6 +212,11 @@ void HarmonographApp::undoUpdate() {
     redrawImage();
     if (manager->getHistorySize() > 0) ui.actionUndoUpdate->setEnabled(true);
     else ui.actionUndoUpdate->setEnabled(false);
+}
+
+void HarmonographApp::startFlex() {
+    FlexWindow* flexWindow = new FlexWindow(this);
+    flexWindow->show();
 }
 
 void HarmonographApp::autoRotationTimerTimeout()
@@ -325,7 +324,6 @@ void HarmonographApp::secondRatioPicked(const QString& text) {
 
 void HarmonographApp::freqPointChanged(double freqPoint) {
     manager->setFrequencyPoint(freqPoint);
-    manager->updateRandomValues();
     redrawImage();
 }
 

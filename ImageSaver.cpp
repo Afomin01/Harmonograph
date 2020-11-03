@@ -54,10 +54,12 @@ void ImageSaver::saveParametersToFile(QString filename, Harmonograph* harmonogra
 		j["pendulums"][i]["xDamp"] = pendlms.at(i)->xDumping;
 		j["pendulums"][i]["xPhase"] = pendlms.at(i)->xPhase;
 		j["pendulums"][i]["xFreq"] = pendlms.at(i)->xFreq;
+		j["pendulums"][i]["xFreqNoise"] = pendlms.at(i)->xFrequencyNoise;
 		j["pendulums"][i]["xAmpl"] = pendlms.at(i)->xAmplitude;
 		j["pendulums"][i]["yDamp"] = pendlms.at(i)->yDumping;
 		j["pendulums"][i]["yPhase"] = pendlms.at(i)->yPhase;
 		j["pendulums"][i]["yFreq"] = pendlms.at(i)->yFreq;
+		j["pendulums"][i]["yFreqNoise"] = pendlms.at(i)->yFrequencyNoise;
 		j["pendulums"][i]["yAmpl"] = pendlms.at(i)->yAmplitude;
 
 	}
@@ -68,10 +70,6 @@ void ImageSaver::saveParametersToFile(QString filename, Harmonograph* harmonogra
 	out << QString::fromStdString(j.dump(4)) << endl;
 
 	file.close();
-
-	//std::ofstream file(filename.toStdString());
-	//file << j.dump(4);
-	//file.close();
 
 	delete harmonograph;
 }
@@ -101,10 +99,12 @@ Harmonograph* ImageSaver::loadParametersFromFile(QString filename) {
 				Pendulum* pendulum = new Pendulum(j["pendulums"][i]["xDamp"],
 					j["pendulums"][i]["xPhase"], 
 					j["pendulums"][i]["xFreq"], 
+					j["pendulums"][i]["xFreqNoise"],
 					j["pendulums"][i]["xAmpl"],
 					j["pendulums"][i]["yDamp"], 
 					j["pendulums"][i]["yPhase"],
 					j["pendulums"][i]["yFreq"],
+					j["pendulums"][i]["yFreqNoise"],
 					j["pendulums"][i]["yAmpl"]);		
 
 				pendulums.push_back(pendulum);
