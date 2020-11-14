@@ -10,6 +10,7 @@ class ImagePainter{
 public:
     float zoom = 125;
     bool useTwoColors = true;
+    int penWidth = 1;
     QColor firstColor = Qt::blue;
     QColor secondColor = Qt::red;
     QColor backgroundColor = Qt::white;

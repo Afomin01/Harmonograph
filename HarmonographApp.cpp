@@ -76,6 +76,18 @@ HarmonographApp::HarmonographApp(QWidget *parent) : QMainWindow(parent)
     numOfPendulumsSpinBox->setValue(3);
     ui.mainToolBar->addWidget(numOfPendulumsSpinBox);
 
+    ui.mainToolBar->addSeparator();
+
+    QLabel* penWidthLabel = new QLabel(this);
+    penWidthLabel->setText("Pen width: ");
+    ui.mainToolBar->addWidget(penWidthLabel);
+
+    penWidthSpinBox = new QSpinBox(this);
+    penWidthSpinBox->setMinimum(1);
+    penWidthSpinBox->setMaximum(5);
+    penWidthSpinBox->setValue(1);
+    ui.mainToolBar->addWidget(penWidthSpinBox);
+
     connect(autoRotationTimer, SIGNAL(timeout()), this, SLOT(autoRotationTimerTimeout()));
 
     connect(ratioCheckBox, SIGNAL(clicked(bool)), this, SLOT(ratioCheckBoxCliked(bool)));
@@ -86,6 +98,7 @@ HarmonographApp::HarmonographApp(QWidget *parent) : QMainWindow(parent)
 
     connect(freqPtSpinBox, SIGNAL(valueChanged(double)), this, SLOT(freqPointChanged(double)));
     connect(numOfPendulumsSpinBox, SIGNAL(valueChanged(int)), this, SLOT(numOfPendulumsChanged(int)));
+    connect(penWidthSpinBox, SIGNAL(valueChanged(int)), this, SLOT(penWidthChanged(int)));
 
     connect(customView, SIGNAL(zoomChanged(int)), this, SLOT(viewZoomChanged(int)));
     connect(customView, SIGNAL(rotateScene(float, float)), this, SLOT(rotateSceneXY(float, float)));
@@ -323,6 +336,11 @@ void HarmonographApp::ratioCheckBoxCliked(bool checked) {
 
 void HarmonographApp::circleCheckBoxClicked(bool checked) {
     manager->circleStateEnabled(checked);
+    redrawImage();
+}
+
+void HarmonographApp::penWidthChanged(int width) {
+    manager->changePenWidth(width);
     redrawImage();
 }
 

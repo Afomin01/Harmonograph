@@ -44,7 +44,8 @@ private:
     QCheckBox* circleCheckBox;
 
     QDoubleSpinBox* freqPtSpinBox;
-    QSpinBox* numOfPendulumsSpinBox;
+    QSpinBox* numOfPendulumsSpinBox; 
+    QSpinBox* penWidthSpinBox;
 
     void redrawImage();
     void changeParameter(int pendulumNum, HarmonographParameters parameter, int value);
@@ -60,6 +61,7 @@ private slots:
     void loadParametersFromFile();
     void ratioCheckBoxCliked(bool checked);
     void circleCheckBoxClicked(bool checked);
+    void penWidthChanged(int width);
     void firstRatioPicked(const QString& text);
     void secondRatioPicked(const QString& text);
     void freqPointChanged(double freqPoint);

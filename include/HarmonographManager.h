@@ -41,6 +41,7 @@ public:
 	void changeSecondRatioValue(int value);
 
 	void circleStateEnabled(bool isEnabled);
+	void changePenWidth(int width);
 
 	void setFrequencyPoint(float freqPt);
 	void setNumOfPendulums(int newNum);

@@ -86,6 +86,10 @@ void HarmonographManager::circleStateEnabled(bool isEnabled) {
     harmonograph->update();
 }
 
+void HarmonographManager::changePenWidth(int width) {
+    imagePainter->penWidth = width;
+}
+
 void HarmonographManager::enableTwoColorMode(bool isEnabled) {
     imagePainter->useTwoColors = isEnabled;
 }

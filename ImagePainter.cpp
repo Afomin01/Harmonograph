@@ -20,6 +20,7 @@ ImagePainter::ImagePainter(ImagePainter* imagePainter) {
 }
 
 QImage ImagePainter::getImage(Harmonograph* harmonograph) {
+    pen.setWidth(penWidth);
     painter->fillRect(0, 0, drawImgWidth, drawImgHeight, backgroundColor);
     painter->eraseRect(0, 0, drawImgWidth, drawImgHeight);
 
