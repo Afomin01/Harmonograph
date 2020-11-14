@@ -12,13 +12,13 @@ void Pendulum::update(float frequencyPoint, bool isCircle) {
 	if (!isCircle) {
 		xDumping = QRandomGenerator::global()->bounded(1e-02);
 		xPhase = QRandomGenerator::global()->bounded(pi);
-		xFrequencyNoise = QRandomGenerator::global()->bounded(1e-02 - 1e-01) + 1e-01;
+		xFrequencyNoise = QRandomGenerator::global()->bounded(1e-02 - 1e-01);
 		xFreq = frequencyPoint + xFrequencyNoise;
 		xAmplitude = 1;
 
 		yDumping = QRandomGenerator::global()->bounded(1e-02);
 		yPhase = QRandomGenerator::global()->bounded(pi);
-		yFrequencyNoise = QRandomGenerator::global()->bounded(1e-02 - 1e-01) + 1e-01;
+		yFrequencyNoise = QRandomGenerator::global()->bounded(1e-02 - 1e-01);
 		yFreq = frequencyPoint + yFrequencyNoise;
 		yAmplitude = 1;
 	}
@@ -26,13 +26,13 @@ void Pendulum::update(float frequencyPoint, bool isCircle) {
 		int r = rand();
 		xDumping = static_cast <float> (r) / (static_cast <float> (RAND_MAX / (1e-02)));
 		xPhase = static_cast <float> (r) / (static_cast <float> (RAND_MAX / (pi)));
-		xFrequencyNoise = static_cast <float> (r) / (static_cast <float> (RAND_MAX / (1e-02 - 1e-01))) + 1e-01;
+		xFrequencyNoise = static_cast <float> (r) / (static_cast <float> (RAND_MAX / (1e-02 - 1e-01)));
 		xFreq = frequencyPoint + xFrequencyNoise;
 		xAmplitude = 1;
 
 		yDumping = static_cast <float> (r) / (static_cast <float> (RAND_MAX / (1e-02)));
 		yPhase = static_cast <float> (r) / (static_cast <float> (RAND_MAX / (pi)));
-		yFrequencyNoise = static_cast <float> (r) / (static_cast <float> (RAND_MAX / (1e-02 - 1e-01))) + 1e-01;
+		yFrequencyNoise = static_cast <float> (r) / (static_cast <float> (RAND_MAX / (1e-02 - 1e-01)));
 		yFreq = frequencyPoint + yFrequencyNoise;
 		yAmplitude = 1;
 	}

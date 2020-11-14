@@ -8,6 +8,7 @@ class Harmonograph
 { 
 public:
 	float frequencyPoint = 2;
+	float frequenyNoise = 0.1;
 	bool isStar = false;
 	bool isCircle = false;
 	int firstRatioValue = 1;

@@ -134,7 +134,7 @@ void HarmonographManager::changeParameter(int pendulumNum, HarmonographParameter
             break;
 
         case HarmonographParameters::yPhase:
-            realValue = (2 * pi / 100) * value;
+            realValue = (2 * pi / sliderMaxValue) * value;
             harmonograph->getPendulums().at(pendulumNum)->yPhase = realValue;
             break;
 

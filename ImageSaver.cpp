@@ -33,10 +33,6 @@ ImageSaver::ImageSaver() {
 
 void ImageSaver::saveImage(Harmonograph* harmonograph, QString filename, ImagePainter* imagePainter) {
 	SaveImageTask* task = new SaveImageTask(harmonograph, this, filename, imagePainter);
-	//task->imageSaver = this;
-	//task->filename = filename;
-	//task->harmonograph = harmonograph;
-	//task->imagePainter = imagePainter;
 	QThreadPool::globalInstance()->start(task);
 }
 

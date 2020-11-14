@@ -113,13 +113,15 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="CustomGraphicsView.cpp" />
-    <ClCompile Include="FlexGraphicsView.cpp" />
+    <ClCompile Include="FlexDialog.cpp" />
+    <ClCompile Include="FlexPainter.cpp" />
     <ClCompile Include="FlexWindow.cpp" />
     <ClCompile Include="HarmonographManager.cpp" />
     <ClCompile Include="ImagePainter.cpp" />
     <ClCompile Include="ImageSaver.cpp" />
     <ClCompile Include="Pendulum.cpp" />
     <QtRcc Include="HarmonographApp.qrc" />
+    <QtUic Include="FlexDialog.ui" />
     <QtUic Include="FlexWindow.ui" />
     <QtUic Include="HarmonographApp.ui" />
     <ClCompile Include="Harmonograph.cpp" />
@@ -138,8 +140,9 @@
     <Image Include="icon1.ico" />
   </ItemGroup>
   <ItemGroup>
-    <QtMoc Include="FlexGraphicsView.h" />
     <QtMoc Include="FlexWindow.h" />
+    <QtMoc Include="FlexDialog.h" />
+    <ClInclude Include="FlexPainter.h" />
     <ClInclude Include="HarmonographParametersEnum.h" />
     <ClInclude Include="resource.h" />
     <QtMoc Include="CustomGraphicsView.h" />
@@ -150,7 +153,6 @@
     <ClInclude Include="include\json.hpp" />
     <ClInclude Include="include\Pendulum.h" />
     <ClInclude Include="include\resource.h" />
-    <ClInclude Include="include\test.h" />
     <QtMoc Include="include\HarmonographApp.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

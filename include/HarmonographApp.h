@@ -12,12 +12,14 @@
 #include <ui_HarmonographApp.h>
 #include "HarmonographParametersEnum.h"
 #include "FlexWindow.h"
+#include "FlexDialog.h"
 
 class HarmonographApp : public QMainWindow {
     Q_OBJECT
 
 public:
     HarmonographApp(QWidget* parent = Q_NULLPTR);
+    ~HarmonographApp();
 
 private:
     HarmonographManager* manager;
