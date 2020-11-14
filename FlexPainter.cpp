@@ -1,13 +1,13 @@
 #include "FlexPainter.h"
 
-FlexPainter::FlexPainter(Harmonograph* harmonograph, QColor backgroundColor, bool useTwoColors, QColor firstColor, QColor secondColor, int penWidth, bool useAntialiasing) {
-	this->harmonograph = harmonograph;
-	this->backgroundColor = backgroundColor;
-	this->useTwoColors = useTwoColors;
-	this->firstColor = firstColor;
-	this->secondColor = secondColor;
-    this->penWidth = penWidth;
-    this->useAntialiasing = useAntialiasing;
+FlexPainter::FlexPainter(FlexSettings* settings) {
+	this->harmonograph = settings->flexGraph;
+	this->backgroundColor = settings->backgroundColor;
+	this->useTwoColors = settings->useTwoColors;
+	this->firstColor = settings->firstColor;
+	this->secondColor = settings->secondColor;
+    this->penWidth = settings->penWidth;
+    this->useAntialiasing = settings->useAntialiasing;
 }
 
 QImage FlexPainter::getImage(int width, int height, int zoom) {

@@ -1,24 +1,25 @@
 #include "FlexWindow.h"
+#include "FlexSettings.h"
 #include <QDebug>
 
-FlexWindow::FlexWindow(QWidget* parent, Harmonograph* flexGraph, int flexBaseMode, bool useAntialiasing, int penWidth, int FPSLimit, QColor firstColor, QColor secondColor, bool useTwoColors, QColor backgoundColor) : QMainWindow(parent) {
+FlexWindow::FlexWindow(FlexSettings* settings, QWidget* parent) : QMainWindow(parent) {
 	ui.setupUi(this);
-	this->flexGraph = flexGraph;
+	this->flexGraph = settings->flexGraph;
 	if (flexGraph == NULL) flexGraph = new Harmonograph(3);
 	scene = new QGraphicsScene(this);
 	ui.graphicsView->setScene(scene);
 
 	this->setAttribute(Qt::WA_DeleteOnClose);
 
-	this->firstColor = firstColor;
-	this->secondColor = secondColor;
-	this->backgoundColor = backgoundColor;
-	this->useTwoColors = useTwoColors;
+	this->firstColor = settings->firstColor;
+	this->secondColor = settings->secondColor;
+	this->backgoundColor = settings->backgroundColor;
+	this->useTwoColors = settings->useTwoColors;
 
 	flexTimer = new QTimer(this);
-	flexTimer->setInterval((int)((1.0/FPSLimit)*1000));
+	flexTimer->setInterval((int)((1.0/settings->FPSLimit)*1000));
 
-	flexPainter = new FlexPainter(flexGraph, backgoundColor, useTwoColors, firstColor, secondColor, penWidth, useAntialiasing);
+	flexPainter = new FlexPainter(settings);
 
 	QAction* max = new QAction(this);
 	max->setShortcut(Qt::Key_F11);
@@ -39,7 +40,7 @@ FlexWindow::FlexWindow(QWidget* parent, Harmonograph* flexGraph, int flexBaseMod
 			* flexGraph->secondRatioValue;
 	}
 
-	if (flexBaseMode==1) {
+	if (settings->flexBaseMode == 1) {
 		for (Pendulum p : flexGraph->getPendulums()) {
 			ySpeedValues.push_back(boundedRandDouble(0.005, 0.01));
 			xSpeedValues.push_back(boundedRandDouble(0.005, 0.01));
