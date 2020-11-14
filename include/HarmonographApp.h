@@ -11,12 +11,15 @@
 #include "CustomGraphicsView.h"
 #include <ui_HarmonographApp.h>
 #include "HarmonographParametersEnum.h"
+#include "FlexWindow.h"
+#include "FlexDialog.h"
 
 class HarmonographApp : public QMainWindow {
     Q_OBJECT
 
 public:
     HarmonographApp(QWidget* parent = Q_NULLPTR);
+    ~HarmonographApp();
 
 private:
     HarmonographManager* manager;
@@ -24,6 +27,7 @@ private:
     int const drawImgWidth = 1280;
     int const drawImgHeight = 720;
     float zoom = 100;
+    bool tmp = false;
 
     Ui::HarmonographAppClass ui;
 
@@ -48,6 +52,8 @@ private:
 private slots:
     void updateImage();
     void autoRotate();
+    void undoUpdate();
+    void startFlex();
     void autoRotationTimerTimeout();
     void saveImage();
     void saveParametersToFile();

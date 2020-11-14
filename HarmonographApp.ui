@@ -87,6 +87,8 @@
    </attribute>
    <addaction name="actionUpdate"/>
    <addaction name="actionAutoRotate"/>
+   <addaction name="actionUndoUpdate"/>
+   <addaction name="actionStartFlexMode"/>
    <addaction name="separator"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
@@ -1018,6 +1020,33 @@
     <string>Settings</string>
    </property>
   </action>
+  <action name="actionUndoUpdate">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="HarmonographApp.qrc">
+     <normaloff>:/HarmonographApp/assets/undo.png</normaloff>:/HarmonographApp/assets/undo.png</iconset>
+   </property>
+   <property name="text">
+    <string>Undo update</string>
+   </property>
+   <property name="toolTip">
+    <string>Undo update</string>
+   </property>
+  </action>
+  <action name="actionStartFlexMode">
+   <property name="icon">
+    <iconset resource="HarmonographApp.qrc">
+     <normaloff>:/HarmonographApp/assets/FlexMode.png</normaloff>:/HarmonographApp/assets/FlexMode.png</iconset>
+   </property>
+   <property name="text">
+    <string>Start flex mode</string>
+   </property>
+   <property name="toolTip">
+    <string>Start flex mode</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources>
@@ -1111,8 +1140,8 @@
    <slot>firstXPhaseChanged(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1679</x>
-     <y>259</y>
+     <x>1792</x>
+     <y>273</y>
     </hint>
     <hint type="destinationlabel">
      <x>1515</x>
@@ -1127,8 +1156,8 @@
    <slot>firstXDampingChanged(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1692</x>
-     <y>133</y>
+     <x>1792</x>
+     <y>147</y>
     </hint>
     <hint type="destinationlabel">
      <x>1649</x>
@@ -1143,8 +1172,8 @@
    <slot>firstXFrequencyChanged(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1626</x>
-     <y>196</y>
+     <x>1792</x>
+     <y>210</y>
     </hint>
     <hint type="destinationlabel">
      <x>1511</x>
@@ -1175,8 +1204,8 @@
    <slot>firstYDampingChanged(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1780</x>
-     <y>137</y>
+     <x>1900</x>
+     <y>147</y>
     </hint>
     <hint type="destinationlabel">
      <x>1812</x>
@@ -1207,8 +1236,8 @@
    <slot>secondXDampingChanged(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1626</x>
-     <y>377</y>
+     <x>1792</x>
+     <y>389</y>
     </hint>
     <hint type="destinationlabel">
      <x>1498</x>
@@ -1223,8 +1252,8 @@
    <slot>secondXFrequencyChanged(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1674</x>
-     <y>433</y>
+     <x>1792</x>
+     <y>452</y>
     </hint>
     <hint type="destinationlabel">
      <x>1351</x>
@@ -1239,8 +1268,8 @@
    <slot>secondXPhaseChanged(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1674</x>
-     <y>501</y>
+     <x>1792</x>
+     <y>515</y>
     </hint>
     <hint type="destinationlabel">
      <x>1372</x>
@@ -1255,8 +1284,8 @@
    <slot>secondYDampingChanged(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1789</x>
-     <y>374</y>
+     <x>1900</x>
+     <y>389</y>
     </hint>
     <hint type="destinationlabel">
      <x>1848</x>
@@ -1287,8 +1316,8 @@
    <slot>secondYPhaseChanged(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1797</x>
-     <y>503</y>
+     <x>1900</x>
+     <y>515</y>
     </hint>
     <hint type="destinationlabel">
      <x>1913</x>
@@ -1303,8 +1332,8 @@
    <slot>thirdXDampingChanged(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1659</x>
-     <y>610</y>
+     <x>1792</x>
+     <y>631</y>
     </hint>
     <hint type="destinationlabel">
      <x>1217</x>
@@ -1319,8 +1348,8 @@
    <slot>thirdXFrequencyChanged(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1679</x>
-     <y>681</y>
+     <x>1792</x>
+     <y>694</y>
     </hint>
     <hint type="destinationlabel">
      <x>1917</x>
@@ -1335,8 +1364,8 @@
    <slot>thirdXPhaseChanged(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1638</x>
-     <y>754</y>
+     <x>1792</x>
+     <y>757</y>
     </hint>
     <hint type="destinationlabel">
      <x>1183</x>
@@ -1351,8 +1380,8 @@
    <slot>thirdYDampingChanged(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1814</x>
-     <y>618</y>
+     <x>1900</x>
+     <y>631</y>
     </hint>
     <hint type="destinationlabel">
      <x>1048</x>
@@ -1383,12 +1412,44 @@
    <slot>thirdYPhaseChanged(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1792</x>
-     <y>750</y>
+     <x>1900</x>
+     <y>757</y>
     </hint>
     <hint type="destinationlabel">
      <x>886</x>
      <y>-1</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionUndoUpdate</sender>
+   <signal>triggered()</signal>
+   <receiver>HarmonographAppClass</receiver>
+   <slot>undoUpdate()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>955</x>
+     <y>523</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionStartFlexMode</sender>
+   <signal>triggered()</signal>
+   <receiver>HarmonographAppClass</receiver>
+   <slot>startFlex()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>955</x>
+     <y>523</y>
     </hint>
    </hints>
   </connection>
@@ -1417,5 +1478,7 @@
   <slot>thirdYFrequencyChanged(int)</slot>
   <slot>thirdYDampingChanged(int)</slot>
   <slot>thirdYPhaseChanged(int)</slot>
+  <slot>undoUpdate()</slot>
+  <slot>startFlex()</slot>
  </slots>
 </ui>

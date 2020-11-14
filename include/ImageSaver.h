@@ -7,6 +7,7 @@
 #include "ImagePainter.h"
 #include <fstream>
 #include "Pendulum.h"
+#include <QTextStream>
 
 using json = nlohmann::json;
 

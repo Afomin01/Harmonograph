@@ -56,12 +56,10 @@ void HarmonographManager::changeZoom(float value) {
 
 void HarmonographManager::changeFirstColor(QColor color) {
     imagePainter->firstColor = color;
-    harmonograph->update();
 }
 
 void HarmonographManager::changeSecondColor(QColor color) {
     imagePainter->secondColor = color;
-    harmonograph->update();
 }
 
 void HarmonographManager::ratioStateEnabled(bool isEnabled) {
@@ -90,18 +88,28 @@ void HarmonographManager::circleStateEnabled(bool isEnabled) {
 
 void HarmonographManager::enableTwoColorMode(bool isEnabled) {
     imagePainter->useTwoColors = isEnabled;
-    harmonograph->update();
 }
 
 
 void HarmonographManager::setFrequencyPoint(float freqPt) {
-    if (freqPt > 0) harmonograph->frequencyPoint = freqPt;
-    harmonograph->update();
+    if (freqPt > 0) harmonograph->changeFrequencyPointNoUpdate(freqPt);
+
 }
 
 void HarmonographManager::setNumOfPendulums(int newNum) {
     if (newNum > 0) harmonograph->setNumOfPendulums(newNum);
     harmonograph->update();
+}
+
+void HarmonographManager::undoUpdate() {
+    if (history.size() > 0) {
+        Harmonograph* undoHarm = new Harmonograph(history.back());
+        history.pop_back();
+
+        delete harmonograph;
+
+        harmonograph = undoHarm;
+    }
 }
 
 void HarmonographManager::changeParameter(int pendulumNum, HarmonographParameters parameter, int value) {
@@ -122,10 +130,11 @@ void HarmonographManager::changeParameter(int pendulumNum, HarmonographParameter
             if(!harmonograph->isStar) realValue = (maxFreqModuleValue / (sliderMaxValue / 2)) * (value - (sliderMaxValue / 2)) + harmonograph->frequencyPoint;
             else realValue = (maxFreqModuleValue / (sliderMaxValue / 2)) * (value - (sliderMaxValue / 2)) + (harmonograph->frequencyPoint/(harmonograph->firstRatioValue+harmonograph->secondRatioValue)*(pendulumNum == 0 ? harmonograph->firstRatioValue : harmonograph->secondRatioValue));
             harmonograph->getPendulums().at(pendulumNum)->xFreq = realValue;
+            harmonograph->getPendulums().at(pendulumNum)->xFrequencyNoise = (maxFreqModuleValue / (sliderMaxValue / 2)) * (value - (sliderMaxValue / 2));
             break;
 
         case HarmonographParameters::yPhase:
-            realValue = (2 * pi / 100) * value;
+            realValue = (2 * pi / sliderMaxValue) * value;
             harmonograph->getPendulums().at(pendulumNum)->yPhase = realValue;
             break;
 
@@ -138,6 +147,7 @@ void HarmonographManager::changeParameter(int pendulumNum, HarmonographParameter
             if (!harmonograph->isStar) realValue = (maxFreqModuleValue / (sliderMaxValue / 2)) * (value - (sliderMaxValue / 2)) + harmonograph->frequencyPoint;
             else realValue = (maxFreqModuleValue / (sliderMaxValue / 2)) * (value - (sliderMaxValue / 2)) + (harmonograph->frequencyPoint / (harmonograph->firstRatioValue + harmonograph->secondRatioValue) * (pendulumNum == 0 ? harmonograph->firstRatioValue : harmonograph->secondRatioValue));
             harmonograph->getPendulums().at(pendulumNum)->yFreq = realValue;
+            harmonograph->getPendulums().at(pendulumNum)->yFrequencyNoise = (maxFreqModuleValue / (sliderMaxValue / 2)) * (value - (sliderMaxValue / 2));
             break;
 
         default:

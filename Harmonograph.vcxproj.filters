@@ -56,6 +56,15 @@
     <ClCompile Include="CustomGraphicsView.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="FlexWindow.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FlexPainter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FlexDialog.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Harmonograph.rc">
@@ -73,6 +82,12 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="icon1024.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\undo.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\FlexMode.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>
@@ -98,13 +113,13 @@
     <ClInclude Include="include\resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\test.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="HarmonographParametersEnum.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FlexPainter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -115,5 +130,19 @@
     <QtMoc Include="CustomGraphicsView.h">
       <Filter>Header Files</Filter>
     </QtMoc>
+    <QtMoc Include="FlexWindow.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="FlexDialog.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+  </ItemGroup>
+  <ItemGroup>
+    <QtUic Include="FlexWindow.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="FlexDialog.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
   </ItemGroup>
 </Project>

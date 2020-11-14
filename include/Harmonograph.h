@@ -8,6 +8,7 @@ class Harmonograph
 { 
 public:
 	float frequencyPoint = 2;
+	float frequenyNoise = 0.1;
 	bool isStar = false;
 	bool isCircle = false;
 	int firstRatioValue = 1;
@@ -29,6 +30,7 @@ public:
 	void rotateXAxis(float radians);
 	void rotateXY(float x, float y);
 	void setNumOfPendulums(int newNum);
+	void changeFrequencyPointNoUpdate(float newFrequecnyPoint);
 
 	std::vector<Pendulum*> getPendulums() {
 		return pendlums;
