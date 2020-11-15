@@ -13,6 +13,7 @@
 #include "HarmonographParametersEnum.h"
 #include "FlexWindow.h"
 #include "FlexDialog.h"
+#include "SaveImageDialog.h"
 
 class HarmonographApp : public QMainWindow {
     Q_OBJECT
@@ -46,6 +47,10 @@ private:
     QDoubleSpinBox* freqPtSpinBox;
     QSpinBox* numOfPendulumsSpinBox; 
     QSpinBox* penWidthSpinBox;
+
+    FlexDialog* flexDialog = new FlexDialog(this);
+    SaveImageDialog* saveImageDialog = new SaveImageDialog(this);
+
 
     void redrawImage();
     void changeParameter(int pendulumNum, HarmonographParameters parameter, int value);

@@ -17,13 +17,15 @@ public:
 	ImagePainter* imagePainter;
 
 	void run() override {
-		std::unique_ptr<ImagePainter> copyPainter(new ImagePainter(imagePainter));
-		QImage imageToSave = copyPainter->getImageToSave(
+		QImage imageToSave = imagePainter->getImageToSave(
 			harmonograph,
-			imageSaver->getSaveWidth(),
-			imageSaver->getSaveHeight());
+			imageSaver->saveImageWidth,
+			imageSaver->saveImageHeight);
 
 		imageToSave.save(filename);
+
+		delete imagePainter;
+		delete harmonograph;
 	}
 };
 

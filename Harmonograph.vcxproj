@@ -120,6 +120,7 @@
     <ClCompile Include="ImagePainter.cpp" />
     <ClCompile Include="ImageSaver.cpp" />
     <ClCompile Include="Pendulum.cpp" />
+    <ClCompile Include="SaveImageDialog.cpp" />
     <QtRcc Include="HarmonographApp.qrc" />
     <QtUic Include="FlexDialog.ui" />
     <QtUic Include="FlexWindow.ui" />
@@ -127,6 +128,7 @@
     <ClCompile Include="Harmonograph.cpp" />
     <ClCompile Include="HarmonographApp.cpp" />
     <ClCompile Include="main.cpp" />
+    <QtUic Include="SaveImageDialog.ui" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Harmonograph.rc" />
@@ -140,6 +142,7 @@
     <Image Include="icon256.ico" />
   </ItemGroup>
   <ItemGroup>
+    <QtMoc Include="SaveImageDialog.h" />
     <QtMoc Include="FlexWindow.h" />
     <QtMoc Include="FlexDialog.h" />
     <ClInclude Include="FlexPainter.h" />

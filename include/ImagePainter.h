@@ -4,12 +4,14 @@
 #include <QtWidgets/QMainWindow>
 #include <QPainter>
 #include "Harmonograph.h"
-#include <memory> 
+#include <memory>
 
 class ImagePainter{
 public:
     float zoom = 125;
     bool useTwoColors = true;
+    bool useAntialiasing = false;
+    bool saveSquare = false;
     int penWidth = 1;
     QColor firstColor = Qt::blue;
     QColor secondColor = Qt::red;

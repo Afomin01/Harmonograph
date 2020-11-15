@@ -1,4 +1,5 @@
 #include "ImagePainter.h"
+#include <qdebug.h>
 
 ImagePainter::ImagePainter() {
     image = new QImage(drawImgWidth, drawImgHeight, QImage::Format_RGB888);
@@ -58,19 +59,22 @@ QImage ImagePainter::getImage(Harmonograph* harmonograph) {
     return *image;
 }
 QImage ImagePainter::getImageToSave(Harmonograph* harmonograph, int width, int height) {
+    float const borderPercentage = 0.03;
 
     std::unique_ptr<QImage> imageToSave(new QImage(width, height, QImage::Format_RGB32));
     QPainter* savePainter = new QPainter(imageToSave.get());
     QPen savePen;
-    savePainter->setPen(savePen);
-    //savePainter->setRenderHint(QPainter::Antialiasing, true);
+
+    if (useAntialiasing) savePainter->setRenderHint(QPainter::Antialiasing, true);
     savePen.setColor(Qt::black);
-    savePen.setWidth(1);
+    savePen.setWidth(penWidth);
+    savePainter->setPen(savePen);
 
     savePainter->fillRect(0, 0, width, height, backgroundColor);
 
     float widthAdd = width / 2;
     float heightAdd = height / 2;
+
     int saveZoom = (int)(zoom / ((drawImgWidth * 1.0) / width));
 
     float xLast = (harmonograph->getX(0) * saveZoom) + widthAdd;
@@ -83,6 +87,23 @@ QImage ImagePainter::getImageToSave(Harmonograph* harmonograph, int width, int h
     float stepR = ((float)(secondColor.red() - firstColor.red()) / stepCount);
     float stepG = ((float)(secondColor.green() - firstColor.green()) / stepCount);
     float stepB = ((float)(secondColor.blue() - firstColor.blue()) / stepCount);
+
+    if (saveSquare) {
+        float maxX = 0, maxY = 0, maxTotal = 0;
+
+        for (float t = 0; t < 225; t += 1e-02) {
+            float x = harmonograph->getX(t);
+            float y = harmonograph->getY(t);
+            if (x > maxX) maxX = x;
+            if (y > maxY) maxY = y;
+        }
+
+        maxTotal = maxX > maxY ? maxX : maxY;
+
+        saveZoom = (width/2) / maxTotal;
+        saveZoom -= saveZoom * borderPercentage;
+    }
+
     int i = 1;
 
     for (float t = 1e-04; t < 255; t += 1e-04) {

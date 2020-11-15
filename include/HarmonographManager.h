@@ -25,7 +25,7 @@ public:
 	void changeXAxisRotation(float radians);
 	void rotateXY(float x, float y);
 
-	void saveCurrentImage(QString filename);
+	void saveCurrentImage(QString filename, int penWidth, bool useAntialiasing, bool square, int width, int height);
 
 	void saveParametersToFile(QString filename);
 	void loadParametersFromFile(QString filename);

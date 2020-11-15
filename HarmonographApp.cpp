@@ -234,12 +234,10 @@ void HarmonographApp::undoUpdate() {
 
 void HarmonographApp::startFlex() {
 
-    FlexDialog flexDialog = new FlexDialog(this);
-
-    int code = flexDialog.exec();
+    int code = flexDialog->exec();
 
     if (code==1) {
-        FlexWindow* flexWindow = new FlexWindow(this, manager->getHarmCopy(), flexDialog.flexBaseCode, flexDialog.useAntiAliasing, flexDialog.penWidth, flexDialog.FPS);
+        FlexWindow* flexWindow = new FlexWindow(this, manager->getHarmCopy(), flexDialog->flexBaseCode, flexDialog->useAntiAliasing, flexDialog->penWidth, flexDialog->FPS);
         flexWindow->setFixedWidth(1280);
         flexWindow->setFixedHeight(720);
         flexWindow->show();
@@ -253,21 +251,16 @@ void HarmonographApp::autoRotationTimerTimeout()
 }
 
 void HarmonographApp::saveImage() {
-    if (autoRotationTimer->isActive()) {
-        autoRotationTimer->stop();
+    bool wasRotationActive = autoRotationTimer->isActive();
+    autoRotationTimer->stop();
 
+    int code = saveImageDialog->exec();
+
+    if (code == 1) {
         QString fileName = QFileDialog::getSaveFileName(this,
             tr("Save Harmonograph Image"), "",
             tr("png image (*.png);;All Files (*)"));
-        if (!fileName.isEmpty()) manager->saveCurrentImage(fileName);
-
-        autoRotationTimer->start();
-    }
-    else {
-        QString fileName = QFileDialog::getSaveFileName(this,
-            tr("Save Harmonograph Image"), "",
-            tr("png image (*.png);;All Files (*)"));
-        if (!fileName.isEmpty()) manager->saveCurrentImage(fileName);
+        if (!fileName.isEmpty()) manager->saveCurrentImage(fileName, saveImageDialog->penWidth, saveImageDialog->useAntialising, saveImageDialog->useSquareImage, saveImageDialog->saveWidth, saveImageDialog->saveHeight);
     }
 }
 

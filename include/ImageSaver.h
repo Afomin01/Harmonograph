@@ -18,15 +18,9 @@ public:
 	void saveParametersToFile(QString filename, Harmonograph* harmonograph);
 	Harmonograph* loadParametersFromFile(QString filename);
 
-	int getSaveWidth() {
-		return saveImageWidth;
-	}
-	int getSaveHeight() {
-		return saveImageHeight;
-	}
-	
-private:
 	int saveImageWidth = 7680;//2560
 	int saveImageHeight = 4320;//1440
+	
+private:
 };
 

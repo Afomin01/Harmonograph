@@ -31,8 +31,17 @@ void HarmonographManager::rotateXY(float x, float y) {
     harmonograph->rotateXY(x, y);
 }
 
-void HarmonographManager::saveCurrentImage(QString filename) {
-    imageSaver->saveImage(new Harmonograph(harmonograph), filename, new ImagePainter(imagePainter));
+void HarmonographManager::saveCurrentImage(QString filename, int penWidth, bool useAntialiasing, bool square, int width, int height){
+    ImagePainter* copyPainter = new ImagePainter(imagePainter);
+    Harmonograph* copyHarm =new Harmonograph(harmonograph);
+    copyPainter->penWidth = penWidth;
+    copyPainter->useAntialiasing = useAntialiasing;
+    copyPainter->saveSquare = square;
+
+    imageSaver->saveImageHeight = height;
+    imageSaver->saveImageWidth = width;
+
+    imageSaver->saveImage(copyHarm, filename, copyPainter);
 }
 void HarmonographManager::saveParametersToFile(QString filename) {
     Harmonograph* copyHarmonograph = new Harmonograph(harmonograph);
