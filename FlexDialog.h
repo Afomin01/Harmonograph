@@ -15,7 +15,7 @@ public:
 	int penWidth = 1;
 	int FPS = 60;
 	bool useAntiAliasing = false;
-	int flexBaseCode = 1; //2==freq based, 1==phase based
+	int flexBaseMode = 1; //2==freq based, 1==phase based
 
 private:
 	Ui::FlexDialog ui;

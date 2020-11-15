@@ -2,10 +2,11 @@
 
 #include <QtWidgets>
 #include "Harmonograph.h"
+#include "FlexSettings.h"
 
 class FlexPainter {
 public:
-	FlexPainter(Harmonograph* harmonograph, QColor backgroundColor, bool useTwoColors, QColor firstColor, QColor secondColor, int penWidth, bool useAntialiasing);
+	FlexPainter(FlexSettings* settings);
 	QImage getImage(int width, int height, int zoom);
 
 private:

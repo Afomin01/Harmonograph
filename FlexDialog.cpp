@@ -14,7 +14,7 @@ void FlexDialog::setBrush(int value) {
 }
 
 void FlexDialog::changeBase(int value) {
-	flexBaseCode = value + 1;
+	flexBaseMode = value + 1;
 }
 
 void FlexDialog::useAntialiasingState(int state) {

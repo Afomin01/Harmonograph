@@ -18,7 +18,7 @@ class FlexWindow : public QMainWindow
 
 public:
 
-	FlexWindow(QWidget* parent = Q_NULLPTR, Harmonograph* flexGraph = nullptr, int flexBaseMode = 1, bool useAntialiasing = false, int penWidth = 1, int FPSLimit = 60, QColor firstColor = Qt::blue, QColor secondColor = Qt::red, bool useTwoColors = true, QColor backgoundColor = Qt::white);
+	FlexWindow(FlexSettings* settings, QWidget* parent = Q_NULLPTR);
 
 protected:
 	virtual void closeEvent(QCloseEvent* event);
