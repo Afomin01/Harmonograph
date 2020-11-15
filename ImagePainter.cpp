@@ -61,7 +61,7 @@ QImage ImagePainter::getImage(Harmonograph* harmonograph) {
 QImage ImagePainter::getImageToSave(Harmonograph* harmonograph, int width, int height) {
     float const borderPercentage = 0.03;
 
-    std::unique_ptr<QImage> imageToSave(new QImage(width, height, QImage::Format_RGB32));
+    std::unique_ptr<QImage> imageToSave(new QImage(width, height, QImage::Format_ARGB32));
     QPainter* savePainter = new QPainter(imageToSave.get());
     QPen savePen;
 
@@ -76,12 +76,6 @@ QImage ImagePainter::getImageToSave(Harmonograph* harmonograph, int width, int h
     float heightAdd = height / 2;
 
     int saveZoom = (int)(zoom / ((drawImgWidth * 1.0) / width));
-
-    float xLast = (harmonograph->getX(0) * saveZoom) + widthAdd;
-    float yLast = (harmonograph->getY(0) * saveZoom) + heightAdd;
-
-    float xCurrent = 0;
-    float yCurrent = 0;
 
     int stepCount = (int)(255 / 1e-04) + 10;
     float stepR = ((float)(secondColor.red() - firstColor.red()) / stepCount);
@@ -105,6 +99,12 @@ QImage ImagePainter::getImageToSave(Harmonograph* harmonograph, int width, int h
     }
 
     int i = 1;
+
+    float xLast = (harmonograph->getX(0) * saveZoom) + widthAdd;
+    float yLast = (harmonograph->getY(0) * saveZoom) + heightAdd;
+
+    float xCurrent = 0;
+    float yCurrent = 0;
 
     for (float t = 1e-04; t < 255; t += 1e-04) {
 

@@ -266,7 +266,7 @@ void HarmonographApp::saveImage() {
         QString fileName = QFileDialog::getSaveFileName(this,
             tr("Save Harmonograph Image"), "",
             tr("png image (*.png);;All Files (*)"));
-        if (!fileName.isEmpty()) manager->saveCurrentImage(fileName, saveImageDialog->penWidth, saveImageDialog->useAntialising, saveImageDialog->useSquareImage, saveImageDialog->saveWidth, saveImageDialog->saveHeight);
+        if (!fileName.isEmpty()) manager->saveCurrentImage(fileName, saveImageDialog->penWidth, saveImageDialog->useAntialising, saveImageDialog->useSquareImage, saveImageDialog->saveWidth, saveImageDialog->saveHeight, saveImageDialog->transpBack);
     }
     if (wasRotationActive) autoRotationTimer->start();
 }

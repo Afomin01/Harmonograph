@@ -23,6 +23,8 @@ void SaveImageDialog::accept() {
 
 	useAntialising = ui.useAntialiasingCheckBox->checkState() == 2;
 
+	transpBack = ui.transpBackCheckBox->checkState() == 2;
+
 	penWidth = ui.penWidthSpinBox->value();
 
 	QDialog::accept();

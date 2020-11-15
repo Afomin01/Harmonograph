@@ -2,6 +2,7 @@
 
 #include <QDialog>
 #include "ui_SaveImageDialog.h"
+#include "ui_SaveImageDialog.h"
 
 class SaveImageDialog : public QDialog
 {
@@ -13,10 +14,11 @@ public:
 
 	bool useAntialising = false;
 	bool useSquareImage = false;
+	bool transpBack = false;
 	int saveWidth = 1920;
 	int saveHeight = 1080;
 	int penWidth = 1;
-protected:
+
 private:
 	Ui::SaveImageDialog ui;
 private slots:

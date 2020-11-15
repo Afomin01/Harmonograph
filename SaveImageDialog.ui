@@ -225,6 +225,13 @@
        </property>
       </widget>
      </item>
+     <item>
+      <widget class="QCheckBox" name="transpBackCheckBox">
+       <property name="text">
+        <string>Transparent Background</string>
+       </property>
+      </widget>
+     </item>
     </layout>
    </item>
    <item row="0" column="2">
