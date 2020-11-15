@@ -63,6 +63,7 @@ FlexWindow::FlexWindow(FlexSettings* settings, QWidget* parent) : QMainWindow(pa
 	connect(ui.graphicsView, SIGNAL(rotateScene(float, float)), this, SLOT(rotateSceneXY(float, float)));
 
 	flexTimer->start();
+	delete settings;
 }
 
 void FlexWindow::closeEvent(QCloseEvent* event) {

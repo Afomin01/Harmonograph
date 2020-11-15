@@ -239,10 +239,10 @@ void HarmonographApp::startFlex() {
     if (code==1) {
         FlexSettings* flexSettings = new FlexSettings();
         flexSettings->flexGraph = manager->getHarmCopy();
-        flexSettings->flexBaseMode = flexDialog.flexBaseMode;
-        flexSettings->useAntialiasing = flexDialog.useAntiAliasing;
-        flexSettings->penWidth = flexDialog.penWidth;
-        flexSettings->FPSLimit = flexDialog.FPS;
+        flexSettings->flexBaseMode = flexDialog->flexBaseMode;
+        flexSettings->useAntialiasing = flexDialog->useAntiAliasing;
+        flexSettings->penWidth = flexDialog->penWidth;
+        flexSettings->FPSLimit = flexDialog->FPS;
         FlexWindow* flexWindow = new FlexWindow(flexSettings, this);
         flexWindow->setFixedWidth(1280);
         flexWindow->setFixedHeight(720);
@@ -268,6 +268,7 @@ void HarmonographApp::saveImage() {
             tr("png image (*.png);;All Files (*)"));
         if (!fileName.isEmpty()) manager->saveCurrentImage(fileName, saveImageDialog->penWidth, saveImageDialog->useAntialising, saveImageDialog->useSquareImage, saveImageDialog->saveWidth, saveImageDialog->saveHeight);
     }
+    if (wasRotationActive) autoRotationTimer->start();
 }
 
 void HarmonographApp::saveParametersToFile() {
