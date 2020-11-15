@@ -3,6 +3,7 @@
 #include "Harmonograph.h"
 #include "ImagePainter.h"
 #include "ImageSaver.h"
+#include "settings.h"
 #include "HarmonographParametersEnum.h"
 #include <deque>
 #include <cmath>
@@ -25,7 +26,7 @@ public:
 	void changeXAxisRotation(float radians);
 	void rotateXY(float x, float y);
 
-	void saveCurrentImage(QString filename, int penWidth, bool useAntialiasing, bool square, int width, int height, bool transpBack);
+	void saveCurrentImage(ImageSettings* settings);
 
 	void saveParametersToFile(QString filename);
 	void loadParametersFromFile(QString filename);

@@ -14,3 +14,14 @@ public:
 	bool useTwoColors = true;
 	QColor backgroundColor = Qt::white;
 };
+
+class ImageSettings {
+public:
+	QString filename;
+	int penWidth;
+	bool useAntialiasing;
+	bool useSquareImage;
+	int saveWidth;
+	int saveHeight;
+	bool transpBack;
+};

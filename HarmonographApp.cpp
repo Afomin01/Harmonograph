@@ -1,4 +1,5 @@
 #include "HarmonographApp.h"
+#include "settings.h"
 
 HarmonographApp::HarmonographApp(QWidget *parent) : QMainWindow(parent)
 {
@@ -266,7 +267,20 @@ void HarmonographApp::saveImage() {
         QString fileName = QFileDialog::getSaveFileName(this,
             tr("Save Harmonograph Image"), "",
             tr("png image (*.png);;All Files (*)"));
-        if (!fileName.isEmpty()) manager->saveCurrentImage(fileName, saveImageDialog->penWidth, saveImageDialog->useAntialising, saveImageDialog->useSquareImage, saveImageDialog->saveWidth, saveImageDialog->saveHeight, saveImageDialog->transpBack);
+        if (!fileName.isEmpty()) {
+            ImageSettings* imageSettings = new ImageSettings();
+            imageSettings->filename = fileName;
+            imageSettings->penWidth = saveImageDialog->penWidth;
+            imageSettings->useAntialiasing = saveImageDialog->useAntialising;
+            imageSettings->useSquareImage = saveImageDialog->useSquareImage;
+            imageSettings->saveWidth = saveImageDialog->saveWidth;
+            imageSettings->saveHeight = saveImageDialog->saveHeight;
+            imageSettings->transpBack = saveImageDialog->transpBack;
+
+            manager->saveCurrentImage(imageSettings);
+
+            delete imageSettings;
+        }
     }
     if (wasRotationActive) autoRotationTimer->start();
 }
