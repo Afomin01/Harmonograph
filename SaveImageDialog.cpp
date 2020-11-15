@@ -21,7 +21,7 @@ void SaveImageDialog::accept() {
 	saveWidth = str.split("x").at(0).toInt();
 	saveHeight = str.split("x").at(1).toInt();
 
-	useAntialising = ui.useAntialiasingCheckBox->checkState() == 2;
+	useAntialiasing = ui.useAntialiasingCheckBox->checkState() == 2;
 
 	transpBack = ui.transpBackCheckBox->checkState() == 2;
 

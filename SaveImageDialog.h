@@ -12,7 +12,7 @@ public:
 	SaveImageDialog(QWidget *parent = Q_NULLPTR);
 	~SaveImageDialog();
 
-	bool useAntialising = false;
+	bool useAntialiasing = false;
 	bool useSquareImage = false;
 	bool transpBack = false;
 	int saveWidth = 1920;

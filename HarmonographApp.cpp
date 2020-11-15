@@ -271,7 +271,7 @@ void HarmonographApp::saveImage() {
             ImageSettings* imageSettings = new ImageSettings();
             imageSettings->filename = fileName;
             imageSettings->penWidth = saveImageDialog->penWidth;
-            imageSettings->useAntialiasing = saveImageDialog->useAntialising;
+            imageSettings->useAntialiasing = saveImageDialog->useAntialiasing;
             imageSettings->useSquareImage = saveImageDialog->useSquareImage;
             imageSettings->saveWidth = saveImageDialog->saveWidth;
             imageSettings->saveHeight = saveImageDialog->saveHeight;
