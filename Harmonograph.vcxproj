@@ -146,7 +146,7 @@
     <QtMoc Include="FlexWindow.h" />
     <QtMoc Include="FlexDialog.h" />
     <ClInclude Include="FlexPainter.h" />
-    <ClInclude Include="FlexSettings.h" />
+    <ClInclude Include="settings.h" />
     <ClInclude Include="HarmonographParametersEnum.h" />
     <ClInclude Include="resource.h" />
     <QtMoc Include="CustomGraphicsView.h" />

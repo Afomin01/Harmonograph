@@ -2,7 +2,7 @@
 
 #include <QtWidgets>
 #include "Harmonograph.h"
-#include "FlexSettings.h"
+#include "settings.h"
 
 class FlexPainter {
 public:

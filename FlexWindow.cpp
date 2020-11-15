@@ -1,5 +1,5 @@
 #include "FlexWindow.h"
-#include "FlexSettings.h"
+#include "settings.h"
 #include <QDebug>
 
 FlexWindow::FlexWindow(FlexSettings* settings, QWidget* parent) : QMainWindow(parent) {

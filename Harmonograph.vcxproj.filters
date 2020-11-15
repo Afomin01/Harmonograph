@@ -125,7 +125,7 @@
     <ClInclude Include="FlexPainter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="FlexSettings.h">
+    <ClInclude Include="settings.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
