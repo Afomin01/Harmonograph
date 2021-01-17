@@ -13,7 +13,8 @@ public:
 	Pendulum();
 	Pendulum(std::vector<PendulumDimension*> dimensions);
 	Pendulum(int dimensionsCount, float frequencyPoint, bool isCircle);
-	~Pendulum() {
+	~Pendulum(){
+		
 	}
 
 	std::vector<PendulumDimension*> getDimensionsCopy();

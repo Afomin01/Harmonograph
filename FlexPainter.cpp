@@ -43,7 +43,7 @@ QImage FlexPainter::getImage(int width, int height, int zoom) {
         pen.setColor(QColor(firstColor.red() + stepR * i, firstColor.green() + stepG * i, firstColor.blue() + stepB * i, 255));
         painter.setPen(pen);
         xCurrent = (harmonograph->getCoordinateByTime(Dimension::x, t) * zoom) + widthAdd;
-        yCurrent = (harmonograph->getCoordinateByTime(Dimension::x, t) * zoom) + heightAdd;
+        yCurrent = (harmonograph->getCoordinateByTime(Dimension::y, t) * zoom) + heightAdd;
 
         painter.drawLine(xLast, yLast, xCurrent, yCurrent);
 

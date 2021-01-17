@@ -5,7 +5,7 @@ std::vector<PendulumDimension*> Pendulum::getDimensionsCopy() {
 	std::vector<PendulumDimension*> dimensionsCopy;
 
 	for (PendulumDimension* d : dimensions) {
-		dimensionsCopy.push_back(d->getDemensionCopy());
+		dimensionsCopy.push_back(d->getDimensionCopy());
 	}
 
 	return dimensionsCopy;

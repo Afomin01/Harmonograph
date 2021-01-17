@@ -138,20 +138,20 @@ void HarmonographApp::redrawImage() {
     ui.firstYPhase->blockSignals(true);
 
 
-    ui.firstXDamping->setValue((pendlums.at(0)->getDimensionsCopy().at(0)->dumping * manager->sliderMaxValue) / manager->maxDampingValue);
-    ui.firstXFreq->setValue((pendlums.at(0)->getDimensionsCopy().at(0)->frequencyNoise * manager->sliderMaxValue) / (2 * manager->maxFreqModuleValue) + (manager->sliderMaxValue / 2));
+    ui.firstXDamping->setValue((pendlums.at(0)->getEquationParameter(Dimension::x, EquationParameter::dumping) * manager->sliderMaxValue) / manager->maxDampingValue);
+    ui.firstXFreq->setValue((pendlums.at(0)->getEquationParameter(Dimension::x, EquationParameter::frequencyNoise) * manager->sliderMaxValue) / (2 * manager->maxFreqModuleValue) + (manager->sliderMaxValue / 2));
 	
-    ui.firstXPhase->setValue(((pendlums.at(0)->getDimensionsCopy().at(0)->phase -
-        (floor(pendlums.at(0)->getDimensionsCopy().at(0)->phase / (2.0 * pi)) * 2.0 * pi)) / (2.0 * pi))
+    ui.firstXPhase->setValue(((pendlums.at(0)->getEquationParameter(Dimension::x, EquationParameter::phase) -
+        (floor(pendlums.at(0)->getEquationParameter(Dimension::x, EquationParameter::phase) / (2.0 * pi)) * 2.0 * pi)) / (2.0 * pi))
         * (manager->sliderMaxValue + manager->sliderMaxValue / 10));
 
 	
-    ui.firstYDamping->setValue((pendlums.at(0)->getDimensionsCopy().at(1)->dumping * manager->sliderMaxValue) / manager->maxDampingValue);
-    ui.firstYFreq->setValue((pendlums.at(0)->getDimensionsCopy().at(1)->frequencyNoise * manager->sliderMaxValue)
+    ui.firstYDamping->setValue((pendlums.at(0)->getEquationParameter(Dimension::y, EquationParameter::dumping) * manager->sliderMaxValue) / manager->maxDampingValue);
+    ui.firstYFreq->setValue((pendlums.at(0)->getEquationParameter(Dimension::y, EquationParameter::frequencyNoise) * manager->sliderMaxValue)
         / (2 * manager->maxFreqModuleValue) + (manager->sliderMaxValue / 2));
 	
-    ui.firstYPhase->setValue(((pendlums.at(0)->getDimensionsCopy().at(1)->phase -
-        (floor(pendlums.at(0)->getDimensionsCopy().at(0)->phase / (2.0 * pi)) * 2.0 * pi)) / (2.0 * pi))
+    ui.firstYPhase->setValue(((pendlums.at(0)->getEquationParameter(Dimension::y, EquationParameter::phase) -
+        (floor(pendlums.at(0)->getEquationParameter(Dimension::y, EquationParameter::phase) / (2.0 * pi)) * 2.0 * pi)) / (2.0 * pi))
         * (manager->sliderMaxValue + manager->sliderMaxValue / 10));
 
 

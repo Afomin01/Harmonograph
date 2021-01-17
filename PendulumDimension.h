@@ -19,7 +19,7 @@ public:
 
 	void update(float frequencyPoint, bool isCircle, int circleRandomValue);
 	void updateFrequencyPoint(float FrequencyPoint);
-	PendulumDimension* getDemensionCopy() {
+	PendulumDimension* getDimensionCopy() {
 		return new PendulumDimension(amplitude, frequency, phase, dumping, frequencyNoise);
 	}
 };
