@@ -10,12 +10,12 @@ public:
     QColor backgroundColor = Qt::white;
 
     int penWidth = 1;
-    float zoom = 125;
+    float zoom = 0.25;
     bool useTwoColors = true;
 
     HarmonographManager* manager = nullptr;
 	
-    OpenGLCustomWidget(QWidget* parent = nullptr);
+    OpenGLCustomWidget(QWidget* parent = nullptr, HarmonographManager* manager = nullptr);
     ~OpenGLCustomWidget();
 
 protected:

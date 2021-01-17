@@ -1,12 +1,10 @@
 #include "OpenGLCustomWidget.h"
 
-OpenGLCustomWidget::OpenGLCustomWidget(QWidget* parent) : QOpenGLWidget(parent) {
-
+OpenGLCustomWidget::OpenGLCustomWidget(QWidget* parent, HarmonographManager* manager) : QOpenGLWidget(parent) {
+	this->manager = manager;
 }
 
-OpenGLCustomWidget::~OpenGLCustomWidget() {
-
-}
+OpenGLCustomWidget::~OpenGLCustomWidget() = default;
 
 void OpenGLCustomWidget::initializeGL() {
 	glClearColor(0, 0, 0, 1);
@@ -24,12 +22,27 @@ void OpenGLCustomWidget::resizeGL(int w, int h) {
 void OpenGLCustomWidget::paintGL() {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	glBegin(GL_TRIANGLES);
-	glColor3f(1.0, 0.0, 0.0);
-	glVertex3f(-0.5, -0.5, 0);
-	glColor3f(0.0, 1.0, 0.0);
-	glVertex3f(0.5, -0.5, 0);
-	glColor3f(0.0, 0.0, 1.0);
-	glVertex3f(0.0, 0.5, 0);
+	glBegin(GL_LINE_STRIP);
+	
+	float xCurrent = 0;
+	float yCurrent = 0;
+	float zCurrent = 0;
+
+	int stepCount = (int)(255 / 1e-02) + 10;
+	float stepR = ((float)(secondColor.redF() - firstColor.redF()) / stepCount);
+	float stepG = ((float)(secondColor.greenF() - firstColor.greenF()) / stepCount);
+	float stepB = ((float)(secondColor.blueF() - firstColor.blueF()) / stepCount);
+	int i = 1;
+	
+	for (float t = 0; t < 255; t += 1e-02){
+		glColor3f(firstColor.redF() + stepR * i, firstColor.greenF() + stepG * i, firstColor.blueF() + stepB * i);
+		
+		xCurrent = (manager->getCoordinateByTime(Dimension::x, t) * zoom);
+		yCurrent = (manager->getCoordinateByTime(Dimension::y, t) * zoom);
+		zCurrent = (manager->getCoordinateByTime(Dimension::y, t) * zoom);
+
+		glVertex3f(xCurrent, yCurrent, zCurrent);
+		i++;
+	}
 	glEnd();
 }

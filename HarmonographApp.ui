@@ -27,7 +27,7 @@
     <item row="0" column="0">
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="tab2D">
        <attribute name="title">
@@ -100,35 +100,9 @@
       </widget>
       <widget class="QWidget" name="tab3D">
        <attribute name="title">
-        <string>3D</string>
+        <string>3D (under construction)</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_2">
-        <item row="0" column="1">
-         <spacer name="verticalSpacer_18">
-          <property name="orientation">
-           <enum>Qt::Vertical</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>20</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-        <item row="3" column="1">
-         <spacer name="verticalSpacer_19">
-          <property name="orientation">
-           <enum>Qt::Vertical</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>20</width>
-            <height>40</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
         <item row="2" column="2">
          <spacer name="horizontalSpacer_6">
           <property name="orientation">
@@ -155,15 +129,31 @@
           </property>
          </spacer>
         </item>
-        <item row="2" column="1">
-         <widget class="OpenGLCustomWidget" name="openGLWidget">
-          <property name="minimumSize">
+        <item row="0" column="1">
+         <spacer name="verticalSpacer_18">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
            <size>
-            <width>1280</width>
-            <height>720</height>
+            <width>20</width>
+            <height>20</height>
            </size>
           </property>
-         </widget>
+         </spacer>
+        </item>
+        <item row="3" column="1">
+         <spacer name="verticalSpacer_19">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
         </item>
        </layout>
       </widget>
@@ -1147,11 +1137,6 @@
    <class>CustomGraphicsView</class>
    <extends>QGraphicsView</extends>
    <header>CustomGraphicsView.h</header>
-  </customwidget>
-  <customwidget>
-   <class>OpenGLCustomWidget</class>
-   <extends>QOpenGLWidget</extends>
-   <header>OpenGLCustomWidget.h</header>
   </customwidget>
  </customwidgets>
  <resources>

@@ -15,6 +15,10 @@ Harmonograph* HarmonographManager::getHarmCopy() {
     return new Harmonograph(harmonograph);
 }
 
+float HarmonographManager::getCoordinateByTime(Dimension dimension, float t) {
+    return harmonograph->getCoordinateByTime(dimension, t);
+}
+
 void HarmonographManager::updateRandomValues() {
     history.push_back(new Harmonograph(harmonograph));
     harmonograph->update();

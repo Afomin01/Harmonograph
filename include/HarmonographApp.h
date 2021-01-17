@@ -15,6 +15,8 @@
 #include "FlexWindow.h"
 #include "FlexDialog.h"
 #include "SaveImageDialog.h"
+#include "OpenGLCustomWidget.h"
+#include "settings.h"
 
 class HarmonographApp : public QMainWindow {
     Q_OBJECT
@@ -36,6 +38,7 @@ private:
     QGraphicsView* view;
     CustomGraphicsView* customView;
     QGraphicsScene* scene;
+    OpenGLCustomWidget* openGLWidget;
     QTimer* autoRotationTimer;
 
     QCheckBox* ratioCheckBox;

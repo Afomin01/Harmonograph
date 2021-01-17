@@ -48,6 +48,8 @@ public:
 	void setFrequencyPoint(float freqPt);
 	void setNumOfPendulums(int newNum);
 
+	float getCoordinateByTime(Dimension dimension, float t);
+	
 	void undoUpdate();
 	int getHistorySize() {
 		return history.size();

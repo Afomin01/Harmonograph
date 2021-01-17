@@ -1,5 +1,4 @@
 #include "HarmonographApp.h"
-#include "settings.h"
 
 HarmonographApp::HarmonographApp(QWidget *parent) : QMainWindow(parent)
 {
@@ -22,6 +21,14 @@ HarmonographApp::HarmonographApp(QWidget *parent) : QMainWindow(parent)
 
     customView->setScene(scene);
     autoRotationTimer->setInterval(17);
+
+    auto gridLayout = dynamic_cast<QGridLayout*>(ui.tab3D->layout());
+    openGLWidget = new OpenGLCustomWidget(this);
+    openGLWidget->manager = manager;
+    openGLWidget->setMinimumHeight(720);
+    openGLWidget->setMinimumWidth(1280);
+
+    gridLayout->addWidget(openGLWidget, 1, 1);
     
     ratioCheckBox = new QCheckBox("Ratio", this);
     ui.mainToolBar->addWidget(ratioCheckBox);
@@ -121,6 +128,7 @@ void HarmonographApp::redrawImage() {
 
     QGraphicsPixmapItem* item = manager->getRenderedGraphicsItem();
     scene->addItem(item);
+    openGLWidget->update();
 
 
     std::vector<Pendulum*> pendlums = manager->getPendlumsCopy();

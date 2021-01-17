@@ -40,7 +40,7 @@ QImage ImagePainter::getImage(Harmonograph* harmonograph) {
     float stepG = ((float)(secondColor.green() - firstColor.green()) / stepCount);
     float stepB = ((float)(secondColor.blue() - firstColor.blue()) / stepCount);
     int i = 1;
-
+	
     for (float t = 1e-02; t < 255; t += 1e-02) {
 
         pen.setColor(QColor(firstColor.red() + stepR * i, firstColor.green() + stepG * i, firstColor.blue() + stepB * i, 255));
