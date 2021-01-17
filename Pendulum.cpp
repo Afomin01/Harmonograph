@@ -1,10 +1,10 @@
 #include "Pendulum.h"
 #include <QRandomGenerator>
 
-std::vector<PendulumDemension*> Pendulum::getDimensionsCopy() {
-	std::vector<PendulumDemension*> dimensionsCopy;
+std::vector<PendulumDimension*> Pendulum::getDimensionsCopy() {
+	std::vector<PendulumDimension*> dimensionsCopy;
 
-	for (PendulumDemension* d : dimensions) {
+	for (PendulumDimension* d : dimensions) {
 		dimensionsCopy.push_back(d->getDemensionCopy());
 	}
 
@@ -14,13 +14,21 @@ std::vector<PendulumDemension*> Pendulum::getDimensionsCopy() {
 float Pendulum::getCoordinateByTime(Dimension dimension, float t) {
 	const int index = static_cast<std::underlying_type<Dimension>::type>(dimension);
 
-	PendulumDemension* currentDimension = dimensions.at(index);
+	PendulumDimension* currentDimension = dimensions.at(index);
 
-	return exp(-currentDimension->dumping * t) * cos(currentDimension->frequency * t + currentDimension->phase);
+	if(index%2==0){
+		return exp(-currentDimension->dumping * t) * cos(currentDimension->frequency * t + currentDimension->phase);
+	}
+	else{
+		return exp(-currentDimension->dumping * t) * sin(currentDimension->frequency * t + currentDimension->phase);
+	}
+
+	
 }
 void Pendulum::update(float frequencyPoint, bool isCircle) {
-	for (PendulumDemension* dimension : dimensions) {
-		dimension->update(frequencyPoint, isCircle);
+	int r = rand();
+	for (PendulumDimension* dimension : dimensions) {
+		dimension->update(frequencyPoint, isCircle, r);
 	}
 }
 void Pendulum::changeDimensionEquationPhase(Dimension dimension, float radians) {
@@ -29,7 +37,7 @@ void Pendulum::changeDimensionEquationPhase(Dimension dimension, float radians) 
 	dimensions.at(dimensionIndex)->phase+=radians;
 }
 void Pendulum::updateFrequencyPoint(float frequencyPoint) {
-	for (PendulumDemension* dimension : dimensions) {
+	for (PendulumDimension* dimension : dimensions) {
 		dimension->updateFrequencyPoint(frequencyPoint);
 	}
 }
@@ -51,6 +59,9 @@ float Pendulum::getEquationParameter(Dimension dimension, EquationParameter para
 		break;
 	case EquationParameter::frequencyNoise:
 		return dimensions.at(index)->frequencyNoise;
+		break;
+	default:
+		return 0;
 		break;
 	}
 }
@@ -80,18 +91,19 @@ Pendulum::Pendulum(Pendulum* pendulum) {
 }
 Pendulum::Pendulum() {
 	for (int i = 0; i < 3; i++) {
-		dimensions.push_back(new PendulumDemension(2, false));
+		dimensions.push_back(new PendulumDimension(2, false, 0));
 	}
 	this->update(2, false);
 }
 
-Pendulum::Pendulum(std::vector<PendulumDemension*> dimensions) {
+Pendulum::Pendulum(std::vector<PendulumDimension*> dimensions) {
 	this->dimensions = dimensions;
 }
 
 Pendulum::Pendulum(int dimensionsCount, float frequencyPoint, bool isCircle) {
+	const int r = rand();
 	for (int i = 0; i < dimensionsCount; i++) {
-		dimensions.push_back(new PendulumDemension(frequencyPoint, isCircle));
+		dimensions.push_back(new PendulumDimension(frequencyPoint, isCircle, r));
 	}
 	this->update(frequencyPoint, isCircle);
 }

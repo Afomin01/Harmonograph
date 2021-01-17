@@ -118,9 +118,9 @@
     <ClCompile Include="FlexWindow.cpp" />
     <ClCompile Include="HarmonographManager.cpp" />
     <ClCompile Include="ImagePainter.cpp" />
-    <ClCompile Include="ImageSaver.cpp" />
+    <ClCompile Include="HarmonographSaver.cpp" />
     <ClCompile Include="Pendulum.cpp" />
-    <ClCompile Include="PendulumDemension.cpp" />
+    <ClCompile Include="PendulumDimension.cpp" />
     <ClCompile Include="SaveImageDialog.cpp" />
     <QtRcc Include="HarmonographApp.qrc" />
     <QtUic Include="FlexDialog.ui" />
@@ -147,7 +147,7 @@
     <QtMoc Include="FlexWindow.h" />
     <QtMoc Include="FlexDialog.h" />
     <ClInclude Include="FlexPainter.h" />
-    <ClInclude Include="PendulumDemension.h" />
+    <ClInclude Include="PendulumDimension.h" />
     <ClInclude Include="Dimension.h" />
     <ClInclude Include="settings.h" />
     <ClInclude Include="PendulumEquationParametersEnum.h" />
@@ -156,7 +156,7 @@
     <ClInclude Include="include\Harmonograph.h" />
     <ClInclude Include="include\HarmonographManager.h" />
     <ClInclude Include="include\ImagePainter.h" />
-    <ClInclude Include="include\ImageSaver.h" />
+    <ClInclude Include="include\HarmonographSaver.h" />
     <ClInclude Include="include\json.hpp" />
     <ClInclude Include="include\Pendulum.h" />
     <ClInclude Include="include\resource.h" />

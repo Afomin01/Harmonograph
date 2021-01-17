@@ -8,13 +8,13 @@
 #include <fstream>
 #include "Pendulum.h"
 #include <QTextStream>
-#include "PendulumDemension.h"
+#include "PendulumDimension.h"
 
 using json = nlohmann::json;
 
-class ImageSaver {
+class HarmonographSaver {
 public:
-	ImageSaver();
+	HarmonographSaver();
 	void saveImage(Harmonograph* harmonograph, QString filename, ImagePainter* imagePainter);
 	void saveParametersToFile(QString filename, Harmonograph* harmonograph);
 	Harmonograph* loadParametersFromFile(QString filename);

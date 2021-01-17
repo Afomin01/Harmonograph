@@ -4,19 +4,19 @@
 #include <cmath>
 #include <time.h>
 #include "Dimension.h"
-#include "PendulumDemension.h"
+#include "PendulumDimension.h"
 #include "PendulumEquationParametersEnum.h"
 
 class Pendulum {
 public:
 	Pendulum(Pendulum* pendulum);
 	Pendulum();
-	Pendulum(std::vector<PendulumDemension*> dimensions);
+	Pendulum(std::vector<PendulumDimension*> dimensions);
 	Pendulum(int dimensionsCount, float frequencyPoint, bool isCircle);
 	~Pendulum() {
 	}
 
-	std::vector<PendulumDemension*> getDimensionsCopy();
+	std::vector<PendulumDimension*> getDimensionsCopy();
 
 	float getCoordinateByTime(Dimension dimension, float t);
 
@@ -30,6 +30,6 @@ public:
 	void setEquationParameter(Dimension dimension, EquationParameter parameter, float value);
 
 private:
-	std::vector<PendulumDemension*> dimensions;
+	std::vector<PendulumDimension*> dimensions;
 };
 

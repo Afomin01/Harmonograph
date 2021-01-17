@@ -2,7 +2,7 @@
 #include <QtWidgets>
 #include "Harmonograph.h"
 #include "ImagePainter.h"
-#include "ImageSaver.h"
+#include "HarmonographSaver.h"
 #include "settings.h"
 #include "PendulumEquationParametersEnum.h"
 #include "Dimension.h"
@@ -62,7 +62,7 @@ public:
 private:
 	Harmonograph* harmonograph;
 	ImagePainter* imagePainter;
-	ImageSaver* imageSaver;
+	HarmonographSaver* imageSaver;
 	std::deque<Harmonograph*> history;
 };
 

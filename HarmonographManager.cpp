@@ -3,7 +3,7 @@
 HarmonographManager::HarmonographManager() {
     harmonograph = new Harmonograph(3);
     imagePainter = new ImagePainter();
-    imageSaver = new ImageSaver();
+    imageSaver = new HarmonographSaver();
 }
 
 QGraphicsPixmapItem* HarmonographManager::getRenderedGraphicsItem() {

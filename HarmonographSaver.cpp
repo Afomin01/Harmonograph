@@ -1,17 +1,17 @@
-#include "ImageSaver.h"
+#include "HarmonographSaver.h"
 #include <QRunnable>
 #include <QThreadPool>
 
 class SaveImageTask : public QRunnable {
 public:
-	SaveImageTask(Harmonograph* harmonograph, ImageSaver* imageSaver, QString filename, ImagePainter* imagePainter) {
+	SaveImageTask(Harmonograph* harmonograph, HarmonographSaver* imageSaver, QString filename, ImagePainter* imagePainter) {
 		this->imageSaver = imageSaver;
 		this->filename = filename;
 		this->harmonograph = harmonograph;
 		this->imagePainter = imagePainter;
 	}
 
-	ImageSaver* imageSaver;
+	HarmonographSaver* imageSaver;
 	QString filename;
 	Harmonograph* harmonograph;
 	ImagePainter* imagePainter;
@@ -29,16 +29,16 @@ public:
 	}
 };
 
-ImageSaver::ImageSaver() {
+HarmonographSaver::HarmonographSaver() {
 	//load settings logic
 }
 
-void ImageSaver::saveImage(Harmonograph* harmonograph, QString filename, ImagePainter* imagePainter) {
+void HarmonographSaver::saveImage(Harmonograph* harmonograph, QString filename, ImagePainter* imagePainter) {
 	SaveImageTask* task = new SaveImageTask(harmonograph, this, filename, imagePainter);
 	QThreadPool::globalInstance()->start(task);
 }
 
-void ImageSaver::saveParametersToFile(QString filename, Harmonograph* harmonograph) {
+void HarmonographSaver::saveParametersToFile(QString filename, Harmonograph* harmonograph) {
 	json j;
 	j["numOfPendulums"] = harmonograph->getNumOfPendulums();
 	j["frequencyRatio"] = std::to_string(harmonograph->firstRatioValue) + ":" + std::to_string(harmonograph->secondRatioValue);
@@ -49,10 +49,10 @@ void ImageSaver::saveParametersToFile(QString filename, Harmonograph* harmonogra
 	std::vector<Pendulum*> pendulums = harmonograph->getPundlumsCopy();
 
 	for (int i = 0; i < pendulums.size(); i++) {
-		std::vector<PendulumDemension*> demensions = pendulums.at(i)->getDimensionsCopy();
+		std::vector<PendulumDimension*> demensions = pendulums.at(i)->getDimensionsCopy();
 		
 		for (int k = 0; k < demensions.size(); k++) {
-			PendulumDemension* d = demensions.at(k);
+			PendulumDimension* d = demensions.at(k);
 
 			j["pendulums"][i][k]["amplitude"] = d->amplitude;
 			j["pendulums"][i][k]["dumping"] = d->dumping;
@@ -73,7 +73,7 @@ void ImageSaver::saveParametersToFile(QString filename, Harmonograph* harmonogra
 }
 
 
-Harmonograph* ImageSaver::loadParametersFromFile(QString filename) {
+Harmonograph* HarmonographSaver::loadParametersFromFile(QString filename) {
 	if (!filename.isEmpty()) {
 		try {
 
@@ -92,23 +92,25 @@ Harmonograph* ImageSaver::loadParametersFromFile(QString filename) {
 			bool isCircle = j["isCircle"];
 
 			std::vector<Pendulum*> pendulums;
+			json pendulumArray = j["pendulums"];
 
 			for (int i = 0; i < numOfPendulums; i++) {
-				json pendulumArray = j["pendulums"];
+				auto dimensionsArray = pendulumArray[i];
 
-				std::vector<PendulumDemension*> demensions;
+				std::vector<PendulumDimension*> dimensions;
 
-				for (auto p : pendulumArray) {
-					PendulumDemension* demension = new PendulumDemension(
-						p["amplitude"],
-						p["frequency"],
-						p["phase"],
-						p["dumping"],
-						p["frequencyNoise"]);
-					demensions.push_back(demension);
+				for (auto d : dimensionsArray) {
+					PendulumDimension* dim = new PendulumDimension(
+						d["amplitude"],
+						d["frequency"],
+						d["phase"],
+						d["dumping"],
+						d["frequencyNoise"]);
+					dimensions.push_back(dim);
 				}
 
-				Pendulum* pendulum = new Pendulum(demensions);
+				Pendulum* pendulum = new Pendulum(dimensions);
+				pendulums.push_back(pendulum);
 			}
 
 
