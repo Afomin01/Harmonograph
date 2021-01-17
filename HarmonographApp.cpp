@@ -9,17 +9,14 @@ HarmonographApp::HarmonographApp(QWidget *parent) : QMainWindow(parent)
 
     manager = new HarmonographManager();
     scene = new QGraphicsScene(this);
-    customView = new CustomGraphicsView(this);
-
-    auto gridLayout = dynamic_cast<QGridLayout*>(ui.centralWidget->layout());
+	
+    customView = dynamic_cast<CustomGraphicsView*>(ui.graphicsView);
 
     customView->setMinimumHeight(720);
     customView->setMinimumWidth(1280);
 
     customView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     customView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-
-    gridLayout->addWidget(customView, 1, 1);
 
     autoRotationTimer = new QTimer(this);
 
