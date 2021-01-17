@@ -60,7 +60,8 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <Link>
-      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>freeglut.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <ClCompile>
       <FloatingPointModel>Fast</FloatingPointModel>
@@ -119,6 +120,7 @@
     <ClCompile Include="HarmonographManager.cpp" />
     <ClCompile Include="ImagePainter.cpp" />
     <ClCompile Include="HarmonographSaver.cpp" />
+    <ClCompile Include="OpenGLCustomWidget.cpp" />
     <ClCompile Include="Pendulum.cpp" />
     <ClCompile Include="PendulumDimension.cpp" />
     <ClCompile Include="SaveImageDialog.cpp" />
@@ -147,6 +149,7 @@
     <QtMoc Include="FlexWindow.h" />
     <QtMoc Include="FlexDialog.h" />
     <ClInclude Include="FlexPainter.h" />
+    <ClInclude Include="OpenGLCustomWidget.h" />
     <ClInclude Include="PendulumDimension.h" />
     <ClInclude Include="Dimension.h" />
     <ClInclude Include="settings.h" />
