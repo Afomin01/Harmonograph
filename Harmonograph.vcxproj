@@ -120,6 +120,7 @@
     <ClCompile Include="ImagePainter.cpp" />
     <ClCompile Include="ImageSaver.cpp" />
     <ClCompile Include="Pendulum.cpp" />
+    <ClCompile Include="PendulumDemension.cpp" />
     <ClCompile Include="SaveImageDialog.cpp" />
     <QtRcc Include="HarmonographApp.qrc" />
     <QtUic Include="FlexDialog.ui" />
@@ -146,8 +147,10 @@
     <QtMoc Include="FlexWindow.h" />
     <QtMoc Include="FlexDialog.h" />
     <ClInclude Include="FlexPainter.h" />
+    <ClInclude Include="PendulumDemension.h" />
+    <ClInclude Include="Dimension.h" />
     <ClInclude Include="settings.h" />
-    <ClInclude Include="HarmonographParametersEnum.h" />
+    <ClInclude Include="PendulumEquationParametersEnum.h" />
     <ClInclude Include="resource.h" />
     <QtMoc Include="CustomGraphicsView.h" />
     <ClInclude Include="include\Harmonograph.h" />

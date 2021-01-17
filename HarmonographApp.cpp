@@ -138,13 +138,21 @@ void HarmonographApp::redrawImage() {
     ui.firstYPhase->blockSignals(true);
 
 
-    ui.firstXDamping->setValue((pendlums.at(0)->xDumping * manager->sliderMaxValue) / manager->maxDampingValue);
-    ui.firstXFreq->setValue((pendlums.at(0)->xFrequencyNoise * manager->sliderMaxValue) / (2 * manager->maxFreqModuleValue) + (manager->sliderMaxValue / 2));
-    ui.firstXPhase->setValue(((pendlums.at(0)->xPhase - (floor(pendlums.at(0)->xPhase / (2.0 * pi)) * 2.0 * pi)) / (2.0 * pi)) * (manager->sliderMaxValue + manager->sliderMaxValue / 10));
+    ui.firstXDamping->setValue((pendlums.at(0)->getDimensionsCopy().at(0)->dumping * manager->sliderMaxValue) / manager->maxDampingValue);
+    ui.firstXFreq->setValue((pendlums.at(0)->getDimensionsCopy().at(0)->frequencyNoise * manager->sliderMaxValue) / (2 * manager->maxFreqModuleValue) + (manager->sliderMaxValue / 2));
+	
+    ui.firstXPhase->setValue(((pendlums.at(0)->getDimensionsCopy().at(0)->phase -
+        (floor(pendlums.at(0)->getDimensionsCopy().at(0)->phase / (2.0 * pi)) * 2.0 * pi)) / (2.0 * pi))
+        * (manager->sliderMaxValue + manager->sliderMaxValue / 10));
 
-    ui.firstYDamping->setValue((pendlums.at(0)->yDumping * manager->sliderMaxValue) / manager->maxDampingValue);
-    ui.firstYFreq->setValue((pendlums.at(0)->yFrequencyNoise * manager->sliderMaxValue) / (2 * manager->maxFreqModuleValue) + (manager->sliderMaxValue / 2));
-    ui.firstYPhase->setValue(((pendlums.at(0)->yPhase - (floor(pendlums.at(0)->yPhase / (2.0 * pi)) * 2.0 * pi)) / (2.0 * pi)) * (manager->sliderMaxValue + manager->sliderMaxValue / 10));
+	
+    ui.firstYDamping->setValue((pendlums.at(0)->getDimensionsCopy().at(1)->dumping * manager->sliderMaxValue) / manager->maxDampingValue);
+    ui.firstYFreq->setValue((pendlums.at(0)->getDimensionsCopy().at(1)->frequencyNoise * manager->sliderMaxValue)
+        / (2 * manager->maxFreqModuleValue) + (manager->sliderMaxValue / 2));
+	
+    ui.firstYPhase->setValue(((pendlums.at(0)->getDimensionsCopy().at(1)->phase -
+        (floor(pendlums.at(0)->getDimensionsCopy().at(0)->phase / (2.0 * pi)) * 2.0 * pi)) / (2.0 * pi))
+        * (manager->sliderMaxValue + manager->sliderMaxValue / 10));
 
 
     ui.firstXDamping->blockSignals(false);
@@ -165,13 +173,13 @@ void HarmonographApp::redrawImage() {
         ui.secondYPhase->blockSignals(true);
 
 
-        ui.secondXDamping->setValue((pendlums.at(1)->xDumping * manager->sliderMaxValue) / manager->maxDampingValue);
-        ui.secondXFrequency->setValue((pendlums.at(1)->xFrequencyNoise * manager->sliderMaxValue) / (2 * manager->maxFreqModuleValue) + (manager->sliderMaxValue / 2));
-        ui.secondXPhase->setValue(((pendlums.at(1)->xPhase - (floor(pendlums.at(1)->xPhase / (2.0 * pi)) * 2.0 * pi)) / (2.0 * pi)) * (manager->sliderMaxValue + manager->sliderMaxValue / 10));
+        ui.secondXDamping->setValue((pendlums.at(1)->getEquationParameter(Dimension::x, EquationParameter::dumping) * manager->sliderMaxValue) / manager->maxDampingValue);
+        ui.secondXFrequency->setValue((pendlums.at(1)->getEquationParameter(Dimension::x, EquationParameter::frequencyNoise) * manager->sliderMaxValue) / (2 * manager->maxFreqModuleValue) + (manager->sliderMaxValue / 2));
+        ui.secondXPhase->setValue(((pendlums.at(1)->getEquationParameter(Dimension::x, EquationParameter::phase) - (floor(pendlums.at(1)->getEquationParameter(Dimension::x, EquationParameter::phase) / (2.0 * pi)) * 2.0 * pi)) / (2.0 * pi)) * (manager->sliderMaxValue + manager->sliderMaxValue / 10));
 
-        ui.secondYDamping->setValue((pendlums.at(1)->yDumping * manager->sliderMaxValue) / manager->maxDampingValue);
-        ui.secondyFrequency->setValue((pendlums.at(1)->yFrequencyNoise * manager->sliderMaxValue) / (2 * manager->maxFreqModuleValue) + (manager->sliderMaxValue / 2));
-        ui.secondYPhase->setValue(((pendlums.at(1)->yPhase - (floor(pendlums.at(1)->yPhase / (2.0 * pi)) * 2.0 * pi)) / (2.0 * pi)) * (manager->sliderMaxValue + manager->sliderMaxValue / 10));
+        ui.secondYDamping->setValue((pendlums.at(1)->getEquationParameter(Dimension::y, EquationParameter::dumping) * manager->sliderMaxValue) / manager->maxDampingValue);
+        ui.secondyFrequency->setValue((pendlums.at(1)->getEquationParameter(Dimension::y, EquationParameter::frequencyNoise) * manager->sliderMaxValue) / (2 * manager->maxFreqModuleValue) + (manager->sliderMaxValue / 2));
+        ui.secondYPhase->setValue(((pendlums.at(1)->getEquationParameter(Dimension::y, EquationParameter::phase) - (floor(pendlums.at(1)->getEquationParameter(Dimension::x, EquationParameter::phase) / (2.0 * pi)) * 2.0 * pi)) / (2.0 * pi)) * (manager->sliderMaxValue + manager->sliderMaxValue / 10));
 
 
         ui.secondXDamping->blockSignals(false);
@@ -192,13 +200,13 @@ void HarmonographApp::redrawImage() {
         ui.thirdYPhase->blockSignals(true);
 
 
-        ui.thridXDamping->setValue((pendlums.at(2)->xDumping * manager->sliderMaxValue) / manager->maxDampingValue);
-        ui.thirdXFrequency->setValue((pendlums.at(2)->xFrequencyNoise * manager->sliderMaxValue) / (2 * manager->maxFreqModuleValue) + (manager->sliderMaxValue / 2));
-        ui.thirdXPhase->setValue(((pendlums.at(2)->xPhase - (floor(pendlums.at(2)->xPhase / (2.0 * pi)) * 2.0 * pi)) / (2.0 * pi)) * (manager->sliderMaxValue + manager->sliderMaxValue / 10));
+        ui.thridXDamping->setValue((pendlums.at(2)->getEquationParameter(Dimension::x, EquationParameter::dumping) * manager->sliderMaxValue) / manager->maxDampingValue);
+        ui.thirdXFrequency->setValue((pendlums.at(2)->getEquationParameter(Dimension::x, EquationParameter::frequencyNoise) * manager->sliderMaxValue) / (2 * manager->maxFreqModuleValue) + (manager->sliderMaxValue / 2));
+        ui.thirdXPhase->setValue(((pendlums.at(2)->getEquationParameter(Dimension::x, EquationParameter::phase) - (floor(pendlums.at(2)->getEquationParameter(Dimension::x, EquationParameter::phase) / (2.0 * pi)) * 2.0 * pi)) / (2.0 * pi)) * (manager->sliderMaxValue + manager->sliderMaxValue / 10));
 
-        ui.thirdYDamping->setValue((pendlums.at(2)->yDumping * manager->sliderMaxValue) / manager->maxDampingValue);
-        ui.thirdYFrequency->setValue((pendlums.at(2)->yFrequencyNoise * manager->sliderMaxValue) / (2 * manager->maxFreqModuleValue) + (manager->sliderMaxValue / 2));
-        ui.thirdYPhase->setValue(((pendlums.at(2)->yPhase - (floor(pendlums.at(2)->yPhase / (2.0 * pi)) * 2.0 * pi)) / (2.0 * pi)) * (manager->sliderMaxValue + manager->sliderMaxValue / 10));
+        ui.thirdYDamping->setValue((pendlums.at(2)->getEquationParameter(Dimension::y, EquationParameter::dumping) * manager->sliderMaxValue) / manager->maxDampingValue);
+        ui.thirdYFrequency->setValue((pendlums.at(2)->getEquationParameter(Dimension::y, EquationParameter::frequencyNoise) * manager->sliderMaxValue) / (2 * manager->maxFreqModuleValue) + (manager->sliderMaxValue / 2));
+        ui.thirdYPhase->setValue(((pendlums.at(2)->getEquationParameter(Dimension::y, EquationParameter::phase) - (floor(pendlums.at(2)->getEquationParameter(Dimension::y, EquationParameter::phase) / (2.0 * pi)) * 2.0 * pi)) / (2.0 * pi)) * (manager->sliderMaxValue + manager->sliderMaxValue / 10));
 
 
         ui.thridXDamping->blockSignals(false);
@@ -211,8 +219,8 @@ void HarmonographApp::redrawImage() {
     }
 }
 
-void HarmonographApp::changeParameter(int pendulumNum, HarmonographParameters parameter, int value) {
-    manager->changeParameter(pendulumNum, parameter, value);
+void HarmonographApp::changeParameter(int pendulumNum, EquationParameter parameter, Dimension dimension, int value) {
+    manager->changeParameter(pendulumNum, parameter, dimension, value);
     redrawImage();
 }
 
@@ -399,75 +407,75 @@ void HarmonographApp::numOfPendulumsChanged(int newNum) {
 }
 
 void HarmonographApp::firstXDampingChanged(int value) {
-    changeParameter(0, HarmonographParameters::xDamping, value);
+    changeParameter(0, EquationParameter::dumping, Dimension::x, value);
 }
 
 void HarmonographApp::firstXPhaseChanged(int value) {
-    changeParameter(0, HarmonographParameters::xPhase, value);
+    changeParameter(0, EquationParameter::phase, Dimension::x, value);
 }
 
 void HarmonographApp::firstXFrequencyChanged(int value) {
-    changeParameter(0, HarmonographParameters::xFrequency, value);
+    changeParameter(0, EquationParameter::frequency, Dimension::x, value);
 }
 
 void HarmonographApp::firstYDampingChanged(int value) {
-    changeParameter(0, HarmonographParameters::yDamping, value);
+    changeParameter(0, EquationParameter::dumping, Dimension::y, value);
 }
 
 void HarmonographApp::firstYPhaseChanged(int value) {
-    changeParameter(0, HarmonographParameters::yPhase, value);
+    changeParameter(0, EquationParameter::phase, Dimension::y, value);
 }
 
 void HarmonographApp::firstYFrequencyChanged(int value) {
-    changeParameter(0, HarmonographParameters::yFrequency, value);
+    changeParameter(0, EquationParameter::frequency, Dimension::y, value);
 }
 
 void HarmonographApp::secondXDampingChanged(int value) {
-    if(numOfPendulumsSpinBox->value()>=2) changeParameter(1, HarmonographParameters::xDamping, value);
+    if(numOfPendulumsSpinBox->value()>=2) changeParameter(1, EquationParameter::dumping, Dimension::x, value);
 }
 
 void HarmonographApp::secondXPhaseChanged(int value) {
-    if (numOfPendulumsSpinBox->value() >= 2) changeParameter(1, HarmonographParameters::xPhase, value);
+    if (numOfPendulumsSpinBox->value() >= 2) changeParameter(1, EquationParameter::phase, Dimension::x, value);
 }
 
 void HarmonographApp::secondXFrequencyChanged(int value) {
-    if (numOfPendulumsSpinBox->value() >= 2) changeParameter(1, HarmonographParameters::xFrequency, value);
+    if (numOfPendulumsSpinBox->value() >= 2) changeParameter(1, EquationParameter::frequency, Dimension::x, value);
 }
 
 void HarmonographApp::secondYDampingChanged(int value) {
-    if (numOfPendulumsSpinBox->value() >= 2) changeParameter(1, HarmonographParameters::yDamping, value);
+    if (numOfPendulumsSpinBox->value() >= 2) changeParameter(1, EquationParameter::dumping, Dimension::y, value);
 }
 
 void HarmonographApp::secondYPhaseChanged(int value) {
-    if (numOfPendulumsSpinBox->value() >= 2) changeParameter(1, HarmonographParameters::yPhase, value);
+    if (numOfPendulumsSpinBox->value() >= 2) changeParameter(1, EquationParameter::phase, Dimension::y, value);
 }
 
 void HarmonographApp::secondYFrequencyChanged(int value) {
-    if (numOfPendulumsSpinBox->value() >= 2) changeParameter(1, HarmonographParameters::yFrequency, value);
+    if (numOfPendulumsSpinBox->value() >= 2) changeParameter(1, EquationParameter::frequency, Dimension::y, value);
 }
 
 void HarmonographApp::thirdXDampingChanged(int value) {
-    if (numOfPendulumsSpinBox->value() >= 3) changeParameter(2, HarmonographParameters::xDamping, value);
+    if (numOfPendulumsSpinBox->value() >= 3) changeParameter(2, EquationParameter::dumping, Dimension::x, value);
 }
 
 void HarmonographApp::thirdXPhaseChanged(int value) {
-    if (numOfPendulumsSpinBox->value() >= 3) changeParameter(2, HarmonographParameters::xPhase, value);
+    if (numOfPendulumsSpinBox->value() >= 3) changeParameter(2, EquationParameter::phase, Dimension::x, value);
 }
 
 void HarmonographApp::thirdXFrequencyChanged(int value) {
-    if (numOfPendulumsSpinBox->value() >= 3) changeParameter(2, HarmonographParameters::xFrequency, value);
+    if (numOfPendulumsSpinBox->value() >= 3) changeParameter(2, EquationParameter::frequency, Dimension::x, value);
 }
 
 void HarmonographApp::thirdYDampingChanged(int value) {
-    if (numOfPendulumsSpinBox->value() >= 3) changeParameter(2, HarmonographParameters::yDamping, value);
+    if (numOfPendulumsSpinBox->value() >= 3) changeParameter(2, EquationParameter::dumping, Dimension::y, value);
 }
 
 void HarmonographApp::thirdYPhaseChanged(int value) {
-    if (numOfPendulumsSpinBox->value() >= 3) changeParameter(2, HarmonographParameters::yPhase, value);
+    if (numOfPendulumsSpinBox->value() >= 3) changeParameter(2, EquationParameter::phase, Dimension::y, value);
 }
 
 void HarmonographApp::thirdYFrequencyChanged(int value) {
-    if (numOfPendulumsSpinBox->value() >= 3) changeParameter(2, HarmonographParameters::yFrequency, value);
+    if (numOfPendulumsSpinBox->value() >= 3) changeParameter(2, EquationParameter::frequency, Dimension::y, value);
 }
 
 void HarmonographApp::viewZoomChanged(int value) {

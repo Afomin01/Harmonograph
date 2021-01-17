@@ -2,40 +2,34 @@
 
 #include <cstdlib>
 #include <cmath>
-#include <time.h> 
+#include <time.h>
+#include "Dimension.h"
+#include "PendulumDemension.h"
+#include "PendulumEquationParametersEnum.h"
 
-class Pendulum
-{
+class Pendulum {
 public:
-	float const pi = atan(1) * 4;
-
-	float xDumping = 0.1;
-	float xPhase = 0;
-	float xFreq = 0.1;
-	float xAmplitude = 1;
-
-	float yDumping = 0.1;
-	float yPhase = 0;
-	float yFreq = 0.1;
-	float yAmplitude = 1;
-
-	float xFrequencyNoise = 0.1;
-	float yFrequencyNoise = 0.1;
-
 	Pendulum(Pendulum* pendulum);
-	Pendulum(float xDamp, float xPhase, float xFreq, float xFreqNoise, float xAmpl, float yDamp, float yPhase, float yFreq, float yFreqNoise, float yAmpl);
 	Pendulum();
-	Pendulum(float frequencyPoint, bool isCircle);
+	Pendulum(std::vector<PendulumDemension*> dimensions);
+	Pendulum(int dimensionsCount, float frequencyPoint, bool isCircle);
 	~Pendulum() {
 	}
 
-	float getX(float t);
-	float getY(float t);
+	std::vector<PendulumDemension*> getDimensionsCopy();
+
+	float getCoordinateByTime(Dimension dimension, float t);
+
 	void update(float frequencyPoint, bool isCircle);
-	void changeXPhase(float radians);
-	void changeYPhase(float radians);
+
+	void changeDimensionEquationPhase(Dimension dimension, float radians);
+
 	void updateFrequencyPoint(float frequencyPoint);
 
+	float getEquationParameter(Dimension dimension, EquationParameter parameter);
+	void setEquationParameter(Dimension dimension, EquationParameter parameter, float value);
+
 private:
+	std::vector<PendulumDemension*> dimensions;
 };
 

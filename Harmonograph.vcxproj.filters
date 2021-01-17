@@ -68,6 +68,9 @@
     <ClCompile Include="SaveImageDialog.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="PendulumDemension.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Harmonograph.rc">
@@ -119,13 +122,19 @@
     <ClInclude Include="resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="HarmonographParametersEnum.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="FlexPainter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="settings.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PendulumDemension.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PendulumEquationParametersEnum.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Dimension.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

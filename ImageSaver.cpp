@@ -46,20 +46,20 @@ void ImageSaver::saveParametersToFile(QString filename, Harmonograph* harmonogra
 	j["isStar"] = harmonograph->isStar;
 	j["isCircle"] = harmonograph->isCircle;
 
-	std::vector<Pendulum*> pendlms = harmonograph->getPundlumsCopy();
+	std::vector<Pendulum*> pendulums = harmonograph->getPundlumsCopy();
 
-	for (int i = 0; i < pendlms.size(); i++) {
-		j["pendulums"][i]["xDamp"] = pendlms.at(i)->xDumping;
-		j["pendulums"][i]["xPhase"] = pendlms.at(i)->xPhase;
-		j["pendulums"][i]["xFreq"] = pendlms.at(i)->xFreq;
-		j["pendulums"][i]["xFreqNoise"] = pendlms.at(i)->xFrequencyNoise;
-		j["pendulums"][i]["xAmpl"] = pendlms.at(i)->xAmplitude;
-		j["pendulums"][i]["yDamp"] = pendlms.at(i)->yDumping;
-		j["pendulums"][i]["yPhase"] = pendlms.at(i)->yPhase;
-		j["pendulums"][i]["yFreq"] = pendlms.at(i)->yFreq;
-		j["pendulums"][i]["yFreqNoise"] = pendlms.at(i)->yFrequencyNoise;
-		j["pendulums"][i]["yAmpl"] = pendlms.at(i)->yAmplitude;
+	for (int i = 0; i < pendulums.size(); i++) {
+		std::vector<PendulumDemension*> demensions = pendulums.at(i)->getDimensionsCopy();
+		
+		for (int k = 0; k < demensions.size(); k++) {
+			PendulumDemension* d = demensions.at(k);
 
+			j["pendulums"][i][k]["amplitude"] = d->amplitude;
+			j["pendulums"][i][k]["dumping"] = d->dumping;
+			j["pendulums"][i][k]["frequency"] = d->frequency;
+			j["pendulums"][i][k]["frequencyNoise"] = d->frequencyNoise;
+			j["pendulums"][i][k]["phase"] = d->phase;
+		}
 	}
 
 	QFile file(filename);
@@ -94,19 +94,40 @@ Harmonograph* ImageSaver::loadParametersFromFile(QString filename) {
 			std::vector<Pendulum*> pendulums;
 
 			for (int i = 0; i < numOfPendulums; i++) {
-				Pendulum* pendulum = new Pendulum(j["pendulums"][i]["xDamp"],
-					j["pendulums"][i]["xPhase"], 
-					j["pendulums"][i]["xFreq"], 
-					j["pendulums"][i]["xFreqNoise"],
-					j["pendulums"][i]["xAmpl"],
-					j["pendulums"][i]["yDamp"], 
-					j["pendulums"][i]["yPhase"],
-					j["pendulums"][i]["yFreq"],
-					j["pendulums"][i]["yFreqNoise"],
-					j["pendulums"][i]["yAmpl"]);		
+				json pendulumArray = j["pendulums"];
 
-				pendulums.push_back(pendulum);
+				std::vector<PendulumDemension*> demensions;
+
+				for (auto p : pendulumArray) {
+					PendulumDemension* demension = new PendulumDemension(
+						p["amplitude"],
+						p["frequency"],
+						p["phase"],
+						p["dumping"],
+						p["frequencyNoise"]);
+					demensions.push_back(demension);
+				}
+
+				Pendulum* pendulum = new Pendulum(demensions);
 			}
+
+
+			//last version before refactoring. needed to upgrade previous save files
+
+			//for (int i = 0; i < numOfPendulums; i++) {
+			//	Pendulum* Pendulum = new Pendulum(j["pendulums"][i]["xDamp"],
+			//		j["pendulums"][i]["xPhase"], 
+			//		j["pendulums"][i]["xFreq"], 
+			//		j["pendulums"][i]["xFreqNoise"],
+			//		j["pendulums"][i]["xAmpl"],
+			//		j["pendulums"][i]["yDamp"], 
+			//		j["pendulums"][i]["yPhase"],
+			//		j["pendulums"][i]["yFreq"],
+			//		j["pendulums"][i]["yFreqNoise"],
+			//		j["pendulums"][i]["yAmpl"]);		
+
+			//	pendulums.push_back(Pendulum);
+			//}
 
 			qFile.close();
 

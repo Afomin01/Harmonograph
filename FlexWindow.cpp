@@ -50,8 +50,8 @@ FlexWindow::FlexWindow(FlexSettings* settings, QWidget* parent) : QMainWindow(pa
 	}
 	else {
 		for (Pendulum p : flexGraph->getPendulums()) {
-			xFlexStartValues.push_back(asin(10 * p.xFrequencyNoise));
-			yFlexStartValues.push_back(acos(10 * p.yFrequencyNoise));
+			xFlexStartValues.push_back(asin(10 * p.getEquationParameter(Dimension::x, EquationParameter::frequencyNoise)));
+			yFlexStartValues.push_back(acos(10 * p.getEquationParameter(Dimension::y, EquationParameter::frequencyNoise)));
 
 			ySpeedValues.push_back(boundedRandDouble(0.0005, 0.001));
 			xSpeedValues.push_back(boundedRandDouble(0.0005, 0.001));
@@ -83,14 +83,14 @@ void FlexWindow::maximize() {
 	}
 	else {
 		this->showFullScreen();
-		maxZoom = (int)(200 / (1280.0 / ui.graphicsView->width()));
+		maxZoom = static_cast<int>(200 / (1280.0 / ui.graphicsView->width()));
 		width = ui.graphicsView->width();
 		height = ui.graphicsView->height();
 	}
 }
 
 void FlexWindow::changeZoom(int value) {
-	float temp = zoom + value;
+	const float temp = zoom + value;
 	if (temp > minZoom && temp < maxZoom) {
 		zoom += value;
 	}
@@ -103,18 +103,22 @@ void FlexWindow::frequencyFlex() {
 
 	for (int i = 0; i < flexGraph->getNumOfPendulums();i++) {
 		xFlexStartValues.at(i) += xSpeedValues.at(i);
-		flexGraph->getPendulums().at(i)->xFreq = 
-			(flexGraph->isStar ? 
-			(i == 0 ? firstFreq : secondFreq)
-			: flexGraph->frequencyPoint)
-			+ sin(xFlexStartValues.at(i)) / 10.0;
-
-		yFlexStartValues.at(i) += ySpeedValues.at(i);
-		flexGraph->getPendulums().at(i)->yFreq =
+		flexGraph->getPendulums().at(i)->setEquationParameter(
+			Dimension::x,
+			EquationParameter::frequency,
 			(flexGraph->isStar ?
 			(i == 0 ? firstFreq : secondFreq)
 			: flexGraph->frequencyPoint)
-			+ cos(yFlexStartValues.at(i)) / 10.0;
+			+ sin(xFlexStartValues.at(i)) / 10.0);
+
+		yFlexStartValues.at(i) += ySpeedValues.at(i);
+		flexGraph->getPendulums().at(i)->setEquationParameter(
+			Dimension::y,
+			EquationParameter::frequency,
+			(flexGraph->isStar ?
+			(i == 0 ? firstFreq : secondFreq)
+			: flexGraph->frequencyPoint)
+			+ cos(yFlexStartValues.at(i)) / 10.0);
 	}
 }
 
@@ -123,9 +127,9 @@ void FlexWindow::phaseFlex() {
 	scene->addItem(new QGraphicsPixmapItem(QPixmap::fromImage(flexPainter->getImage(width, height, zoom))));
 
 	for (int i = 0; i < flexGraph->getNumOfPendulums(); i++) {
-		flexGraph->getPendulums().at(i)->changeXPhase(xSpeedValues.at(i));
+		flexGraph->getPendulums().at(i)->changeDimensionEquationPhase(Dimension::x, xSpeedValues.at(i));
 
-		flexGraph->getPendulums().at(i)->changeYPhase(ySpeedValues.at(i));
+		flexGraph->getPendulums().at(i)->changeDimensionEquationPhase(Dimension::y, ySpeedValues.at(i));
 	}
 }
 

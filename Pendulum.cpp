@@ -1,82 +1,97 @@
 #include "Pendulum.h"
 #include <QRandomGenerator>
 
-float Pendulum::getX(float t) {
-	return exp(-xDumping * t) * cos(xFreq * t + xPhase);
+std::vector<PendulumDemension*> Pendulum::getDimensionsCopy() {
+	std::vector<PendulumDemension*> dimensionsCopy;
+
+	for (PendulumDemension* d : dimensions) {
+		dimensionsCopy.push_back(d->getDemensionCopy());
+	}
+
+	return dimensionsCopy;
 }
-float Pendulum::getY(float t) {
-	return exp(-yDumping * t) * sin(yFreq * t + yPhase);
+
+float Pendulum::getCoordinateByTime(Dimension dimension, float t) {
+	const int index = static_cast<std::underlying_type<Dimension>::type>(dimension);
+
+	PendulumDemension* currentDimension = dimensions.at(index);
+
+	return exp(-currentDimension->dumping * t) * cos(currentDimension->frequency * t + currentDimension->phase);
 }
 void Pendulum::update(float frequencyPoint, bool isCircle) {
-
-	if (!isCircle) {
-		xDumping = QRandomGenerator::global()->bounded(1e-02);
-		xPhase = QRandomGenerator::global()->bounded(pi);
-		xFrequencyNoise = QRandomGenerator::global()->bounded(1e-02 - 1e-01);
-		xFreq = frequencyPoint + xFrequencyNoise;
-		xAmplitude = 1;
-
-		yDumping = QRandomGenerator::global()->bounded(1e-02);
-		yPhase = QRandomGenerator::global()->bounded(pi);
-		yFrequencyNoise = QRandomGenerator::global()->bounded(1e-02 - 1e-01);
-		yFreq = frequencyPoint + yFrequencyNoise;
-		yAmplitude = 1;
-	}
-	else {
-		int r = rand();
-		xDumping = static_cast <float> (r) / (static_cast <float> (RAND_MAX / (1e-02)));
-		xPhase = static_cast <float> (r) / (static_cast <float> (RAND_MAX / (pi)));
-		xFrequencyNoise = static_cast <float> (r) / (static_cast <float> (RAND_MAX / (1e-02 - 1e-01)));
-		xFreq = frequencyPoint + xFrequencyNoise;
-		xAmplitude = 1;
-
-		yDumping = static_cast <float> (r) / (static_cast <float> (RAND_MAX / (1e-02)));
-		yPhase = static_cast <float> (r) / (static_cast <float> (RAND_MAX / (pi)));
-		yFrequencyNoise = static_cast <float> (r) / (static_cast <float> (RAND_MAX / (1e-02 - 1e-01)));
-		yFreq = frequencyPoint + yFrequencyNoise;
-		yAmplitude = 1;
+	for (PendulumDemension* dimension : dimensions) {
+		dimension->update(frequencyPoint, isCircle);
 	}
 }
-void Pendulum::changeXPhase(float radians)
-{
-	xPhase += radians;
-}
-void Pendulum::changeYPhase(float radians)
-{
-	yPhase += radians;
+void Pendulum::changeDimensionEquationPhase(Dimension dimension, float radians) {
+	const int dimensionIndex = static_cast<std::underlying_type<Dimension>::type>(dimension);
+
+	dimensions.at(dimensionIndex)->phase+=radians;
 }
 void Pendulum::updateFrequencyPoint(float frequencyPoint) {
-	xFreq = xFrequencyNoise + frequencyPoint;
-	yFreq = yFrequencyNoise + frequencyPoint;
+	for (PendulumDemension* dimension : dimensions) {
+		dimension->updateFrequencyPoint(frequencyPoint);
+	}
+}
+float Pendulum::getEquationParameter(Dimension dimension, EquationParameter parameter) {
+	const int index = static_cast<std::underlying_type<Dimension>::type>(dimension);
+
+	switch (parameter){
+	case EquationParameter::amplitude:
+		return dimensions.at(index)->amplitude;
+		break;
+	case EquationParameter::dumping:
+		return dimensions.at(index)->dumping;
+		break;
+	case EquationParameter::frequency:
+		return dimensions.at(index)->frequency;
+		break;
+	case EquationParameter::phase:
+		return dimensions.at(index)->phase;
+		break;
+	case EquationParameter::frequencyNoise:
+		return dimensions.at(index)->frequencyNoise;
+		break;
+	}
+}
+void Pendulum::setEquationParameter(Dimension dimension, EquationParameter parameter, float value) {
+	const int index = static_cast<std::underlying_type<Dimension>::type>(dimension);
+
+	switch (parameter) {
+	case EquationParameter::amplitude:
+		dimensions.at(index)->amplitude = value;
+		break;
+	case EquationParameter::dumping:
+		dimensions.at(index)->dumping = value;
+		break;
+	case EquationParameter::frequency:
+		dimensions.at(index)->frequency = value;
+		break;
+	case EquationParameter::phase:
+		dimensions.at(index)->phase = value;
+		break;
+	case EquationParameter::frequencyNoise:
+		dimensions.at(index)->frequencyNoise = value;
+		break;
+	}
 }
 Pendulum::Pendulum(Pendulum* pendulum) {
-	xDumping = pendulum->xDumping;
-	xPhase = pendulum->xPhase;
-	xFreq = pendulum->xFreq;
-	xFrequencyNoise = pendulum->xFrequencyNoise;
-	xAmplitude = pendulum->xAmplitude;
-
-	yDumping = pendulum->yDumping;
-	yPhase = pendulum->yPhase;
-	yFreq = pendulum->yFreq;
-	yFrequencyNoise = pendulum->yFrequencyNoise;
-	yAmplitude = pendulum->yAmplitude;
-}
-Pendulum::Pendulum(float xDamp, float xPhase, float xFreq, float xFreqNoise, float xAmpl, float yDamp, float yPhase, float yFreq, float yFreqNoise, float yAmpl) {
-	this->xDumping = xDamp;
-	this->xPhase = xPhase;
-	this->xFreq = xFreq;
-	this->xAmplitude = xAmpl;
-
-	this->yDumping = yDamp;
-	this->yPhase = yPhase;
-	this->yFreq = yFreq;
-	this->yAmplitude = yAmpl;
+	dimensions = pendulum->getDimensionsCopy();
 }
 Pendulum::Pendulum() {
+	for (int i = 0; i < 3; i++) {
+		dimensions.push_back(new PendulumDemension(2, false));
+	}
 	this->update(2, false);
 }
 
-Pendulum::Pendulum(float frequencyPoint, bool isCircle) {
+Pendulum::Pendulum(std::vector<PendulumDemension*> dimensions) {
+	this->dimensions = dimensions;
+}
+
+Pendulum::Pendulum(int dimensionsCount, float frequencyPoint, bool isCircle) {
+	for (int i = 0; i < dimensionsCount; i++) {
+		dimensions.push_back(new PendulumDemension(frequencyPoint, isCircle));
+	}
 	this->update(frequencyPoint, isCircle);
 }

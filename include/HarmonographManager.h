@@ -4,7 +4,8 @@
 #include "ImagePainter.h"
 #include "ImageSaver.h"
 #include "settings.h"
-#include "HarmonographParametersEnum.h"
+#include "PendulumEquationParametersEnum.h"
+#include "Dimension.h"
 #include <deque>
 #include <cmath>
 
@@ -52,7 +53,7 @@ public:
 		return history.size();
 	}
 
-	void changeParameter(int pendulumNum, HarmonographParameters parameter, int value);
+	void changeParameter(int pendulumNum, EquationParameter parameter, Dimension dimension, int value);
 
 	std::vector<Pendulum*> getPendlumsCopy() {
 		return harmonograph->getPundlumsCopy();

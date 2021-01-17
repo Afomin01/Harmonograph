@@ -10,7 +10,8 @@
 #include "HarmonographManager.h"
 #include "CustomGraphicsView.h"
 #include <ui_HarmonographApp.h>
-#include "HarmonographParametersEnum.h"
+#include "Dimension.h"
+#include "PendulumEquationParametersEnum.h"
 #include "FlexWindow.h"
 #include "FlexDialog.h"
 #include "SaveImageDialog.h"
@@ -53,7 +54,7 @@ private:
 
 
     void redrawImage();
-    void changeParameter(int pendulumNum, HarmonographParameters parameter, int value);
+    void changeParameter(int pendulumNum, EquationParameter parameter, Dimension dimension, int value);
 
 private slots:
     void updateImage();

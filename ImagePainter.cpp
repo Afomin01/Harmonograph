@@ -28,8 +28,8 @@ QImage ImagePainter::getImage(Harmonograph* harmonograph) {
     float widthAdd = drawImgWidth / 2;
     float heightAdd = drawImgHeight / 2;
 
-    float xLast = (harmonograph->getX(0) * zoom) + widthAdd;
-    float yLast = (harmonograph->getY(0) * zoom) + heightAdd;
+    float xLast = (harmonograph->getCoordinateByTime(Dimension::x, 0) * zoom) + widthAdd;
+    float yLast = (harmonograph->getCoordinateByTime(Dimension::y, 0) * zoom) + heightAdd;
 
     float xCurrent = 0;
     float yCurrent = 0;
@@ -45,8 +45,8 @@ QImage ImagePainter::getImage(Harmonograph* harmonograph) {
 
         pen.setColor(QColor(firstColor.red() + stepR * i, firstColor.green() + stepG * i, firstColor.blue() + stepB * i, 255));
         painter->setPen(pen);
-        xCurrent = (harmonograph->getX(t) * zoom) + widthAdd;
-        yCurrent = (harmonograph->getY(t) * zoom) + heightAdd;
+        xCurrent = (harmonograph->getCoordinateByTime(Dimension::x, t) * zoom) + widthAdd;
+        yCurrent = (harmonograph->getCoordinateByTime(Dimension::y, t) * zoom) + heightAdd;
 
         painter->drawLine(xLast, yLast, xCurrent, yCurrent);
 
@@ -86,8 +86,8 @@ QImage ImagePainter::getImageToSave(Harmonograph* harmonograph, int width, int h
         float maxX = 0, maxY = 0, maxTotal = 0;
 
         for (float t = 0; t < 225; t += 1e-02) {
-            float x = harmonograph->getX(t);
-            float y = harmonograph->getY(t);
+            float x = harmonograph->getCoordinateByTime(Dimension::x, t);
+            float y = harmonograph->getCoordinateByTime(Dimension::y, t);
             if (x > maxX) maxX = x;
             if (y > maxY) maxY = y;
         }
@@ -100,8 +100,8 @@ QImage ImagePainter::getImageToSave(Harmonograph* harmonograph, int width, int h
 
     int i = 1;
 
-    float xLast = (harmonograph->getX(0) * saveZoom) + widthAdd;
-    float yLast = (harmonograph->getY(0) * saveZoom) + heightAdd;
+    float xLast = (harmonograph->getCoordinateByTime(Dimension::x, 0) * saveZoom) + widthAdd;
+    float yLast = (harmonograph->getCoordinateByTime(Dimension::y, 0) * saveZoom) + heightAdd;
 
     float xCurrent = 0;
     float yCurrent = 0;
@@ -110,8 +110,8 @@ QImage ImagePainter::getImageToSave(Harmonograph* harmonograph, int width, int h
 
         savePen.setColor(QColor(firstColor.red() + stepR * i, firstColor.green() + stepG * i, firstColor.blue() + stepB * i, 255));
         savePainter->setPen(savePen);
-        xCurrent = (harmonograph->getX(t) * saveZoom) + widthAdd;
-        yCurrent = (harmonograph->getY(t) * saveZoom) + heightAdd;
+        xCurrent = (harmonograph->getCoordinateByTime(Dimension::x, t) * saveZoom) + widthAdd;
+        yCurrent = (harmonograph->getCoordinateByTime(Dimension::y, t) * saveZoom) + heightAdd;
 
         savePainter->drawLine(xLast, yLast, xCurrent, yCurrent);
 

@@ -3,6 +3,7 @@
 #include "Pendulum.h"
 #include <vector>
 #include <cmath>
+#include "Dimension.h"
 
 class Harmonograph
 { 
@@ -20,8 +21,8 @@ public:
 	Harmonograph();
 	~Harmonograph();
 
-	float getX(float t);
-	float getY(float t);
+	float getCoordinateByTime(Dimension demension, float t);
+
 	int getNumOfPendulums() {
 		return numOfPendulums;
 	}

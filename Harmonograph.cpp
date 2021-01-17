@@ -36,22 +36,15 @@ Harmonograph::~Harmonograph() {
 	}
 }
 
-float Harmonograph::getX(float t) {
-	float x = 0;
-
-	for (Pendulum *p : pendlums) {
-		x+=p->getX(t);
-	}
-	return x;
-}
-float Harmonograph::getY(float t) {
-	float y = 0;
+float Harmonograph::getCoordinateByTime(Dimension demension, float t) {
+	float c = 0;
 
 	for (Pendulum* p : pendlums) {
-		y += p->getY(t);
+		c += p->getCoordinateByTime(demension, t);
 	}
-	return y;
+	return c;
 }
+
 std::vector<Pendulum*> Harmonograph::getPundlumsCopy() {
 	std::vector<Pendulum*> copies;
 	for (Pendulum* p : pendlums) {
@@ -76,13 +69,13 @@ void Harmonograph::update() {
 void Harmonograph::rotateXAxis(float radians)
 {
 	for (Pendulum* p : pendlums) {
-		p->changeXPhase(radians);
+		p->changeDimensionEquationPhase(Dimension::x, radians);
 	}
 }
 
 void Harmonograph::rotateXY(float x, float y) {
-	pendlums.at(0)->changeXPhase(x);
-	pendlums.at(0)->changeYPhase(y);
+	pendlums.at(0)->changeDimensionEquationPhase(Dimension::x, x);
+	pendlums.at(0)->changeDimensionEquationPhase(Dimension::y, y);
 }
 
 void Harmonograph::setNumOfPendulums(int newNum) {

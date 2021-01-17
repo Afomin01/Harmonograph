@@ -8,6 +8,7 @@
 #include <fstream>
 #include "Pendulum.h"
 #include <QTextStream>
+#include "PendulumDemension.h"
 
 using json = nlohmann::json;
 
