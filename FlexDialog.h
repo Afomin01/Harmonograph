@@ -4,6 +4,7 @@
 #include "ui_FlexDialog.h"
 #include "FlexWindow.h"
 
+
 class FlexDialog : public QDialog
 {
 	Q_OBJECT
@@ -15,7 +16,7 @@ public:
 	int penWidth = 1;
 	int FPS = 60;
 	bool useAntiAliasing = false;
-	int flexBaseMode = 1; //2==freq based, 1==phase based
+	FlexModes flexBaseMode = FlexModes::phaseBased;
 
 private:
 	Ui::FlexDialog ui;

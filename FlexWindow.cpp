@@ -2,32 +2,56 @@
 #include "settings.h"
 #include <QDebug>
 
+
 FlexWindow::FlexWindow(FlexSettings* settings, QWidget* parent) : QMainWindow(parent) {
 	ui.setupUi(this);
+
 	this->flexGraph = settings->flexGraph;
+	
 	if (flexGraph == NULL) flexGraph = new Harmonograph(3);
-	scene = new QGraphicsScene(this);
-	ui.graphicsView->setScene(scene);
+	manager = new HarmonographManager(flexGraph);
+
+	auto gridLayout = dynamic_cast<QGridLayout*>(ui.centralWidget->layout());
+	gl = new HarmonographOpenGLWidget(this, manager);
+
+	if(settings->useAntialiasing){
+		QSurfaceFormat format = QSurfaceFormat::defaultFormat();
+		format.setSamples(4);
+		gl->setFormat(format);
+	}
+	
+	gridLayout->addWidget(gl, 0, 0);
 
 	this->setAttribute(Qt::WA_DeleteOnClose);
 
-	this->firstColor = settings->firstColor;
-	this->secondColor = settings->secondColor;
-	this->backgoundColor = settings->backgroundColor;
-	this->useTwoColors = settings->useTwoColors;
+	gl->firstColor = settings->firstColor;
+	gl->secondColor = settings->secondColor;
+	gl->backgroundColor = settings->backgroundColor;
+	gl->useTwoColors = settings->useTwoColors;
+	gl->penWidth = settings->penWidth;
+
+	if (settings->flexBaseMode == FlexModes::frequencyBased)
+		flexSpeedChangeFactor = flexSpeedChangeFactor / 30.0;
 
 	flexTimer = new QTimer(this);
+	FPSLimit = settings->FPSLimit;
 	flexTimer->setInterval((int)((1.0/settings->FPSLimit)*1000));
-
-	flexPainter = new FlexPainter(settings);
 
 	QAction* max = new QAction(this);
 	max->setShortcut(Qt::Key_F11);
+	QAction* incSpeed = new QAction(this);
+	incSpeed->setShortcut(Qt::Key_Equal);
+	QAction* decSpeed = new QAction(this);
+	decSpeed->setShortcut(Qt::Key_Minus);
 
 	connect(max, SIGNAL(triggered()), this, SLOT(maximize()));
+	connect(incSpeed, SIGNAL(triggered()), this, SLOT(increaseFlexSpeed()));
+	connect(decSpeed, SIGNAL(triggered()), this, SLOT(decreaseFlexSpeed()));
+	
 	this->addAction(max);
+	this->addAction(incSpeed);
+	this->addAction(decSpeed);
 
-	connect(ui.graphicsView, SIGNAL(zoomChanged(int)), this, SLOT(changeZoom(int)));
 	srand(time(NULL));
 
 	if (flexGraph->isStar) {
@@ -40,10 +64,12 @@ FlexWindow::FlexWindow(FlexSettings* settings, QWidget* parent) : QMainWindow(pa
 			* flexGraph->secondRatioValue;
 	}
 
-	if (settings->flexBaseMode == 1) {
+	float slowFactor = 30.0 / FPSLimit;
+
+	if (settings->flexBaseMode == FlexModes::phaseBased) {
 		for (Pendulum p : flexGraph->getPendulums()) {
-			ySpeedValues.push_back(boundedRandDouble(0.005, 0.01));
-			xSpeedValues.push_back(boundedRandDouble(0.005, 0.01));
+			ySpeedValues.push_back(boundedRandDouble(0.005, 0.01)*slowFactor);
+			xSpeedValues.push_back(boundedRandDouble(0.005, 0.01)*slowFactor);
 		}
 
 		connect(flexTimer, SIGNAL(timeout()), this, SLOT(phaseFlex()));
@@ -53,15 +79,13 @@ FlexWindow::FlexWindow(FlexSettings* settings, QWidget* parent) : QMainWindow(pa
 			xFlexStartValues.push_back(asin(10 * p.getEquationParameter(Dimension::x, EquationParameter::frequencyNoise)));
 			yFlexStartValues.push_back(acos(10 * p.getEquationParameter(Dimension::y, EquationParameter::frequencyNoise)));
 
-			ySpeedValues.push_back(boundedRandDouble(0.0005, 0.001));
-			xSpeedValues.push_back(boundedRandDouble(0.0005, 0.001));
+			ySpeedValues.push_back(boundedRandDouble(0.0005, 0.001)*slowFactor);
+			xSpeedValues.push_back(boundedRandDouble(0.0005, 0.001)*slowFactor);
 		}
 
 		connect(flexTimer, SIGNAL(timeout()), this, SLOT(frequencyFlex()));
 	}
-
-	connect(ui.graphicsView, SIGNAL(rotateScene(float, float)), this, SLOT(rotateSceneXY(float, float)));
-
+	
 	flexTimer->start();
 	delete settings;
 }
@@ -69,37 +93,41 @@ FlexWindow::FlexWindow(FlexSettings* settings, QWidget* parent) : QMainWindow(pa
 void FlexWindow::closeEvent(QCloseEvent* event) {
 	flexTimer->stop();
 	delete flexGraph;
-	delete scene;
+	delete gl;
+	delete manager;
 	delete flexTimer;
 }
 
 void FlexWindow::maximize() {
 	if (this->isFullScreen()) {
 		this->showNormal();
-		maxZoom = 200;
-		zoom = 125;
-		width = ui.graphicsView->width();
-		height = ui.graphicsView->height();
 	}
 	else {
 		this->showFullScreen();
-		maxZoom = static_cast<int>(200 / (1280.0 / ui.graphicsView->width()));
-		width = ui.graphicsView->width();
-		height = ui.graphicsView->height();
 	}
 }
 
-void FlexWindow::changeZoom(int value) {
-	const float temp = zoom + value;
-	if (temp > minZoom && temp < maxZoom) {
-		zoom += value;
+
+void FlexWindow::increaseFlexSpeed(){
+	flexTimer->stop();
+	for (int i = 0; i < xSpeedValues.size(); i++) {
+		xSpeedValues.at(i) += flexSpeedChangeFactor;
+		ySpeedValues.at(i) += flexSpeedChangeFactor;
 	}
+	flexTimer->start();
 }
 
+void FlexWindow::decreaseFlexSpeed(){
+	flexTimer->stop();
+	for (int i = 0; i < xSpeedValues.size(); i++) {
+		xSpeedValues.at(i) -= flexSpeedChangeFactor;
+		ySpeedValues.at(i) -= flexSpeedChangeFactor;
+	}
+	flexTimer->start();
+}
 
 void FlexWindow::frequencyFlex() {
-	scene->clear();
-	scene->addItem(new QGraphicsPixmapItem(QPixmap::fromImage(flexPainter->getImage(width,height,zoom))));
+	gl->update();
 
 	for (int i = 0; i < flexGraph->getNumOfPendulums();i++) {
 		xFlexStartValues.at(i) += xSpeedValues.at(i);
@@ -123,16 +151,11 @@ void FlexWindow::frequencyFlex() {
 }
 
 void FlexWindow::phaseFlex() {
-	scene->clear();
-	scene->addItem(new QGraphicsPixmapItem(QPixmap::fromImage(flexPainter->getImage(width, height, zoom))));
+	gl->update();
 
 	for (int i = 0; i < flexGraph->getNumOfPendulums(); i++) {
 		flexGraph->getPendulums().at(i)->changeDimensionEquationPhase(Dimension::x, xSpeedValues.at(i));
 
 		flexGraph->getPendulums().at(i)->changeDimensionEquationPhase(Dimension::y, ySpeedValues.at(i));
 	}
-}
-
-void FlexWindow::rotateSceneXY(float x, float y) {
-	flexGraph->rotateXY(x, y);
 }

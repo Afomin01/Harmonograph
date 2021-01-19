@@ -18,6 +18,9 @@ public:
 
 
 	HarmonographManager();
+	HarmonographManager(Harmonograph* harm){
+		this->harmonograph = harm;
+	}
 
 	QGraphicsPixmapItem* getRenderedGraphicsItem();
 	Harmonograph* getHarmCopy();

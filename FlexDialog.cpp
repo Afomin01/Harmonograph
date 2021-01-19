@@ -14,7 +14,12 @@ void FlexDialog::setBrush(int value) {
 }
 
 void FlexDialog::changeBase(int value) {
-	flexBaseMode = value + 1;
+	if(value==0){
+		flexBaseMode = FlexModes::phaseBased;
+	}
+	else if(value==1){
+		flexBaseMode = FlexModes::frequencyBased;
+	}
 }
 
 void FlexDialog::useAntialiasingState(int state) {

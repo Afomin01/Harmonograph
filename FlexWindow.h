@@ -11,6 +11,7 @@
 #include <cmath>
 #include <random>
 #include <time.h>
+#include "HarmonographOpenGLWidget.h"
 
 class FlexWindow : public QMainWindow
 {
@@ -24,26 +25,19 @@ protected:
 	virtual void closeEvent(QCloseEvent* event);
 private:
 	Ui::FlexWindow ui;
-	QGraphicsScene* scene;
 	Harmonograph* flexGraph;
 	QTimer* flexTimer;
+	HarmonographOpenGLWidget* gl;
+	HarmonographManager* manager;
 
-	float zoom = 125;
-	float minZoom = 75;
-	float maxZoom = 200;
-	bool useTwoColors = true;
-	int width = 1280;
-	int height = 720;
 	float firstFreq = 2;
 	float secondFreq = 2;
+	float flexSpeedChangeFactor = 0.005;
 	std::vector<float> xFlexStartValues;
 	std::vector<float> yFlexStartValues;
 	std::vector<float> xSpeedValues;
 	std::vector<float> ySpeedValues;
-	FlexPainter* flexPainter;
-	QColor firstColor = Qt::blue;
-	QColor secondColor = Qt::red;
-	QColor backgoundColor = Qt::white;
+	int FPSLimit = 60;
 
 	double boundedRandDouble(double fMin, double fMax) {
 		double f = (double)rand() / RAND_MAX;
@@ -54,7 +48,6 @@ private slots:
 	void frequencyFlex();
 	void phaseFlex();
 	void maximize();
-	void changeZoom(int value);
-
-	void rotateSceneXY(float x, float y);
+	void increaseFlexSpeed();
+	void decreaseFlexSpeed();
 };

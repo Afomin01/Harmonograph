@@ -1,11 +1,12 @@
 #pragma once
 #include <QtWidgets>
 #include "Harmonograph.h"
+#include "FlexModesEnum.h"
 
 class FlexSettings {
 public:
 	Harmonograph* flexGraph = nullptr;
-	int flexBaseMode = 1;
+	FlexModes flexBaseMode = FlexModes::phaseBased;
 	bool useAntialiasing = false;
 	int penWidth = 1;
 	int FPSLimit = 60;
