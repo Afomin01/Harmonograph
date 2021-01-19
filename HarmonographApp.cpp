@@ -7,28 +7,23 @@ HarmonographApp::HarmonographApp(QWidget *parent) : QMainWindow(parent)
     QApplication::setWindowIcon(QIcon("icon256.ico"));
 
     manager = new HarmonographManager();
-    scene = new QGraphicsScene(this);
-	
-    customView = dynamic_cast<CustomGraphicsView*>(ui.graphicsView);
-
-    customView->setMinimumHeight(720);
-    customView->setMinimumWidth(1280);
-
-    customView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    customView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
     autoRotationTimer = new QTimer(this);
-
-    customView->setScene(scene);
     autoRotationTimer->setInterval(17);
 
-    auto gridLayout = dynamic_cast<QGridLayout*>(ui.tab3D->layout());
+    auto gridLayout2D = dynamic_cast<QGridLayout*>(ui.tab2D->layout());
+    GLWidget2D = new HarmonographOpenGLWidget(this, manager);
+    GLWidget2D->setMinimumHeight(720);
+    GLWidget2D->setMinimumWidth(1280);
+    gridLayout2D->addWidget(GLWidget2D, 1, 1);
+
+    auto gridLayout3D = dynamic_cast<QGridLayout*>(ui.tab3D->layout());
     openGLWidget = new OpenGLCustomWidget(this);
     openGLWidget->manager = manager;
     openGLWidget->setMinimumHeight(720);
     openGLWidget->setMinimumWidth(1280);
 
-    gridLayout->addWidget(openGLWidget, 1, 1);
+    gridLayout3D->addWidget(openGLWidget, 1, 1);
     
     ratioCheckBox = new QCheckBox("Ratio", this);
     ui.mainToolBar->addWidget(ratioCheckBox);
@@ -105,15 +100,10 @@ HarmonographApp::HarmonographApp(QWidget *parent) : QMainWindow(parent)
     connect(numOfPendulumsSpinBox, SIGNAL(valueChanged(int)), this, SLOT(numOfPendulumsChanged(int)));
     connect(penWidthSpinBox, SIGNAL(valueChanged(int)), this, SLOT(penWidthChanged(int)));
 
-    connect(customView, SIGNAL(zoomChanged(int)), this, SLOT(viewZoomChanged(int)));
-    connect(customView, SIGNAL(rotateScene(float, float)), this, SLOT(rotateSceneXY(float, float)));
-
     redrawImage();
-
 }
 
 void HarmonographApp::updateImage(){
-    
     manager->updateRandomValues();
     redrawImage();
     ui.actionUndoUpdate->setEnabled(true);
@@ -124,12 +114,7 @@ HarmonographApp::~HarmonographApp() {
 }
 
 void HarmonographApp::redrawImage() {
-    scene->clear();
-
-    QGraphicsPixmapItem* item = manager->getRenderedGraphicsItem();
-    scene->addItem(item);
-    openGLWidget->update();
-
+	GLWidget2D->update();
 
     std::vector<Pendulum*> pendlums = manager->getPendlumsCopy();
     float pi = manager->pi;
@@ -481,14 +466,4 @@ void HarmonographApp::thirdYPhaseChanged(int value) {
 
 void HarmonographApp::thirdYFrequencyChanged(int value) {
     if (numOfPendulumsSpinBox->value() >= 3) changeParameter(2, EquationParameter::frequency, Dimension::y, value);
-}
-
-void HarmonographApp::viewZoomChanged(int value) {
-    manager->changeZoom(value/2.0);
-    redrawImage();
-}
-
-void HarmonographApp::rotateSceneXY(float x, float y) {
-    manager->rotateXY(x, y);
-    redrawImage();
 }

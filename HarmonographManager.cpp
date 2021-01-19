@@ -2,13 +2,7 @@
 
 HarmonographManager::HarmonographManager() {
     harmonograph = new Harmonograph(3);
-    imagePainter = new ImagePainter();
     imageSaver = new HarmonographSaver();
-}
-
-QGraphicsPixmapItem* HarmonographManager::getRenderedGraphicsItem() {
-    Harmonograph* copyHarmongraph = new Harmonograph(harmonograph);
-    return new QGraphicsPixmapItem(QPixmap::fromImage(imagePainter->getImage(copyHarmongraph)));
 }
 
 Harmonograph* HarmonographManager::getHarmCopy() {
@@ -36,17 +30,14 @@ void HarmonographManager::rotateXY(float x, float y) {
 }
 
 void HarmonographManager::saveCurrentImage(ImageSettings* settings){
-    ImagePainter* copyPainter = new ImagePainter(imagePainter);
     Harmonograph* copyHarm =new Harmonograph(harmonograph);
-    copyPainter->penWidth = settings->penWidth;
-    copyPainter->useAntialiasing = settings->useAntialiasing;
-    copyPainter->saveSquare = settings->useSquareImage;
+    DrawParameters params = drawParameters;
+    params.penWidth = settings->penWidth;
+    params.useAntiAliasing = settings->useAntialiasing;
 
-    imageSaver->saveImageHeight = settings->saveHeight;
-    imageSaver->saveImageWidth = settings->saveWidth;
-    if (settings->transpBack) copyPainter->backgroundColor = QColor(0,0,0,0);
+    if (settings->transpBack) params.backgroundColor = QColor(0,0,0,0);
 
-    imageSaver->saveImage(copyHarm, settings->filename, copyPainter);
+    imageSaver->saveImage(copyHarm, settings->filename, params, settings->saveWidth, settings->saveHeight);
 }
 void HarmonographManager::saveParametersToFile(QString filename) {
     Harmonograph* copyHarmonograph = new Harmonograph(harmonograph);
@@ -62,18 +53,18 @@ void HarmonographManager::loadParametersFromFile(QString filename) {
 }
 
 void HarmonographManager::changeZoom(float value) {
-    float temp = imagePainter->zoom + value;
+    float temp = drawParameters.zoom + value;
     if (temp > 75 && temp < 200) {
-        imagePainter->zoom += value;
+        drawParameters.zoom += value;
     }
 }
 
 void HarmonographManager::changeFirstColor(QColor color) {
-    imagePainter->firstColor = color;
+    drawParameters.firstColor = color;
 }
 
 void HarmonographManager::changeSecondColor(QColor color) {
-    imagePainter->secondColor = color;
+    drawParameters.secondColor = color;
 }
 
 void HarmonographManager::ratioStateEnabled(bool isEnabled) {
@@ -101,11 +92,11 @@ void HarmonographManager::circleStateEnabled(bool isEnabled) {
 }
 
 void HarmonographManager::changePenWidth(int width) {
-    imagePainter->penWidth = width;
+    drawParameters.penWidth = width;
 }
 
 void HarmonographManager::enableTwoColorMode(bool isEnabled) {
-    imagePainter->useTwoColors = isEnabled;
+    drawParameters.useTwoColors = isEnabled;
 }
 
 

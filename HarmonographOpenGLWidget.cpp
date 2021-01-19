@@ -1,5 +1,5 @@
 #include "HarmonographOpenGLWidget.h"
-
+#include <qdebug.h>
 
 HarmonographOpenGLWidget::HarmonographOpenGLWidget(QWidget* parent, HarmonographManager* manager){
 	this->manager = manager;
@@ -17,6 +17,7 @@ void HarmonographOpenGLWidget::wheelEvent(QWheelEvent* event){
 	if (temp > minZoom && temp < maxZoom) {
 		zoom += yDegrees;
 	}
+	this->update();
 }
 
 void HarmonographOpenGLWidget::mouseMoveEvent(QMouseEvent* event){
@@ -32,6 +33,7 @@ void HarmonographOpenGLWidget::mouseMoveEvent(QMouseEvent* event){
 
 		manager->rotateXY(dfX, dfY);
 	}
+	this->update();
 }
 
 void HarmonographOpenGLWidget::mousePressEvent(QMouseEvent* event){
@@ -39,32 +41,37 @@ void HarmonographOpenGLWidget::mousePressEvent(QMouseEvent* event){
 	previousX = event->globalX();
 	previousY = event->globalY();
 	this->setCursor(Qt::ClosedHandCursor);
+	this->update();
 }
 
 void HarmonographOpenGLWidget::mouseReleaseEvent(QMouseEvent* event){
 	isMousePressed = false;
 	this->setCursor(Qt::OpenHandCursor);
+	this->update();
 }
 
 void HarmonographOpenGLWidget::initializeGL() {
 	glClearColor(1, 1, 1, 1);
-	glEnable(GL_DEPTH_TEST);
-	glEnable(GL_LIGHT0);
-	glEnable(GL_LIGHTING);
-	glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE);
-	glEnable(GL_COLOR_MATERIAL);
 	glLineWidth(penWidth);
 	glEnable(GL_MULTISAMPLE);
 }
 
 void HarmonographOpenGLWidget::resizeGL(int w, int h){
-	
+	qInfo() << w << " " << h;
+	glViewport(0, 0, w, h);
+	glMatrixMode(GL_PROJECTION);
+	float aspect = (float)w / (float)h;
+	glOrtho(-aspect, aspect, -1, 1, -1, 1);
+
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
 }
 
 void HarmonographOpenGLWidget::paintGL(){
+	glPointSize(3);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	glBegin(GL_LINE_STRIP);
+	glBegin(GL_LINE_STRIP);//GL_POINTS  GL_LINE_STRIP
 
 	float xCurrent = 0;
 	float yCurrent = 0;

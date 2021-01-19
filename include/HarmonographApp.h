@@ -27,18 +27,11 @@ public:
 
 private:
     HarmonographManager* manager;
-
-    int const drawImgWidth = 1280;
-    int const drawImgHeight = 720;
-    float zoom = 100;
-    bool tmp = false;
-
+	
     Ui::HarmonographAppClass ui;
 
-    QGraphicsView* view;
-    CustomGraphicsView* customView;
-    QGraphicsScene* scene;
     OpenGLCustomWidget* openGLWidget;
+    HarmonographOpenGLWidget* GLWidget2D;
     QTimer* autoRotationTimer;
 
     QCheckBox* ratioCheckBox;
@@ -54,7 +47,6 @@ private:
 
     FlexDialog* flexDialog = new FlexDialog(this);
     SaveImageDialog* saveImageDialog = new SaveImageDialog(this);
-
 
     void redrawImage();
     void changeParameter(int pendulumNum, EquationParameter parameter, Dimension dimension, int value);
@@ -97,8 +89,4 @@ private slots:
     void thirdYDampingChanged(int value);
     void thirdYPhaseChanged(int value);
     void thirdYFrequencyChanged(int value);
-
-
-    void viewZoomChanged(int value);
-    void rotateSceneXY(float x, float y);
 };

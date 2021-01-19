@@ -1,16 +1,18 @@
 #pragma once
 #include <QtWidgets>
 #include "Harmonograph.h"
-#include "ImagePainter.h"
 #include "HarmonographSaver.h"
 #include "settings.h"
 #include "PendulumEquationParametersEnum.h"
 #include "Dimension.h"
 #include <deque>
 #include <cmath>
+#include "DrawParameteres.h"
 
 class HarmonographManager{
 public:
+	DrawParameters drawParameters = DrawParameters();
+	
 	float const pi = atan(1) * 4;
 	float const maxDampingValue = 0.01;
 	float const maxFreqModuleValue = 0.1;
@@ -22,7 +24,6 @@ public:
 		this->harmonograph = harm;
 	}
 
-	QGraphicsPixmapItem* getRenderedGraphicsItem();
 	Harmonograph* getHarmCopy();
 
 	void updateRandomValues();
@@ -65,8 +66,9 @@ public:
 	}
 
 private:
+	
+	
 	Harmonograph* harmonograph;
-	ImagePainter* imagePainter;
 	HarmonographSaver* imageSaver;
 	std::deque<Harmonograph*> history;
 };

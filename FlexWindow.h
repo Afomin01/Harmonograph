@@ -32,7 +32,7 @@ private:
 
 	float firstFreq = 2;
 	float secondFreq = 2;
-	float flexSpeedChangeFactor = 0.005;
+	float flexSpeedChangeFactor = 0.002;
 	std::vector<float> xFlexStartValues;
 	std::vector<float> yFlexStartValues;
 	std::vector<float> xSpeedValues;

@@ -4,27 +4,87 @@
 
 class SaveImageTask : public QRunnable {
 public:
-	SaveImageTask(Harmonograph* harmonograph, HarmonographSaver* imageSaver, QString filename, ImagePainter* imagePainter) {
-		this->imageSaver = imageSaver;
+	SaveImageTask(Harmonograph* harmonograph, QString filename, DrawParameters parameters, int width, int height) {
 		this->filename = filename;
 		this->harmonograph = harmonograph;
-		this->imagePainter = imagePainter;
+		this->parameters = parameters;
+		imageToSave = new QImage(width, height, QImage::Format_ARGB32);
+		this->width = width;
+		this->height = height;
 	}
 
-	HarmonographSaver* imageSaver;
 	QString filename;
 	Harmonograph* harmonograph;
-	ImagePainter* imagePainter;
+	DrawParameters parameters;
+	QImage* imageToSave;
+
+	int width = 1280;
+	int height = 720;
 
 	void run() override {
-		QImage imageToSave = imagePainter->getImageToSave(
-			harmonograph,
-			imageSaver->saveImageWidth,
-			imageSaver->saveImageHeight);
+		float const borderPercentage = 0.03;
+		QPainter* savePainter = new QPainter(imageToSave);
+		QPen savePen;
 
-		imageToSave.save(filename);
+		if (parameters.useAntiAliasing) savePainter->setRenderHint(QPainter::Antialiasing, true);
+		savePen.setColor(Qt::black);
+		savePen.setWidth(parameters.penWidth);
+		savePainter->setPen(savePen);
 
-		delete imagePainter;
+		savePainter->fillRect(0, 0, width, height, parameters.backgroundColor);
+
+		float widthAdd = width / 2;
+		float heightAdd = height / 2;
+
+		int saveZoom = (int)((parameters.zoom * 500) / ((1280 * 1.0) / width));
+
+		int stepCount = (int)(255 / 1e-04) + 10;
+		float stepR = ((float)(parameters.secondColor.red() - parameters.firstColor.red()) / stepCount);
+		float stepG = ((float)(parameters.secondColor.green() - parameters.firstColor.green()) / stepCount);
+		float stepB = ((float)(parameters.secondColor.blue() - parameters.firstColor.blue()) / stepCount);
+
+		if (width == height) {
+			float maxX = 0, maxY = 0, maxTotal = 0;
+
+			for (float t = 0; t < 225; t += 1e-02) {
+				float x = harmonograph->getCoordinateByTime(Dimension::x, t);
+				float y = harmonograph->getCoordinateByTime(Dimension::y, t);
+				if (x > maxX) maxX = x;
+				if (y > maxY) maxY = y;
+			}
+
+			maxTotal = maxX > maxY ? maxX : maxY;
+
+			saveZoom = (width / 2) / maxTotal;
+			saveZoom -= saveZoom * borderPercentage;
+		}
+
+		int i = 1;
+
+		float xLast = (harmonograph->getCoordinateByTime(Dimension::x, 0) * saveZoom) + widthAdd;
+		float yLast = -(harmonograph->getCoordinateByTime(Dimension::y, 0) * saveZoom) + heightAdd;
+
+		float xCurrent = 0;
+		float yCurrent = 0;
+
+		for (float t = 1e-04; t < 255; t += 1e-04) {
+
+			savePen.setColor(QColor(parameters.firstColor.red() + stepR * i, parameters.firstColor.green() + stepG * i, parameters.firstColor.blue() + stepB * i, 255));
+			savePainter->setPen(savePen);
+			xCurrent = (harmonograph->getCoordinateByTime(Dimension::x, t) * saveZoom) + widthAdd;
+			yCurrent = -(harmonograph->getCoordinateByTime(Dimension::y, t) * saveZoom) + heightAdd;
+
+			savePainter->drawLine(xLast, yLast, xCurrent, yCurrent);
+
+			xLast = xCurrent;
+			yLast = yCurrent;
+			i++;
+		}
+		delete savePainter;		
+
+		imageToSave->save(filename);
+
+		delete imageToSave;
 		delete harmonograph;
 	}
 };
@@ -33,8 +93,8 @@ HarmonographSaver::HarmonographSaver() {
 	//load settings logic
 }
 
-void HarmonographSaver::saveImage(Harmonograph* harmonograph, QString filename, ImagePainter* imagePainter) {
-	SaveImageTask* task = new SaveImageTask(harmonograph, this, filename, imagePainter);
+void HarmonographSaver::saveImage(Harmonograph* harmonograph, QString filename, DrawParameters parameters, int width, int height) {
+	SaveImageTask* task = new SaveImageTask(harmonograph, filename, parameters, width, height);
 	QThreadPool::globalInstance()->start(task);
 }
 
@@ -75,9 +135,8 @@ void HarmonographSaver::saveParametersToFile(QString filename, Harmonograph* har
 
 Harmonograph* HarmonographSaver::loadParametersFromFile(QString filename) {
 	if (!filename.isEmpty()) {
+		QFile qFile(filename);
 		try {
-
-			QFile qFile(filename);
 			qFile.open(QIODevice::ReadWrite);
 			QTextStream in(&qFile);
 			QString fileString(in.readAll());
@@ -113,32 +172,14 @@ Harmonograph* HarmonographSaver::loadParametersFromFile(QString filename) {
 				pendulums.push_back(pendulum);
 			}
 
-
-			//last version before refactoring. needed to upgrade previous save files
-
-			//for (int i = 0; i < numOfPendulums; i++) {
-			//	Pendulum* Pendulum = new Pendulum(j["pendulums"][i]["xDamp"],
-			//		j["pendulums"][i]["xPhase"], 
-			//		j["pendulums"][i]["xFreq"], 
-			//		j["pendulums"][i]["xFreqNoise"],
-			//		j["pendulums"][i]["xAmpl"],
-			//		j["pendulums"][i]["yDamp"], 
-			//		j["pendulums"][i]["yPhase"],
-			//		j["pendulums"][i]["yFreq"],
-			//		j["pendulums"][i]["yFreqNoise"],
-			//		j["pendulums"][i]["yAmpl"]);		
-
-			//	pendulums.push_back(Pendulum);
-			//}
-
 			qFile.close();
 
 			Harmonograph* harmonograph = new Harmonograph(pendulums, firstRatioValue, secondRatioValue, isStar, isCircle, frequencyPoint);
 			return harmonograph;
 		}
 		catch (...) {
+			qFile.close();
 			return nullptr;
-			//file.close();
 		}
 
 	}

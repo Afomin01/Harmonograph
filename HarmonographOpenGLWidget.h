@@ -24,7 +24,7 @@ public:
     float stepPhaseX = 90;
     float stepPhaseY = 90;
     const float piTwo = static_cast<float>(2 * atan(1) * 4);
-    float minZoom = 0.25, maxZoom = 0.75;
+    float minZoom = 0.1, maxZoom = 0.75;
 
     HarmonographManager* manager = nullptr;
 

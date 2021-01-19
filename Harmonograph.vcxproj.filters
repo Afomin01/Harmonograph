@@ -47,9 +47,6 @@
     <ClCompile Include="HarmonographManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ImagePainter.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="CustomGraphicsView.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -110,9 +107,6 @@
     <ClInclude Include="include\HarmonographManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\ImagePainter.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="include\json.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -150,6 +144,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="FlexModesEnum.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DrawParameteres.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
