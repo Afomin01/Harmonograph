@@ -18,12 +18,8 @@ HarmonographApp::HarmonographApp(QWidget *parent) : QMainWindow(parent)
     gridLayout2D->addWidget(GLWidget2D, 1, 1);
 
     auto gridLayout3D = dynamic_cast<QGridLayout*>(ui.tab3D->layout());
-    openGLWidget = new OpenGLCustomWidget(this);
-    openGLWidget->manager = manager;
-    openGLWidget->setMinimumHeight(720);
-    openGLWidget->setMinimumWidth(1280);
 
-    gridLayout3D->addWidget(openGLWidget, 1, 1);
+    //gridLayout3D->addWidget(openGLWidget, 1, 1);
     
     ratioCheckBox = new QCheckBox("Ratio", this);
     ui.mainToolBar->addWidget(ratioCheckBox);

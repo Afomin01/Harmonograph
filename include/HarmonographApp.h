@@ -14,7 +14,6 @@
 #include "FlexWindow.h"
 #include "FlexDialog.h"
 #include "SaveImageDialog.h"
-#include "OpenGLCustomWidget.h"
 #include "settings.h"
 
 class HarmonographApp : public QMainWindow {
@@ -28,8 +27,6 @@ private:
     HarmonographManager* manager;
 	
     Ui::HarmonographAppClass ui;
-
-    OpenGLCustomWidget* openGLWidget;
     HarmonographOpenGLWidget* GLWidget2D;
     QTimer* autoRotationTimer;
 

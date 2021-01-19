@@ -118,7 +118,6 @@
     <ClCompile Include="FlexWindow.cpp" />
     <ClCompile Include="HarmonographManager.cpp" />
     <ClCompile Include="HarmonographSaver.cpp" />
-    <ClCompile Include="OpenGLCustomWidget.cpp" />
     <ClCompile Include="Pendulum.cpp" />
     <ClCompile Include="PendulumDimension.cpp" />
     <ClCompile Include="SaveImageDialog.cpp" />
@@ -149,7 +148,6 @@
     <ClInclude Include="DrawParameteres.h" />
     <ClInclude Include="HarmonographOpenGLWidget.h" />
     <ClInclude Include="FlexModesEnum.h" />
-    <ClInclude Include="OpenGLCustomWidget.h" />
     <ClInclude Include="PendulumDimension.h" />
     <ClInclude Include="Dimension.h" />
     <ClInclude Include="settings.h" />

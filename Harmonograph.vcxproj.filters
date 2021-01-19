@@ -62,9 +62,6 @@
     <ClCompile Include="PendulumDimension.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="OpenGLCustomWidget.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="HarmonographOpenGLWidget.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -126,9 +123,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="PendulumDimension.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="OpenGLCustomWidget.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="HarmonographOpenGLWidget.h">

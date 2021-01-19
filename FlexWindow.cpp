@@ -8,7 +8,7 @@ FlexWindow::FlexWindow(FlexSettings* settings, QWidget* parent) : QMainWindow(pa
 
 	DrawParameters parameters = settings->parameters;
 
-	this->flexGraph = flexGraph;
+	this->flexGraph = settings->flexGraph;
 	
 	if (flexGraph == NULL) flexGraph = new Harmonograph(3);
 	manager = new HarmonographManager(flexGraph);
