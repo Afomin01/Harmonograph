@@ -113,7 +113,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="CustomGraphicsView.cpp" />
     <ClCompile Include="FlexDialog.cpp" />
     <ClCompile Include="HarmonographOpenGLWidget.cpp" />
     <ClCompile Include="FlexWindow.cpp" />
@@ -156,7 +155,6 @@
     <ClInclude Include="settings.h" />
     <ClInclude Include="PendulumEquationParametersEnum.h" />
     <ClInclude Include="resource.h" />
-    <QtMoc Include="CustomGraphicsView.h" />
     <ClInclude Include="include\Harmonograph.h" />
     <ClInclude Include="include\HarmonographManager.h" />
     <ClInclude Include="include\HarmonographSaver.h" />

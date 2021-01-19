@@ -47,9 +47,6 @@
     <ClCompile Include="HarmonographManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="CustomGraphicsView.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="FlexWindow.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -146,9 +143,6 @@
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="include\HarmonographApp.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
-    <QtMoc Include="CustomGraphicsView.h">
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="FlexWindow.h">

@@ -8,7 +8,6 @@
 #include <ui_HarmonographApp.h>
 #include <cstdlib>
 #include "HarmonographManager.h"
-#include "CustomGraphicsView.h"
 #include <ui_HarmonographApp.h>
 #include "Dimension.h"
 #include "PendulumEquationParametersEnum.h"
