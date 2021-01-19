@@ -7,17 +7,6 @@
 
 class HarmonographOpenGLWidget : public QOpenGLWidget {
 public:
-
-	
-    QColor firstColor = Qt::blue;
-    QColor secondColor = Qt::red;
-    QColor backgroundColor = Qt::white;
-
-    int penWidth = 1;
-    float zoom = 0.25;
-    bool useTwoColors = true;
-    bool useAntiAliasing = false;
-
     bool isMousePressed = false;
     int previousX = 0;
     int previousY = 0;
@@ -31,6 +20,8 @@ public:
     HarmonographOpenGLWidget(QWidget* parent = nullptr, HarmonographManager* manager = nullptr);
     ~HarmonographOpenGLWidget();
 
+    void setEnableAA(bool isEnabled);
+
 protected:
     void wheelEvent(QWheelEvent* event) override;
     void mouseMoveEvent(QMouseEvent* event) override;
@@ -38,6 +29,6 @@ protected:
     void mouseReleaseEvent(QMouseEvent* event) override;
     void initializeGL() override;
     void resizeGL(int w, int h) override;
-    void paintGL() override;	
+    void paintGL() override;
 };
 

@@ -10,14 +10,11 @@
 #include "DrawParameteres.h"
 
 class HarmonographManager{
-public:
-	DrawParameters drawParameters = DrawParameters();
-	
+public:	
 	float const pi = atan(1) * 4;
 	float const maxDampingValue = 0.01;
 	float const maxFreqModuleValue = 0.1;
 	int const sliderMaxValue = 150;
-
 
 	HarmonographManager();
 	HarmonographManager(Harmonograph* harm){
@@ -36,40 +33,41 @@ public:
 	void saveParametersToFile(QString filename);
 	void loadParametersFromFile(QString filename);
 
-	void changeZoom(float value);
+	void setRatioStateEnabled(bool isEnabled);
+	void setFirstRatioValue(int value);
+	void setSecondRatioValue(int value);
 
-	void enableTwoColorMode(bool isEnabled);
-	void changeFirstColor(QColor color);
-	void changeSecondColor(QColor color);
-
-	void ratioStateEnabled(bool isEnabled);
-	void changeFirstRatioValue(int value);
-	void changeSecondRatioValue(int value);
-
-	void circleStateEnabled(bool isEnabled);
-	void changePenWidth(int width);
+	void setIsCircleEnabled(bool isEnabled);
 
 	void setFrequencyPoint(float freqPt);
 	void setNumOfPendulums(int newNum);
 
 	float getCoordinateByTime(Dimension dimension, float t);
-	
-	void undoUpdate();
-	int getHistorySize() {
-		return history.size();
-	}
 
 	void changeParameter(int pendulumNum, EquationParameter parameter, Dimension dimension, int value);
+	
+	void undoUpdate();
 
-	std::vector<Pendulum*> getPendlumsCopy() {
-		return harmonograph->getPundlumsCopy();
-	}
+	DrawParameters getDrawParameters();
+
+	void enableTwoColorMode(bool isEnabled);
+	void enableAntiAliasing(bool isEnabled);
+	void setFirstColor(QColor color);
+	void setSecondColor(QColor color);
+	void setBackgroundColor(QColor color);
+	void setPenWidth(int width);
+	void setZoom(float value);
+	void setDrawMode(DrawModes mode);
+	
+	
+
+	int getHistorySize();
+	std::vector<Pendulum*> getPendulumsCopy();
 
 private:
-	
-	
 	Harmonograph* harmonograph;
 	HarmonographSaver* imageSaver;
 	std::deque<Harmonograph*> history;
+	DrawParameters drawParameters = DrawParameters();
 };
 

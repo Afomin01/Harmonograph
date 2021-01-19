@@ -52,51 +52,68 @@ void HarmonographManager::loadParametersFromFile(QString filename) {
     }
 }
 
-void HarmonographManager::changeZoom(float value) {
-    float temp = drawParameters.zoom + value;
-    if (temp > 75 && temp < 200) {
-        drawParameters.zoom += value;
-    }
-}
-
-void HarmonographManager::changeFirstColor(QColor color) {
+void HarmonographManager::setFirstColor(QColor color) {
     drawParameters.firstColor = color;
 }
 
-void HarmonographManager::changeSecondColor(QColor color) {
+int HarmonographManager::getHistorySize() {
+    return history.size();
+}
+
+std::vector<Pendulum*> HarmonographManager::getPendulumsCopy() {
+    return harmonograph->getPundlumsCopy();
+}
+
+void HarmonographManager::setSecondColor(QColor color) {
     drawParameters.secondColor = color;
 }
 
-void HarmonographManager::ratioStateEnabled(bool isEnabled) {
+void HarmonographManager::setBackgroundColor(QColor color) {
+    drawParameters.backgroundColor = color;
+}
+
+void HarmonographManager::setRatioStateEnabled(bool isEnabled) {
     harmonograph->isStar = isEnabled;
     harmonograph->update();
 }
 
-void HarmonographManager::changeFirstRatioValue(int value) {
+void HarmonographManager::setFirstRatioValue(int value) {
     if (value > 0) {
         harmonograph->firstRatioValue = value;
         harmonograph->update();
     }
 }
 
-void HarmonographManager::changeSecondRatioValue(int value) {
+void HarmonographManager::setSecondRatioValue(int value) {
     if (value > 0) {
         harmonograph->secondRatioValue = value;
         harmonograph->update();
     }
 }
 
-void HarmonographManager::circleStateEnabled(bool isEnabled) {
+void HarmonographManager::setIsCircleEnabled(bool isEnabled) {
     harmonograph->isCircle = isEnabled;
     harmonograph->update();
 }
 
-void HarmonographManager::changePenWidth(int width) {
+void HarmonographManager::setPenWidth(int width) {
     drawParameters.penWidth = width;
+}
+
+void HarmonographManager::setZoom(float value) {
+    drawParameters.zoom = value;
+}
+
+void HarmonographManager::setDrawMode(DrawModes mode) {
+    drawParameters.drawMode = mode;
 }
 
 void HarmonographManager::enableTwoColorMode(bool isEnabled) {
     drawParameters.useTwoColors = isEnabled;
+}
+
+void HarmonographManager::enableAntiAliasing(bool isEnabled) {
+    drawParameters.useAntiAliasing = isEnabled;
 }
 
 
@@ -119,6 +136,10 @@ void HarmonographManager::undoUpdate() {
 
         harmonograph = undoHarm;
     }
+}
+
+DrawParameters HarmonographManager::getDrawParameters() {
+    return drawParameters;
 }
 
 void HarmonographManager::changeParameter(int pendulumNum, EquationParameter parameter, Dimension dimension, int value) {

@@ -116,7 +116,7 @@ HarmonographApp::~HarmonographApp() {
 void HarmonographApp::redrawImage() {
 	GLWidget2D->update();
 
-    std::vector<Pendulum*> pendlums = manager->getPendlumsCopy();
+    std::vector<Pendulum*> pendlums = manager->getPendulumsCopy();
     float pi = manager->pi;
 
     ui.firstXDamping->blockSignals(true);
@@ -342,27 +342,27 @@ void HarmonographApp::ratioCheckBoxCliked(bool checked) {
     colonLabel->setEnabled(checked);
     secondRatioValueCombo->setEnabled(checked);
 
-    manager->ratioStateEnabled(checked);
+    manager->setRatioStateEnabled(checked);
     redrawImage();
 }
 
 void HarmonographApp::circleCheckBoxClicked(bool checked) {
-    manager->circleStateEnabled(checked);
+    manager->setIsCircleEnabled(checked);
     redrawImage();
 }
 
 void HarmonographApp::penWidthChanged(int width) {
-    manager->changePenWidth(width);
+    manager->setPenWidth(width);
     redrawImage();
 }
 
 void HarmonographApp::firstRatioPicked(const QString& text) {
-    manager->changeFirstRatioValue(text.toInt());
+    manager->setFirstRatioValue(text.toInt());
     redrawImage();
 }
 
 void HarmonographApp::secondRatioPicked(const QString& text) {
-    manager->changeSecondRatioValue(text.toInt());
+    manager->setSecondRatioValue(text.toInt());
     redrawImage();
 }
 

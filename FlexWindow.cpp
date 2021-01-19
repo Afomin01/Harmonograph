@@ -15,20 +15,19 @@ FlexWindow::FlexWindow(FlexSettings* settings, QWidget* parent) : QMainWindow(pa
 	gl = new HarmonographOpenGLWidget(this, manager);
 
 	if(settings->useAntialiasing){
-		QSurfaceFormat format = QSurfaceFormat::defaultFormat();
-		format.setSamples(4);
-		gl->setFormat(format);
+		gl->setEnableAA(true);
 	}
 	
 	gridLayout->addWidget(gl, 0, 0);
 
 	this->setAttribute(Qt::WA_DeleteOnClose);
 
-	gl->firstColor = settings->firstColor;
-	gl->secondColor = settings->secondColor;
-	gl->backgroundColor = settings->backgroundColor;
-	gl->useTwoColors = settings->useTwoColors;
-	gl->penWidth = settings->penWidth;
+	manager->setFirstColor(settings->firstColor);
+	manager->setSecondColor(settings->secondColor);
+	manager->setBackgroundColor(settings->backgroundColor);
+	manager->enableTwoColorMode(settings->useTwoColors);
+    manager->setPenWidth(settings->penWidth);
+	manager->enableAntiAliasing(settings->useAntialiasing);
 
 	if (settings->flexBaseMode == FlexModes::frequencyBased)
 		flexSpeedChangeFactor = flexSpeedChangeFactor / 30.0;
