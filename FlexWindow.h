@@ -7,7 +7,6 @@
 #include "Harmonograph.h"
 #include <QThreadPool>
 #include <QTimer>
-#include "FlexPainter.h"
 #include <cmath>
 #include <random>
 #include <time.h>

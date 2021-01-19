@@ -116,7 +116,6 @@
     <ClCompile Include="CustomGraphicsView.cpp" />
     <ClCompile Include="FlexDialog.cpp" />
     <ClCompile Include="HarmonographOpenGLWidget.cpp" />
-    <ClCompile Include="FlexPainter.cpp" />
     <ClCompile Include="FlexWindow.cpp" />
     <ClCompile Include="HarmonographManager.cpp" />
     <ClCompile Include="HarmonographSaver.cpp" />
@@ -150,7 +149,6 @@
     <QtMoc Include="FlexDialog.h" />
     <ClInclude Include="DrawParameteres.h" />
     <ClInclude Include="HarmonographOpenGLWidget.h" />
-    <ClInclude Include="FlexPainter.h" />
     <ClInclude Include="FlexModesEnum.h" />
     <ClInclude Include="OpenGLCustomWidget.h" />
     <ClInclude Include="PendulumDimension.h" />

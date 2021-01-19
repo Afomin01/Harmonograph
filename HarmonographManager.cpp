@@ -108,6 +108,10 @@ void HarmonographManager::setDrawMode(DrawModes mode) {
     drawParameters.drawMode = mode;
 }
 
+void HarmonographManager::setDrawParameters(DrawParameters parameters) {
+    drawParameters = parameters;
+}
+
 void HarmonographManager::enableTwoColorMode(bool isEnabled) {
     drawParameters.useTwoColors = isEnabled;
 }

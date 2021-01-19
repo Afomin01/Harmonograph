@@ -58,6 +58,7 @@ public:
 	void setPenWidth(int width);
 	void setZoom(float value);
 	void setDrawMode(DrawModes mode);
+	void setDrawParameters(DrawParameters parameters);
 	
 	
 

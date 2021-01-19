@@ -89,4 +89,6 @@ private slots:
     void thirdYDampingChanged(int value);
     void thirdYPhaseChanged(int value);
     void thirdYFrequencyChanged(int value);
+
+    void drawModeChanged(int index);
 };

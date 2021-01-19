@@ -6,15 +6,18 @@
 FlexWindow::FlexWindow(FlexSettings* settings, QWidget* parent) : QMainWindow(parent) {
 	ui.setupUi(this);
 
-	this->flexGraph = settings->flexGraph;
+	DrawParameters parameters = settings->parameters;
+
+	this->flexGraph = flexGraph;
 	
 	if (flexGraph == NULL) flexGraph = new Harmonograph(3);
 	manager = new HarmonographManager(flexGraph);
+	manager->setDrawParameters(parameters);
 
 	auto gridLayout = dynamic_cast<QGridLayout*>(ui.centralWidget->layout());
 	gl = new HarmonographOpenGLWidget(this, manager);
 
-	if(settings->useAntialiasing){
+	if(parameters.useAntiAliasing){
 		gl->setEnableAA(true);
 	}
 	
@@ -22,12 +25,6 @@ FlexWindow::FlexWindow(FlexSettings* settings, QWidget* parent) : QMainWindow(pa
 
 	this->setAttribute(Qt::WA_DeleteOnClose);
 
-	manager->setFirstColor(settings->firstColor);
-	manager->setSecondColor(settings->secondColor);
-	manager->setBackgroundColor(settings->backgroundColor);
-	manager->enableTwoColorMode(settings->useTwoColors);
-    manager->setPenWidth(settings->penWidth);
-	manager->enableAntiAliasing(settings->useAntialiasing);
 
 	if (settings->flexBaseMode == FlexModes::frequencyBased)
 		flexSpeedChangeFactor = flexSpeedChangeFactor / 30.0;

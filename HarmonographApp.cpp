@@ -88,6 +88,18 @@ HarmonographApp::HarmonographApp(QWidget *parent) : QMainWindow(parent)
     penWidthSpinBox->setValue(1);
     ui.mainToolBar->addWidget(penWidthSpinBox);
 
+    ui.mainToolBar->addSeparator();
+
+    QLabel* drawModeLabel = new QLabel(this);
+    drawModeLabel->setText("Mode: ");
+    ui.mainToolBar->addWidget(drawModeLabel);
+
+    QComboBox* drawModesCombo = new QComboBox(this);
+    drawModesCombo->addItem("lines");
+    drawModesCombo->addItem("points");
+    ui.mainToolBar->addWidget(drawModesCombo);
+	
+
     connect(autoRotationTimer, SIGNAL(timeout()), this, SLOT(autoRotationTimerTimeout()));
 
     connect(ratioCheckBox, SIGNAL(clicked(bool)), this, SLOT(ratioCheckBoxCliked(bool)));
@@ -99,6 +111,8 @@ HarmonographApp::HarmonographApp(QWidget *parent) : QMainWindow(parent)
     connect(freqPtSpinBox, SIGNAL(valueChanged(double)), this, SLOT(freqPointChanged(double)));
     connect(numOfPendulumsSpinBox, SIGNAL(valueChanged(int)), this, SLOT(numOfPendulumsChanged(int)));
     connect(penWidthSpinBox, SIGNAL(valueChanged(int)), this, SLOT(penWidthChanged(int)));
+
+    connect(drawModesCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(drawModeChanged(int)));
 
     redrawImage();
 }
@@ -236,12 +250,15 @@ void HarmonographApp::startFlex() {
     int code = flexDialog->exec();
 
     if (code==1) {
+        DrawParameters params = manager->getDrawParameters();
         FlexSettings* flexSettings = new FlexSettings();
         flexSettings->flexGraph = manager->getHarmCopy();
         flexSettings->flexBaseMode = flexDialog->flexBaseMode;
-        flexSettings->useAntialiasing = flexDialog->useAntiAliasing;
-        flexSettings->penWidth = flexDialog->penWidth;
+        params.useAntiAliasing = flexDialog->useAntiAliasing;
+        params.penWidth = flexDialog->penWidth;
         flexSettings->FPSLimit = flexDialog->FPS;
+
+        flexSettings->parameters = params;
         FlexWindow* flexWindow = new FlexWindow(flexSettings, this);
         flexWindow->setFixedWidth(1280);
         flexWindow->setFixedHeight(720);
@@ -466,4 +483,21 @@ void HarmonographApp::thirdYPhaseChanged(int value) {
 
 void HarmonographApp::thirdYFrequencyChanged(int value) {
     if (numOfPendulumsSpinBox->value() >= 3) changeParameter(2, EquationParameter::frequency, Dimension::y, value);
+}
+
+void HarmonographApp::drawModeChanged(int index) {
+    DrawModes drawMode;
+    switch (index) {
+    case 0:
+        drawMode = DrawModes::linesMode;
+        break;
+    case 1:
+        drawMode = DrawModes::pointsMode;
+        break;
+	default:
+        drawMode = DrawModes::linesMode;
+    	break;
+    }
+    manager->setDrawMode(drawMode);
+    redrawImage();
 }

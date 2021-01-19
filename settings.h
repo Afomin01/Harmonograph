@@ -2,18 +2,14 @@
 #include <QtWidgets>
 #include "Harmonograph.h"
 #include "FlexModesEnum.h"
+#include "DrawParameteres.h"
 
 class FlexSettings {
 public:
 	Harmonograph* flexGraph = nullptr;
 	FlexModes flexBaseMode = FlexModes::phaseBased;
-	bool useAntialiasing = false;
-	int penWidth = 1;
 	int FPSLimit = 60;
-	QColor firstColor = Qt::blue;
-	QColor secondColor = Qt::red;
-	bool useTwoColors = true;
-	QColor backgroundColor = Qt::white;
+	DrawParameters parameters;
 };
 
 class ImageSettings {
