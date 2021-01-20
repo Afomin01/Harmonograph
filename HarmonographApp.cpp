@@ -15,6 +15,7 @@ HarmonographApp::HarmonographApp(QWidget *parent) : QMainWindow(parent)
     GLWidget2D = new HarmonographOpenGLWidget(this, manager);
     GLWidget2D->setMinimumHeight(720);
     GLWidget2D->setMinimumWidth(1280);
+    GLWidget2D->setEnableAA(true);
     gridLayout2D->addWidget(GLWidget2D, 1, 1);
 
     auto gridLayout3D = dynamic_cast<QGridLayout*>(ui.tab3D->layout());
@@ -48,7 +49,7 @@ HarmonographApp::HarmonographApp(QWidget *parent) : QMainWindow(parent)
 
     ui.mainToolBar->addSeparator();
 
-    QLabel* freqPointLabel = new QLabel(this);
+    freqPointLabel = new QLabel(this);
     freqPointLabel->setText("Freq point: ");
     ui.mainToolBar->addWidget(freqPointLabel);
 
@@ -61,7 +62,7 @@ HarmonographApp::HarmonographApp(QWidget *parent) : QMainWindow(parent)
     
     ui.mainToolBar->addSeparator();
 
-    QLabel* numOfPendulumsLabel = new QLabel(this);
+    numOfPendulumsLabel = new QLabel(this);
     numOfPendulumsLabel->setText("Pendulums count: ");
     ui.mainToolBar->addWidget(numOfPendulumsLabel);
 
@@ -74,7 +75,7 @@ HarmonographApp::HarmonographApp(QWidget *parent) : QMainWindow(parent)
 
     ui.mainToolBar->addSeparator();
 
-    QLabel* penWidthLabel = new QLabel(this);
+    penWidthLabel = new QLabel(this);
     penWidthLabel->setText("Pen width: ");
     ui.mainToolBar->addWidget(penWidthLabel);
 
@@ -86,29 +87,76 @@ HarmonographApp::HarmonographApp(QWidget *parent) : QMainWindow(parent)
 
     ui.mainToolBar->addSeparator();
 
-    QLabel* drawModeLabel = new QLabel(this);
+    drawModeLabel = new QLabel(this);
     drawModeLabel->setText("Mode: ");
     ui.mainToolBar->addWidget(drawModeLabel);
 
-    QComboBox* drawModesCombo = new QComboBox(this);
+    ui.mainToolBar->addSeparator();
+
+    drawModesCombo = new QComboBox(this);
     drawModesCombo->addItem("lines");
     drawModesCombo->addItem("points");
     ui.mainToolBar->addWidget(drawModesCombo);
-	
+
+    ui.mainToolBar->addSeparator();
+
+    timeStepLabel = new QLabel(this);
+    timeStepLabel->setText("Time step: ");
+    ui.mainToolBar->addWidget(timeStepLabel);
+
+    ui.mainToolBar->addSeparator();
+
+    timeSpinBox = new QDoubleSpinBox(this);
+    timeSpinBox->setMinimum(0.01);
+    timeSpinBox->setMaximum(0.1);
+    timeSpinBox->setSingleStep(0.01);
+    timeSpinBox->setValue(0.01);
+    ui.mainToolBar->addWidget(timeSpinBox);
+
+    ui.mainToolBar->addSeparator();
+
+    QPushButton* primaryColorBtn = new QPushButton(this);
+    primaryColorBtn->setText("Primary color");
+    ui.mainToolBar->addWidget(primaryColorBtn);
+
+    ui.mainToolBar->addSeparator();
+
+    QPushButton* secondColorBtn = new QPushButton(this);
+    secondColorBtn->setText("Second color");
+    ui.mainToolBar->addWidget(secondColorBtn);
+
+    ui.mainToolBar->addSeparator();
+
+    QCheckBox* useTwoColorsCheckBox = new QCheckBox(this);
+    useTwoColorsCheckBox->setText("Use two colors");
+    useTwoColorsCheckBox->setChecked(true);
+    ui.mainToolBar->addWidget(useTwoColorsCheckBox);
+
+    ui.mainToolBar->addSeparator();
+
+    QPushButton* backColorBtn = new QPushButton(this);
+    backColorBtn->setText("Background color");
+    ui.mainToolBar->addWidget(backColorBtn);
 
     connect(autoRotationTimer, SIGNAL(timeout()), this, SLOT(autoRotationTimerTimeout()));
 
     connect(ratioCheckBox, SIGNAL(clicked(bool)), this, SLOT(ratioCheckBoxCliked(bool)));
     connect(circleCheckBox, SIGNAL(clicked(bool)), this, SLOT(circleCheckBoxClicked(bool)));
+    connect(useTwoColorsCheckBox, SIGNAL(clicked(bool)), this, SLOT(useTwoColorsCheckBoxChanged(bool)));
 
     connect(firstRatioValueCombo, SIGNAL(currentTextChanged(const QString&)), this, SLOT(firstRatioPicked(const QString&)));
     connect(secondRatioValueCombo, SIGNAL(currentTextChanged(const QString&)), this, SLOT(secondRatioPicked(const QString&)));
 
     connect(freqPtSpinBox, SIGNAL(valueChanged(double)), this, SLOT(freqPointChanged(double)));
+    connect(timeSpinBox, SIGNAL(valueChanged(double)), this, SLOT(timeStepChanged(double)));
     connect(numOfPendulumsSpinBox, SIGNAL(valueChanged(int)), this, SLOT(numOfPendulumsChanged(int)));
     connect(penWidthSpinBox, SIGNAL(valueChanged(int)), this, SLOT(penWidthChanged(int)));
 
     connect(drawModesCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(drawModeChanged(int)));
+
+    connect(primaryColorBtn, SIGNAL(clicked()), this, SLOT(primaryColorBtnClicked()));
+    connect(secondColorBtn, SIGNAL(clicked()), this, SLOT(secondColorBtnClicked()));
+    connect(backColorBtn, SIGNAL(clicked()), this, SLOT(backgroundColorBtnClicked()));
 
     redrawImage();
 }
@@ -251,7 +299,6 @@ void HarmonographApp::startFlex() {
         flexSettings->flexGraph = manager->getHarmCopy();
         flexSettings->flexBaseMode = flexDialog->flexBaseMode;
         params.useAntiAliasing = flexDialog->useAntiAliasing;
-        params.penWidth = flexDialog->penWidth;
         flexSettings->FPSLimit = flexDialog->FPS;
 
         flexSettings->parameters = params;
@@ -364,6 +411,11 @@ void HarmonographApp::circleCheckBoxClicked(bool checked) {
     redrawImage();
 }
 
+void HarmonographApp::useTwoColorsCheckBoxChanged(bool checked) {
+    manager->setUseTwoColors(checked);
+    redrawImage();
+}
+
 void HarmonographApp::penWidthChanged(int width) {
     manager->setPenWidth(width);
     redrawImage();
@@ -381,6 +433,13 @@ void HarmonographApp::secondRatioPicked(const QString& text) {
 
 void HarmonographApp::freqPointChanged(double freqPoint) {
     manager->setFrequencyPoint(freqPoint);
+    redrawImage();
+}
+
+void HarmonographApp::timeStepChanged(double step) {
+    step = step < 0.001 ? 0.001 : step;
+    step = step > 0.1 ? 0.1 : step;
+    manager->setTimeStep(step);
     redrawImage();
 }
 
@@ -407,6 +466,32 @@ void HarmonographApp::numOfPendulumsChanged(int newNum) {
         ui.thirdYPhase->setValue(0);
     }
     redrawImage();
+}
+
+void HarmonographApp::primaryColorBtnClicked() {
+    QColor color = QColorDialog::getColor(manager->getDrawParameters().primaryColor, this, "Select primary color");
+    if(color.isValid()) {
+        manager->setPrimaryColor(color);
+        redrawImage();
+    }
+}
+
+void HarmonographApp::secondColorBtnClicked() {
+    QColor color = QColorDialog::getColor(manager->getDrawParameters().secondColor, this, "Select second color");
+    if (color.isValid()) {
+        manager->setSecondColor(color);
+        redrawImage();
+    }	
+}
+
+void HarmonographApp::backgroundColorBtnClicked() {
+    QColor color = QColorDialog::getColor(manager->getDrawParameters().backgroundColor, this, "Select background color");
+    if (color.isValid()) {
+        manager->setBackgroundColor(color);
+        redrawImage();
+        GLWidget2D->update();
+    	
+    }
 }
 
 void HarmonographApp::firstXDampingChanged(int value) {

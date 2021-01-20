@@ -25,9 +25,10 @@ FlexWindow::FlexWindow(FlexSettings* settings, QWidget* parent) : QMainWindow(pa
 
 	this->setAttribute(Qt::WA_DeleteOnClose);
 
-
 	if (settings->flexBaseMode == FlexModes::frequencyBased)
 		flexSpeedChangeFactor = flexSpeedChangeFactor / 30.0;
+	if (settings->flexBaseMode == FlexModes::phaseBased)
+		flexSpeedChangeFactor = flexSpeedChangeFactor / 2.0;
 
 	flexTimer = new QTimer(this);
 	FPSLimit = settings->FPSLimit;

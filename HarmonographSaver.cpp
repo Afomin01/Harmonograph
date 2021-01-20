@@ -39,9 +39,9 @@ public:
 		int saveZoom = (int)((parameters.zoom * 500) / ((1280 * 1.0) / width));
 
 		int stepCount = (int)(255 / 1e-04) + 10;
-		float stepR = ((float)(parameters.secondColor.red() - parameters.firstColor.red()) / stepCount);
-		float stepG = ((float)(parameters.secondColor.green() - parameters.firstColor.green()) / stepCount);
-		float stepB = ((float)(parameters.secondColor.blue() - parameters.firstColor.blue()) / stepCount);
+		float stepR = ((float)(parameters.secondColor.red() - parameters.primaryColor.red()) / stepCount);
+		float stepG = ((float)(parameters.secondColor.green() - parameters.primaryColor.green()) / stepCount);
+		float stepB = ((float)(parameters.secondColor.blue() - parameters.primaryColor.blue()) / stepCount);
 
 		if (width == height) {
 			float maxX = 0, maxY = 0, maxTotal = 0;
@@ -69,7 +69,7 @@ public:
 
 		for (float t = 1e-04; t < 255; t += 1e-04) {
 
-			savePen.setColor(QColor(parameters.firstColor.red() + stepR * i, parameters.firstColor.green() + stepG * i, parameters.firstColor.blue() + stepB * i, 255));
+			savePen.setColor(QColor(parameters.primaryColor.red() + stepR * i, parameters.primaryColor.green() + stepG * i, parameters.primaryColor.blue() + stepB * i, 255));
 			savePainter->setPen(savePen);
 			xCurrent = (harmonograph->getCoordinateByTime(Dimension::x, t) * saveZoom) + widthAdd;
 			yCurrent = -(harmonograph->getCoordinateByTime(Dimension::y, t) * saveZoom) + heightAdd;

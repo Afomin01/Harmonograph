@@ -52,8 +52,8 @@ void HarmonographManager::loadParametersFromFile(QString filename) {
     }
 }
 
-void HarmonographManager::setFirstColor(QColor color) {
-    drawParameters.firstColor = color;
+void HarmonographManager::setPrimaryColor(QColor color) {
+    drawParameters.primaryColor = color;
 }
 
 int HarmonographManager::getHistorySize() {
@@ -112,14 +112,13 @@ void HarmonographManager::setDrawParameters(DrawParameters parameters) {
     drawParameters = parameters;
 }
 
-void HarmonographManager::enableTwoColorMode(bool isEnabled) {
+void HarmonographManager::setTimeStep(double step) {
+    drawParameters.timeStep = step;
+}
+
+void HarmonographManager::setUseTwoColors(bool isEnabled) {
     drawParameters.useTwoColors = isEnabled;
 }
-
-void HarmonographManager::enableAntiAliasing(bool isEnabled) {
-    drawParameters.useAntiAliasing = isEnabled;
-}
-
 
 void HarmonographManager::setFrequencyPoint(float freqPt) {
     if (freqPt > 0) harmonograph->changeFrequencyPointNoUpdate(freqPt);

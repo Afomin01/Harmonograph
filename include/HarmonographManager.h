@@ -50,17 +50,15 @@ public:
 
 	DrawParameters getDrawParameters();
 
-	void enableTwoColorMode(bool isEnabled);
-	void enableAntiAliasing(bool isEnabled);
-	void setFirstColor(QColor color);
+	void setUseTwoColors(bool isEnabled);
+	void setPrimaryColor(QColor color);
 	void setSecondColor(QColor color);
 	void setBackgroundColor(QColor color);
 	void setPenWidth(int width);
 	void setZoom(float value);
 	void setDrawMode(DrawModes mode);
 	void setDrawParameters(DrawParameters parameters);
-	
-	
+	void setTimeStep(double step);
 
 	int getHistorySize();
 	std::vector<Pendulum*> getPendulumsCopy();

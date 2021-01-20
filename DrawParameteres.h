@@ -10,12 +10,13 @@ enum class DrawModes {
 class DrawParameters{
 public:
 	bool useTwoColors = true;
-	bool useAntiAliasing = false;
+	bool useAntiAliasing = true;
 	DrawModes drawMode = DrawModes::linesMode;
 	int penWidth = 1;
 	float zoom = 0.25;
+	float timeStep = 0.01;
 	
-	QColor firstColor = Qt::blue;
+	QColor primaryColor = Qt::blue;
 	QColor secondColor = Qt::red;
 	QColor backgroundColor = Qt::white;
 };

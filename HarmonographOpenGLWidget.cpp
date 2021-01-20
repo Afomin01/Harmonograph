@@ -53,6 +53,7 @@ void HarmonographOpenGLWidget::mouseReleaseEvent(QMouseEvent* event){
 void HarmonographOpenGLWidget::initializeGL() {
 	QColor back = manager->getDrawParameters().backgroundColor;
 	glClearColor(back.redF(), back.greenF(), back.blueF(), 1);
+	glClear(GL_COLOR_BUFFER_BIT);
 	glLineWidth(manager->getDrawParameters().penWidth);
 	glPointSize(manager->getDrawParameters().penWidth);
 }
@@ -70,9 +71,9 @@ void HarmonographOpenGLWidget::resizeGL(int w, int h){
 
 void HarmonographOpenGLWidget::paintGL(){
 	DrawParameters parameters = manager->getDrawParameters();
-	
-	QColor back = parameters.backgroundColor;
-	glClearColor(back.redF(), back.greenF(), back.blueF(), 1);
+
+	glClearColor(parameters.backgroundColor.redF(), parameters.backgroundColor.greenF(), parameters.backgroundColor.blueF(), 1);
+	glClear(GL_COLOR_BUFFER_BIT);
 
 	glLineWidth(parameters.penWidth);
 	glPointSize(parameters.penWidth);
@@ -92,21 +93,34 @@ void HarmonographOpenGLWidget::paintGL(){
 	float xCurrent = 0;
 	float yCurrent = 0;
 
-	int stepCount = (int)(255 / 1e-02) + 10;
-	float stepR = ((float)(parameters.secondColor.redF() - parameters.firstColor.redF()) / stepCount);
-	float stepG = ((float)(parameters.secondColor.greenF() - parameters.firstColor.greenF()) / stepCount);
-	float stepB = ((float)(parameters.secondColor.blueF() - parameters.firstColor.blueF()) / stepCount);
-	int i = 1;
+	if (parameters.useTwoColors) {
+		int stepCount = (int)(255 / parameters.timeStep) + 10;
+		float stepR = ((float)(parameters.secondColor.redF() - parameters.primaryColor.redF()) / stepCount);
+		float stepG = ((float)(parameters.secondColor.greenF() - parameters.primaryColor.greenF()) / stepCount);
+		float stepB = ((float)(parameters.secondColor.blueF() - parameters.primaryColor.blueF()) / stepCount);
+		
+		int i = 1;
+		
+		for (float t = 0; t < 255; t += parameters.timeStep) {
+			glColor3f(parameters.primaryColor.redF() + stepR * i, parameters.primaryColor.greenF() + stepG * i, parameters.primaryColor.blueF() + stepB * i);
 
-	for (float t = 0; t < 255; t += 1e-02) {
-		glColor3f(parameters.firstColor.redF() + stepR * i, parameters.firstColor.greenF() + stepG * i, parameters.firstColor.blueF() + stepB * i);
+			xCurrent = (manager->getCoordinateByTime(Dimension::x, t) * parameters.zoom);
+			yCurrent = (manager->getCoordinateByTime(Dimension::y, t) * parameters.zoom);
 
-		xCurrent = (manager->getCoordinateByTime(Dimension::x, t) * parameters.zoom);
-		yCurrent = (manager->getCoordinateByTime(Dimension::y, t) * parameters.zoom);
+			glVertex3f(xCurrent, yCurrent, 0);
+			i++;
+		}
+		
+	} else {
+		glColor3f(parameters.primaryColor.redF(), parameters.primaryColor.greenF(), parameters.primaryColor.blueF());
+		for (float t = 0; t < 255; t += parameters.timeStep) {
+			xCurrent = (manager->getCoordinateByTime(Dimension::x, t) * parameters.zoom);
+			yCurrent = (manager->getCoordinateByTime(Dimension::y, t) * parameters.zoom);
 
-		glVertex3f(xCurrent, yCurrent, 0);
-		i++;
+			glVertex3f(xCurrent, yCurrent, 0);
+		}
 	}
+
 	glEnd();
 }
 

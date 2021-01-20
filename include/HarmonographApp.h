@@ -31,13 +31,12 @@ private:
     QTimer* autoRotationTimer;
 
     QCheckBox* ratioCheckBox;
-    QComboBox* firstRatioValueCombo;
-    QComboBox* secondRatioValueCombo;
-    QLabel* colonLabel;
+    QComboBox* firstRatioValueCombo, *secondRatioValueCombo, *drawModesCombo;
+    QLabel* colonLabel, *freqPointLabel, *numOfPendulumsLabel, *penWidthLabel, *drawModeLabel, *timeStepLabel;
 
     QCheckBox* circleCheckBox;
 
-    QDoubleSpinBox* freqPtSpinBox;
+    QDoubleSpinBox* freqPtSpinBox, *timeSpinBox;
     QSpinBox* numOfPendulumsSpinBox; 
     QSpinBox* penWidthSpinBox;
 
@@ -58,11 +57,17 @@ private slots:
     void loadParametersFromFile();
     void ratioCheckBoxCliked(bool checked);
     void circleCheckBoxClicked(bool checked);
+    void useTwoColorsCheckBoxChanged(bool checked);
     void penWidthChanged(int width);
     void firstRatioPicked(const QString& text);
     void secondRatioPicked(const QString& text);
     void freqPointChanged(double freqPoint);
+    void timeStepChanged(double step);
     void numOfPendulumsChanged(int newNum);
+
+    void primaryColorBtnClicked();
+    void secondColorBtnClicked();
+    void backgroundColorBtnClicked();
 
 
     void firstXDampingChanged(int value);
