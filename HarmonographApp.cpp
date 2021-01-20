@@ -327,17 +327,18 @@ void HarmonographApp::saveImage() {
             tr("png image (*.png);;All Files (*)"));
         if (!fileName.isEmpty()) {
             ImageSettings* imageSettings = new ImageSettings();
+            imageSettings->parameters = manager->getDrawParameters();
+        	
             imageSettings->filename = fileName;
-            imageSettings->penWidth = saveImageDialog->penWidth;
-            imageSettings->useAntialiasing = saveImageDialog->useAntialiasing;
+            if (saveImageDialog->transpBack) imageSettings->parameters.backgroundColor = QColor(0, 0, 0, 0);
+            imageSettings->parameters.penWidth = saveImageDialog->penWidth;
+            imageSettings->parameters.useAntiAliasing = saveImageDialog->useAntialiasing;
             imageSettings->useSquareImage = saveImageDialog->useSquareImage;
             imageSettings->saveWidth = saveImageDialog->saveWidth;
             imageSettings->saveHeight = saveImageDialog->saveHeight;
-            imageSettings->transpBack = saveImageDialog->transpBack;
+            imageSettings->borderPercentage = saveImageDialog->borderPercentage;
 
             manager->saveCurrentImage(imageSettings);
-
-            delete imageSettings;
         }
     }
     if (wasRotationActive) autoRotationTimer->start();

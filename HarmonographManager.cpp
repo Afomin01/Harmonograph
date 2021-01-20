@@ -30,14 +30,9 @@ void HarmonographManager::rotateXY(float x, float y) {
 }
 
 void HarmonographManager::saveCurrentImage(ImageSettings* settings){
-    Harmonograph* copyHarm =new Harmonograph(harmonograph);
-    DrawParameters params = drawParameters;
-    params.penWidth = settings->penWidth;
-    params.useAntiAliasing = settings->useAntialiasing;
+    Harmonograph* copyHarm = new Harmonograph(harmonograph);
 
-    if (settings->transpBack) params.backgroundColor = QColor(0,0,0,0);
-
-    imageSaver->saveImage(copyHarm, settings->filename, params, settings->saveWidth, settings->saveHeight);
+    imageSaver->saveImage(copyHarm, settings);
 }
 void HarmonographManager::saveParametersToFile(QString filename) {
     Harmonograph* copyHarmonograph = new Harmonograph(harmonograph);

@@ -4,15 +4,6 @@
 
 class SaveImageTask : public QRunnable {
 public:
-	SaveImageTask(Harmonograph* harmonograph, QString filename, DrawParameters parameters, int width, int height) {
-		this->filename = filename;
-		this->harmonograph = harmonograph;
-		this->parameters = parameters;
-		imageToSave = new QImage(width, height, QImage::Format_ARGB32);
-		this->width = width;
-		this->height = height;
-	}
-
 	QString filename;
 	Harmonograph* harmonograph;
 	DrawParameters parameters;
@@ -20,9 +11,23 @@ public:
 
 	int width = 1280;
 	int height = 720;
+	float borderPercentage = 0.03;
+	
+	SaveImageTask(Harmonograph* harmonograph, ImageSettings* settings) {
+		this->filename = settings->filename;
+		this->harmonograph = harmonograph;
+		this->parameters = settings->parameters;
+		this->width = settings->saveWidth;
+		this->height = settings->saveHeight;
+		this->borderPercentage = settings->borderPercentage/100.0;
 
+		imageToSave = new QImage(width, height, QImage::Format_ARGB32);
+		delete settings;
+	}
+	
 	void run() override {
-		float const borderPercentage = 0.03;
+		int const maxT = 255;
+		float const tStep = 1e-04;
 		QPainter* savePainter = new QPainter(imageToSave);
 		QPen savePen;
 
@@ -38,52 +43,70 @@ public:
 
 		int saveZoom = (int)((parameters.zoom * 500) / ((1280 * 1.0) / width));
 
-		int stepCount = (int)(255 / 1e-04) + 10;
-		float stepR = ((float)(parameters.secondColor.red() - parameters.primaryColor.red()) / stepCount);
-		float stepG = ((float)(parameters.secondColor.green() - parameters.primaryColor.green()) / stepCount);
-		float stepB = ((float)(parameters.secondColor.blue() - parameters.primaryColor.blue()) / stepCount);
+		float stepR = 0, stepG = 0, stepB = 0;
 
-		if (width == height) {
-			float maxX = 0, maxY = 0, maxTotal = 0;
+		if (parameters.useTwoColors) {
+			int stepCount = 0;
+			if (parameters.drawMode == DrawModes::linesMode) stepCount = (int)(maxT / tStep) + 10;
+			else stepCount = (int)(maxT / parameters.timeStep) + 10;
 
-			for (float t = 0; t < 225; t += 1e-02) {
-				float x = harmonograph->getCoordinateByTime(Dimension::x, t);
-				float y = harmonograph->getCoordinateByTime(Dimension::y, t);
-				if (x > maxX) maxX = x;
-				if (y > maxY) maxY = y;
-			}
-
-			maxTotal = maxX > maxY ? maxX : maxY;
-
-			saveZoom = (width / 2) / maxTotal;
-			saveZoom -= saveZoom * borderPercentage;
+			stepR = ((float)(parameters.secondColor.red() - parameters.primaryColor.red()) / stepCount);
+			stepG = ((float)(parameters.secondColor.green() - parameters.primaryColor.green()) / stepCount);
+			stepB = ((float)(parameters.secondColor.blue() - parameters.primaryColor.blue()) / stepCount);
 		}
+
+		
+		float maxX = 0, maxY = 0, xZoom = 0, yZoom = 0;
+
+		for (float t = 0; t < maxT; t += 1e-02) {
+			float x = abs(harmonograph->getCoordinateByTime(Dimension::x, t));
+			float y = abs(harmonograph->getCoordinateByTime(Dimension::y, t));
+			if (x > maxX) maxX = x;
+			if (y > maxY) maxY = y;
+		}
+
+		xZoom = (width / 2.0) / maxX;
+		yZoom = (height / 2.0) / maxY;
+
+		saveZoom = xZoom > yZoom ? yZoom : xZoom;
+		saveZoom -= saveZoom * borderPercentage;
+
 
 		int i = 1;
+		if (parameters.drawMode == DrawModes::linesMode) {
 
-		float xLast = (harmonograph->getCoordinateByTime(Dimension::x, 0) * saveZoom) + widthAdd;
-		float yLast = -(harmonograph->getCoordinateByTime(Dimension::y, 0) * saveZoom) + heightAdd;
+			float xLast = (harmonograph->getCoordinateByTime(Dimension::x, 0) * saveZoom) + widthAdd, xCurrent = 0;
+			float yLast = -(harmonograph->getCoordinateByTime(Dimension::y, 0) * saveZoom) + heightAdd, yCurrent = 0;
 
-		float xCurrent = 0;
-		float yCurrent = 0;
+			for (float t = tStep; t < maxT; t += tStep) {
 
-		for (float t = 1e-04; t < 255; t += 1e-04) {
+				savePen.setColor(QColor(parameters.primaryColor.red() + stepR * i, parameters.primaryColor.green() + stepG * i, parameters.primaryColor.blue() + stepB * i, 255));
+				savePainter->setPen(savePen);
+				xCurrent = (harmonograph->getCoordinateByTime(Dimension::x, t) * saveZoom) + widthAdd;
+				yCurrent = -(harmonograph->getCoordinateByTime(Dimension::y, t) * saveZoom) + heightAdd;
 
-			savePen.setColor(QColor(parameters.primaryColor.red() + stepR * i, parameters.primaryColor.green() + stepG * i, parameters.primaryColor.blue() + stepB * i, 255));
-			savePainter->setPen(savePen);
-			xCurrent = (harmonograph->getCoordinateByTime(Dimension::x, t) * saveZoom) + widthAdd;
-			yCurrent = -(harmonograph->getCoordinateByTime(Dimension::y, t) * saveZoom) + heightAdd;
+				savePainter->drawLine(xLast, yLast, xCurrent, yCurrent);
 
-			savePainter->drawLine(xLast, yLast, xCurrent, yCurrent);
+				xLast = xCurrent;
+				yLast = yCurrent;
+				i++;
+			}
 
-			xLast = xCurrent;
-			yLast = yCurrent;
-			i++;
 		}
-		delete savePainter;		
+		else {
+			for (float t = 0; t < maxT; t += parameters.timeStep) {
+				savePen.setColor(QColor(parameters.primaryColor.red() + stepR * i, parameters.primaryColor.green() + stepG * i, parameters.primaryColor.blue() + stepB * i, 255));
+				savePainter->setPen(savePen);
+
+				savePainter->drawPoint((harmonograph->getCoordinateByTime(Dimension::x, t) * saveZoom) + widthAdd, -(harmonograph->getCoordinateByTime(Dimension::y, t) * saveZoom) + heightAdd);
+
+				i++;
+			}
+		}
 
 		imageToSave->save(filename);
 
+		delete savePainter;
 		delete imageToSave;
 		delete harmonograph;
 	}
@@ -93,8 +116,8 @@ HarmonographSaver::HarmonographSaver() {
 	//load settings logic
 }
 
-void HarmonographSaver::saveImage(Harmonograph* harmonograph, QString filename, DrawParameters parameters, int width, int height) {
-	SaveImageTask* task = new SaveImageTask(harmonograph, filename, parameters, width, height);
+void HarmonographSaver::saveImage(Harmonograph* harmonograph, ImageSettings* settings) {
+	SaveImageTask* task = new SaveImageTask(harmonograph, settings);
 	QThreadPool::globalInstance()->start(task);
 }
 

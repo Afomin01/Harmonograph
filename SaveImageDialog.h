@@ -18,6 +18,7 @@ public:
 	int saveWidth = 1920;
 	int saveHeight = 1080;
 	int penWidth = 1;
+	int borderPercentage = 3;
 
 private:
 	Ui::SaveImageDialog ui;

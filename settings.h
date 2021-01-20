@@ -14,11 +14,10 @@ public:
 
 class ImageSettings {
 public:
-	QString filename;
-	int penWidth;
-	bool useAntialiasing;
-	bool useSquareImage;
-	int saveWidth;
-	int saveHeight;
-	bool transpBack;
+	DrawParameters parameters;
+	QString filename = "";
+	bool useSquareImage = false;
+	int borderPercentage = 3;
+	int saveWidth = 1920;
+	int saveHeight = 1080;
 };

@@ -27,5 +27,7 @@ void SaveImageDialog::accept() {
 
 	penWidth = ui.penWidthSpinBox->value();
 
+	borderPercentage = ui.borderPercentageSpinBox->value();
+
 	QDialog::accept();
 }
