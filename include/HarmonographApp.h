@@ -30,14 +30,10 @@ private:
     HarmonographOpenGLWidget* GLWidget2D;
     QTimer* autoRotationTimer;
 
-    QCheckBox* ratioCheckBox;
-    QComboBox* firstRatioValueCombo, *secondRatioValueCombo, *drawModesCombo;
-    QLabel* colonLabel, *freqPointLabel, *numOfPendulumsLabel, *penWidthLabel, *drawModeLabel, *timeStepLabel;
+    QComboBox* drawModesCombo;
+    QLabel* penWidthLabel, *drawModeLabel, *timeStepLabel;
 
-    QCheckBox* circleCheckBox;
-
-    QDoubleSpinBox* freqPtSpinBox, *timeSpinBox;
-    QSpinBox* numOfPendulumsSpinBox; 
+    QDoubleSpinBox* timeSpinBox;
     QSpinBox* penWidthSpinBox;
 
     FlexDialog* flexDialog = new FlexDialog(this);
@@ -59,8 +55,8 @@ private slots:
     void circleCheckBoxClicked(bool checked);
     void useTwoColorsCheckBoxChanged(bool checked);
     void penWidthChanged(int width);
-    void firstRatioPicked(const QString& text);
-    void secondRatioPicked(const QString& text);
+    void firstRatioPicked(int ratio);
+    void secondRatioPicked(int ratio);
     void freqPointChanged(double freqPoint);
     void timeStepChanged(double step);
     void numOfPendulumsChanged(int newNum);

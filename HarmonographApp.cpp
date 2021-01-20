@@ -21,59 +21,6 @@ HarmonographApp::HarmonographApp(QWidget *parent) : QMainWindow(parent)
     auto gridLayout3D = dynamic_cast<QGridLayout*>(ui.tab3D->layout());
 
     //gridLayout3D->addWidget(openGLWidget, 1, 1);
-    
-    ratioCheckBox = new QCheckBox("Ratio", this);
-    ui.mainToolBar->addWidget(ratioCheckBox);
-
-    firstRatioValueCombo = new QComboBox(this);
-    for (int i = 1; i < 6; i++) firstRatioValueCombo->addItem(QString::number(i));
-    firstRatioValueCombo->setEnabled(false);
-    firstRatioValueCombo->setCurrentIndex(0);
-    ui.mainToolBar->addWidget(firstRatioValueCombo);
-
-    colonLabel = new QLabel(this);
-    colonLabel->setText(" : ");
-    colonLabel->setEnabled(false);
-    ui.mainToolBar->addWidget(colonLabel);
-
-    secondRatioValueCombo = new QComboBox(this);
-    for (int i = 1; i < 6; i++) secondRatioValueCombo->addItem(QString::number(i));
-    secondRatioValueCombo->setEnabled(false);
-    secondRatioValueCombo->setCurrentIndex(0);
-    ui.mainToolBar->addWidget(secondRatioValueCombo);
-
-    ui.mainToolBar->addSeparator();
-
-    circleCheckBox = new QCheckBox("Circle mode", this);
-    ui.mainToolBar->addWidget(circleCheckBox);
-
-    ui.mainToolBar->addSeparator();
-
-    freqPointLabel = new QLabel(this);
-    freqPointLabel->setText("Freq point: ");
-    ui.mainToolBar->addWidget(freqPointLabel);
-
-    freqPtSpinBox = new QDoubleSpinBox(this);
-    freqPtSpinBox->setMinimum(0.5);
-    freqPtSpinBox->setMaximum(50);
-    freqPtSpinBox->setSingleStep(0.01);
-    freqPtSpinBox->setValue(2);
-    ui.mainToolBar->addWidget(freqPtSpinBox);
-    
-    ui.mainToolBar->addSeparator();
-
-    numOfPendulumsLabel = new QLabel(this);
-    numOfPendulumsLabel->setText("Pendulums count: ");
-    ui.mainToolBar->addWidget(numOfPendulumsLabel);
-
-    numOfPendulumsSpinBox = new QSpinBox(this);
-    numOfPendulumsSpinBox->setMinimum(1);
-    numOfPendulumsSpinBox->setMaximum(4);
-    numOfPendulumsSpinBox->setSingleStep(1);
-    numOfPendulumsSpinBox->setValue(3);
-    ui.mainToolBar->addWidget(numOfPendulumsSpinBox);
-
-    ui.mainToolBar->addSeparator();
 
     penWidthLabel = new QLabel(this);
     penWidthLabel->setText("Pen width: ");
@@ -140,16 +87,9 @@ HarmonographApp::HarmonographApp(QWidget *parent) : QMainWindow(parent)
 
     connect(autoRotationTimer, SIGNAL(timeout()), this, SLOT(autoRotationTimerTimeout()));
 
-    connect(ratioCheckBox, SIGNAL(clicked(bool)), this, SLOT(ratioCheckBoxCliked(bool)));
-    connect(circleCheckBox, SIGNAL(clicked(bool)), this, SLOT(circleCheckBoxClicked(bool)));
     connect(useTwoColorsCheckBox, SIGNAL(clicked(bool)), this, SLOT(useTwoColorsCheckBoxChanged(bool)));
 
-    connect(firstRatioValueCombo, SIGNAL(currentTextChanged(const QString&)), this, SLOT(firstRatioPicked(const QString&)));
-    connect(secondRatioValueCombo, SIGNAL(currentTextChanged(const QString&)), this, SLOT(secondRatioPicked(const QString&)));
-
-    connect(freqPtSpinBox, SIGNAL(valueChanged(double)), this, SLOT(freqPointChanged(double)));
     connect(timeSpinBox, SIGNAL(valueChanged(double)), this, SLOT(timeStepChanged(double)));
-    connect(numOfPendulumsSpinBox, SIGNAL(valueChanged(int)), this, SLOT(numOfPendulumsChanged(int)));
     connect(penWidthSpinBox, SIGNAL(valueChanged(int)), this, SLOT(penWidthChanged(int)));
 
     connect(drawModesCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(drawModeChanged(int)));
@@ -369,39 +309,43 @@ void HarmonographApp::loadParametersFromFile() {
         tr("Load Harmonogrph parameters"), "",
         tr("JSON (*.json);;All Files (*)"));
     if (!fileName.isEmpty()) {
-        freqPtSpinBox->blockSignals(true);
-        firstRatioValueCombo->blockSignals(true);
-        secondRatioValueCombo->blockSignals(true);
+        ui.freqPointSpinBox->blockSignals(true);
+        ui.firstRatioValueSpinBox->blockSignals(true);
+        ui.secondRatioValueSpinBox->blockSignals(true);
+        ui.numOfPendulumsSpinBox->blockSignals(true);
 
         autoRotationTimer->stop();
         manager->loadParametersFromFile(fileName);
 
         Harmonograph* harmCopy = manager->getHarmCopy();
 
-        freqPtSpinBox->setValue(harmCopy->frequencyPoint);
-        ratioCheckBox->setChecked(harmCopy->isStar);
+        ui.freqPointSpinBox->setValue(harmCopy->frequencyPoint);
+        ui.ratioCheckBox->setChecked(harmCopy->isStar);
 
-        firstRatioValueCombo->setEnabled(harmCopy->isStar);
-        colonLabel->setEnabled(harmCopy->isStar);
-        secondRatioValueCombo->setEnabled(harmCopy->isStar);
+        ui.firstRatioValueSpinBox->setEnabled(harmCopy->isStar);
+        ui.colonLabel->setEnabled(harmCopy->isStar);
+        ui.secondRatioValueSpinBox->setEnabled(harmCopy->isStar);
 
-        firstRatioValueCombo->setCurrentText(QString::number(harmCopy->firstRatioValue));
-        secondRatioValueCombo->setCurrentText(QString::number(harmCopy->secondRatioValue));
-        circleCheckBox->setChecked(harmCopy->isCircle);
+        ui.firstRatioValueSpinBox->setValue(harmCopy->firstRatioValue);
+        ui.secondRatioValueSpinBox->setValue(harmCopy->secondRatioValue);
+        ui.circleCheckBox->setChecked(harmCopy->isCircle);
+
+        ui.numOfPendulumsSpinBox->setValue(harmCopy->getNumOfPendulums());
 
         delete harmCopy;
 
         redrawImage();
-        freqPtSpinBox->blockSignals(false);
-        firstRatioValueCombo->blockSignals(false);
-        secondRatioValueCombo->blockSignals(false);
+        ui.freqPointSpinBox->blockSignals(false);
+        ui.firstRatioValueSpinBox->blockSignals(false);
+        ui.secondRatioValueSpinBox->blockSignals(false);
+        ui.numOfPendulumsSpinBox->blockSignals(false);
     }
 }
 
 void HarmonographApp::ratioCheckBoxCliked(bool checked) {
-    firstRatioValueCombo->setEnabled(checked);
-    colonLabel->setEnabled(checked);
-    secondRatioValueCombo->setEnabled(checked);
+    ui.firstRatioValueSpinBox->setEnabled(checked);
+    ui.colonLabel->setEnabled(checked);
+    ui.secondRatioValueSpinBox->setEnabled(checked);
 
     manager->setRatioStateEnabled(checked);
     redrawImage();
@@ -422,13 +366,13 @@ void HarmonographApp::penWidthChanged(int width) {
     redrawImage();
 }
 
-void HarmonographApp::firstRatioPicked(const QString& text) {
-    manager->setFirstRatioValue(text.toInt());
+void HarmonographApp::firstRatioPicked(int ratio) {
+    manager->setFirstRatioValue(ratio);
     redrawImage();
 }
 
-void HarmonographApp::secondRatioPicked(const QString& text) {
-    manager->setSecondRatioValue(text.toInt());
+void HarmonographApp::secondRatioPicked(int ratio) {
+    manager->setSecondRatioValue(ratio);
     redrawImage();
 }
 
@@ -520,51 +464,51 @@ void HarmonographApp::firstYFrequencyChanged(int value) {
 }
 
 void HarmonographApp::secondXDampingChanged(int value) {
-    if(numOfPendulumsSpinBox->value()>=2) changeParameter(1, EquationParameter::dumping, Dimension::x, value);
+    if(ui.numOfPendulumsSpinBox->value()>=2) changeParameter(1, EquationParameter::dumping, Dimension::x, value);
 }
 
 void HarmonographApp::secondXPhaseChanged(int value) {
-    if (numOfPendulumsSpinBox->value() >= 2) changeParameter(1, EquationParameter::phase, Dimension::x, value);
+    if (ui.numOfPendulumsSpinBox->value() >= 2) changeParameter(1, EquationParameter::phase, Dimension::x, value);
 }
 
 void HarmonographApp::secondXFrequencyChanged(int value) {
-    if (numOfPendulumsSpinBox->value() >= 2) changeParameter(1, EquationParameter::frequency, Dimension::x, value);
+    if (ui.numOfPendulumsSpinBox->value() >= 2) changeParameter(1, EquationParameter::frequency, Dimension::x, value);
 }
 
 void HarmonographApp::secondYDampingChanged(int value) {
-    if (numOfPendulumsSpinBox->value() >= 2) changeParameter(1, EquationParameter::dumping, Dimension::y, value);
+    if (ui.numOfPendulumsSpinBox->value() >= 2) changeParameter(1, EquationParameter::dumping, Dimension::y, value);
 }
 
 void HarmonographApp::secondYPhaseChanged(int value) {
-    if (numOfPendulumsSpinBox->value() >= 2) changeParameter(1, EquationParameter::phase, Dimension::y, value);
+    if (ui.numOfPendulumsSpinBox->value() >= 2) changeParameter(1, EquationParameter::phase, Dimension::y, value);
 }
 
 void HarmonographApp::secondYFrequencyChanged(int value) {
-    if (numOfPendulumsSpinBox->value() >= 2) changeParameter(1, EquationParameter::frequency, Dimension::y, value);
+    if (ui.numOfPendulumsSpinBox->value() >= 2) changeParameter(1, EquationParameter::frequency, Dimension::y, value);
 }
 
 void HarmonographApp::thirdXDampingChanged(int value) {
-    if (numOfPendulumsSpinBox->value() >= 3) changeParameter(2, EquationParameter::dumping, Dimension::x, value);
+    if (ui.numOfPendulumsSpinBox->value() >= 3) changeParameter(2, EquationParameter::dumping, Dimension::x, value);
 }
 
 void HarmonographApp::thirdXPhaseChanged(int value) {
-    if (numOfPendulumsSpinBox->value() >= 3) changeParameter(2, EquationParameter::phase, Dimension::x, value);
+    if (ui.numOfPendulumsSpinBox->value() >= 3) changeParameter(2, EquationParameter::phase, Dimension::x, value);
 }
 
 void HarmonographApp::thirdXFrequencyChanged(int value) {
-    if (numOfPendulumsSpinBox->value() >= 3) changeParameter(2, EquationParameter::frequency, Dimension::x, value);
+    if (ui.numOfPendulumsSpinBox->value() >= 3) changeParameter(2, EquationParameter::frequency, Dimension::x, value);
 }
 
 void HarmonographApp::thirdYDampingChanged(int value) {
-    if (numOfPendulumsSpinBox->value() >= 3) changeParameter(2, EquationParameter::dumping, Dimension::y, value);
+    if (ui.numOfPendulumsSpinBox->value() >= 3) changeParameter(2, EquationParameter::dumping, Dimension::y, value);
 }
 
 void HarmonographApp::thirdYPhaseChanged(int value) {
-    if (numOfPendulumsSpinBox->value() >= 3) changeParameter(2, EquationParameter::phase, Dimension::y, value);
+    if (ui.numOfPendulumsSpinBox->value() >= 3) changeParameter(2, EquationParameter::phase, Dimension::y, value);
 }
 
 void HarmonographApp::thirdYFrequencyChanged(int value) {
-    if (numOfPendulumsSpinBox->value() >= 3) changeParameter(2, EquationParameter::frequency, Dimension::y, value);
+    if (ui.numOfPendulumsSpinBox->value() >= 3) changeParameter(2, EquationParameter::frequency, Dimension::y, value);
 }
 
 void HarmonographApp::drawModeChanged(int index) {
