@@ -3,14 +3,11 @@
 FlexDialog::FlexDialog(QWidget* parent) : QDialog(parent)
 {
 	ui.setupUi(this);
-
+	useAntiAliasing = ui.antialiasingCheckBox->isChecked();
+	FPS = ui.FPSSpinBox->value();
 }
 
 FlexDialog::~FlexDialog(){
-}
-
-void FlexDialog::setBrush(int value) {
-	penWidth = value;
 }
 
 void FlexDialog::changeBase(int value) {

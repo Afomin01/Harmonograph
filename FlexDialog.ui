@@ -107,7 +107,7 @@
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout_4">
        <item>
-        <widget class="QSpinBox" name="spinBox">
+        <widget class="QSpinBox" name="FPSSpinBox">
          <property name="maximumSize">
           <size>
            <width>50</width>
@@ -254,7 +254,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>spinBox</sender>
+   <sender>FPSSpinBox</sender>
    <signal>valueChanged(int)</signal>
    <receiver>FlexDialog</receiver>
    <slot>setFPS(int)</slot>

@@ -13,15 +13,13 @@ public:
 	FlexDialog(QWidget* parent = Q_NULLPTR);
 	~FlexDialog();
 
-	int penWidth = 1;
 	int FPS = 60;
-	bool useAntiAliasing = false;
+	bool useAntiAliasing = true;
 	FlexModes flexBaseMode = FlexModes::phaseBased;
 
 private:
 	Ui::FlexDialog ui;
 private slots:
-	void setBrush(int value);
 	void changeBase(int value);
 	void useAntialiasingState(int state);
 	void setFPS(int value);
