@@ -5,7 +5,6 @@
 #include <QtWidgets/QMainWindow>
 #include "Harmonograph.h"
 #include <QGraphicsPixmapItem>
-#include <ui_HarmonographApp.h>
 #include <cstdlib>
 #include "HarmonographManager.h"
 #include <ui_HarmonographApp.h>

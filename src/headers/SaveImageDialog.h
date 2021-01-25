@@ -1,8 +1,7 @@
 #pragma once
 
 #include <QDialog>
-#include "ui_SaveImageDialog.h"
-#include "ui_SaveImageDialog.h"
+#include <ui_SaveImageDialog.h>
 
 class SaveImageDialog : public QDialog
 {

@@ -3,7 +3,6 @@
 #include <QMainWindow>
 #include <QtWidgets>
 #include <ui_FlexWindow.h>
-#include <ui_FlexWindow.h>
 #include "Harmonograph.h"
 #include <QThreadPool>
 #include <QTimer>

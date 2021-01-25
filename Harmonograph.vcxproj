@@ -52,7 +52,7 @@
     </Link>
     <ClCompile>
       <FloatingPointModel>Fast</FloatingPointModel>
-      <AdditionalIncludeDirectories>$(ProjectDir)include;.\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\Projects\VS projects\Harmonograph\src\cpp;D:\Projects\VS projects\Harmonograph\src\ui;D:\Projects\VS projects\Harmonograph\src\headers;D:\Projects\VS projects\Harmonograph\libs;$(ProjectDir)include;.\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <ResourceCompile>
       <AdditionalIncludeDirectories>$(ProjectDir)include</AdditionalIncludeDirectories>
@@ -65,7 +65,7 @@
     </Link>
     <ClCompile>
       <FloatingPointModel>Fast</FloatingPointModel>
-      <AdditionalIncludeDirectories>$(ProjectDir)include;.\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\Projects\VS projects\Harmonograph\libs;D:\Projects\VS projects\Harmonograph\src\cpp;D:\Projects\VS projects\Harmonograph\src\headers;D:\Projects\VS projects\Harmonograph\src\ui;.\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <ResourceCompile>
       <AdditionalIncludeDirectories>$(ProjectDir)include</AdditionalIncludeDirectories>
@@ -113,22 +113,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="FlexDialog.cpp" />
-    <ClCompile Include="HarmonographOpenGLWidget.cpp" />
-    <ClCompile Include="FlexWindow.cpp" />
-    <ClCompile Include="HarmonographManager.cpp" />
-    <ClCompile Include="HarmonographSaver.cpp" />
-    <ClCompile Include="Pendulum.cpp" />
-    <ClCompile Include="PendulumDimension.cpp" />
-    <ClCompile Include="SaveImageDialog.cpp" />
     <QtRcc Include="HarmonographApp.qrc" />
-    <QtUic Include="FlexDialog.ui" />
-    <QtUic Include="FlexWindow.ui" />
-    <QtUic Include="HarmonographApp.ui" />
-    <ClCompile Include="Harmonograph.cpp" />
-    <ClCompile Include="HarmonographApp.cpp" />
-    <ClCompile Include="main.cpp" />
-    <QtUic Include="SaveImageDialog.ui" />
+    <QtUic Include="src\ui\FlexDialog.ui" />
+    <QtUic Include="src\ui\FlexWindow.ui" />
+    <QtUic Include="src\ui\HarmonographApp.ui">
+      <FileType>Document</FileType>
+    </QtUic>
+    <QtUic Include="src\ui\SaveImageDialog.ui" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Harmonograph.rc" />
@@ -136,30 +127,42 @@
   <ItemGroup>
     <Image Include="assets\autoRotate.png" />
     <Image Include="assets\FlexMode.png" />
+    <Image Include="assets\icon1024.ico" />
+    <Image Include="assets\icon256.ico" />
     <Image Include="assets\undo.png" />
     <Image Include="assets\update.png" />
-    <Image Include="icon1024.ico" />
-    <Image Include="icon256.ico" />
   </ItemGroup>
   <ItemGroup>
-    <QtMoc Include="SaveImageDialog.h" />
-    <QtMoc Include="FlexWindow.h" />
-    <QtMoc Include="FlexDialog.h" />
-    <ClInclude Include="DrawParameteres.h" />
-    <ClInclude Include="HarmonographOpenGLWidget.h" />
-    <ClInclude Include="FlexModesEnum.h" />
-    <ClInclude Include="PendulumDimension.h" />
-    <ClInclude Include="Dimension.h" />
-    <ClInclude Include="settings.h" />
-    <ClInclude Include="PendulumEquationParametersEnum.h" />
+    <ClInclude Include="libs\json.hpp" />
     <ClInclude Include="resource.h" />
-    <ClInclude Include="include\Harmonograph.h" />
-    <ClInclude Include="include\HarmonographManager.h" />
-    <ClInclude Include="include\HarmonographSaver.h" />
-    <ClInclude Include="include\json.hpp" />
-    <ClInclude Include="include\Pendulum.h" />
-    <ClInclude Include="include\resource.h" />
-    <QtMoc Include="include\HarmonographApp.h" />
+    <ClInclude Include="src\headers\Dimension.h" />
+    <ClInclude Include="src\headers\DrawParameteres.h" />
+    <ClInclude Include="src\headers\FlexModesEnum.h" />
+    <QtMoc Include="src\headers\FlexWindow.h" />
+    <ClInclude Include="src\headers\Harmonograph.h" />
+    <ClInclude Include="src\headers\HarmonographManager.h" />
+    <ClInclude Include="src\headers\HarmonographOpenGLWidget.h" />
+    <ClInclude Include="src\headers\HarmonographSaver.h" />
+    <ClInclude Include="src\headers\Pendulum.h" />
+    <ClInclude Include="src\headers\PendulumDimension.h" />
+    <ClInclude Include="src\headers\PendulumEquationParametersEnum.h" />
+    <QtMoc Include="src\headers\SaveImageDialog.h" />
+    <ClInclude Include="src\headers\settings.h" />
+    <QtMoc Include="src\headers\HarmonographApp.h" />
+    <QtMoc Include="src\headers\FlexDialog.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\cpp\FlexDialog.cpp" />
+    <ClCompile Include="src\cpp\FlexWindow.cpp" />
+    <ClCompile Include="src\cpp\Harmonograph.cpp" />
+    <ClCompile Include="src\cpp\HarmonographApp.cpp" />
+    <ClCompile Include="src\cpp\HarmonographManager.cpp" />
+    <ClCompile Include="src\cpp\HarmonographOpenGLWidget.cpp" />
+    <ClCompile Include="src\cpp\HarmonographSaver.cpp" />
+    <ClCompile Include="src\cpp\main.cpp" />
+    <ClCompile Include="src\cpp\Pendulum.cpp" />
+    <ClCompile Include="src\cpp\PendulumDimension.cpp" />
+    <ClCompile Include="src\cpp\SaveImageDialog.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

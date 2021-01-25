@@ -27,44 +27,6 @@
     <QtRcc Include="HarmonographApp.qrc">
       <Filter>Resource Files</Filter>
     </QtRcc>
-    <QtUic Include="HarmonographApp.ui">
-      <Filter>Resource Files</Filter>
-    </QtUic>
-    <ClCompile Include="HarmonographApp.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Harmonograph.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Pendulum.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="HarmonographManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="FlexWindow.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="FlexDialog.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="SaveImageDialog.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="HarmonographSaver.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="PendulumDimension.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="HarmonographOpenGLWidget.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Harmonograph.rc">
@@ -78,85 +40,120 @@
     <Image Include="assets\autoRotate.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="icon256.ico">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="icon1024.ico">
-      <Filter>Resource Files</Filter>
-    </Image>
     <Image Include="assets\undo.png">
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="assets\FlexMode.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="assets\icon256.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\icon1024.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\Harmonograph.h">
+    <ClInclude Include="src\headers\Dimension.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\HarmonographManager.h">
+    <ClInclude Include="src\headers\DrawParameteres.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\json.hpp">
+    <ClInclude Include="src\headers\FlexModesEnum.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\Pendulum.h">
+    <ClInclude Include="src\headers\Harmonograph.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\resource.h">
+    <ClInclude Include="src\headers\HarmonographManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\headers\HarmonographOpenGLWidget.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\headers\HarmonographSaver.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\headers\Pendulum.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\headers\PendulumDimension.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\headers\PendulumEquationParametersEnum.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\headers\settings.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="libs\json.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="resource.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="settings.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="PendulumEquationParametersEnum.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Dimension.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\HarmonographSaver.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="PendulumDimension.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="HarmonographOpenGLWidget.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="FlexModesEnum.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="DrawParameteres.h">
-      <Filter>Header Files</Filter>
+      <Filter>Resource Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <QtMoc Include="include\HarmonographApp.h">
+    <QtMoc Include="src\headers\FlexDialog.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <QtMoc Include="FlexWindow.h">
+    <QtMoc Include="src\headers\HarmonographApp.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <QtMoc Include="FlexDialog.h">
+    <QtMoc Include="src\headers\FlexWindow.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <QtMoc Include="SaveImageDialog.h">
+    <QtMoc Include="src\headers\SaveImageDialog.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>
   <ItemGroup>
-    <QtUic Include="FlexWindow.ui">
+    <ClCompile Include="src\cpp\FlexDialog.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\FlexWindow.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\Harmonograph.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\HarmonographApp.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\HarmonographManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\HarmonographOpenGLWidget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\HarmonographSaver.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\Pendulum.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\PendulumDimension.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\SaveImageDialog.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <QtUic Include="src\ui\FlexDialog.ui">
       <Filter>Form Files</Filter>
     </QtUic>
-    <QtUic Include="FlexDialog.ui">
+    <QtUic Include="src\ui\FlexWindow.ui">
       <Filter>Form Files</Filter>
     </QtUic>
-    <QtUic Include="SaveImageDialog.ui">
+    <QtUic Include="src\ui\SaveImageDialog.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="src\ui\HarmonographApp.ui">
       <Filter>Form Files</Filter>
     </QtUic>
   </ItemGroup>
