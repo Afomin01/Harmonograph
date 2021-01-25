@@ -15,7 +15,7 @@ public:
 	int firstRatioValue = 1;
 	int secondRatioValue = 1;
 
-	Harmonograph(int n);
+	Harmonograph(int numOfPendulums);
 	Harmonograph(Harmonograph* harmonograph);
 	Harmonograph(std::vector<Pendulum*> pendulums, int firstRatioValue, int secondRatioValue, bool isStar, bool isCircle, float frequencyPoint);
 	Harmonograph();

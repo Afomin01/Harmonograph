@@ -11,6 +11,7 @@
 #include <random>
 #include <time.h>
 #include "HarmonographOpenGLWidget.h"
+#include "SaveImageDialog.h"
 
 class FlexWindow : public QMainWindow
 {
@@ -19,6 +20,7 @@ class FlexWindow : public QMainWindow
 public:
 
 	FlexWindow(FlexSettings* settings, QWidget* parent = Q_NULLPTR);
+	~FlexWindow();
 
 protected:
 	virtual void closeEvent(QCloseEvent* event);
@@ -28,6 +30,9 @@ private:
 	QTimer* flexTimer;
 	HarmonographOpenGLWidget* gl;
 	HarmonographManager* manager;
+	QAction* maximizeAction, * incSpeedAction, * decSpeedAction, * pauseAction, * saveImageAction;
+
+	SaveImageDialog* saveImageDialog = new SaveImageDialog(this);
 
 	float firstFreq = 2;
 	float secondFreq = 2;
@@ -37,6 +42,7 @@ private:
 	std::vector<float> xSpeedValues;
 	std::vector<float> ySpeedValues;
 	int FPSLimit = 60;
+	bool isFlexPaused = false;
 
 	double boundedRandDouble(double fMin, double fMax) {
 		double f = (double)rand() / RAND_MAX;
@@ -46,7 +52,9 @@ private:
 private slots:
 	void frequencyFlex();
 	void phaseFlex();
-	void maximize();
+	void maximizeWindow();
 	void increaseFlexSpeed();
 	void decreaseFlexSpeed();
+	void pauseFlex();
+	void saveImageToFile();
 };

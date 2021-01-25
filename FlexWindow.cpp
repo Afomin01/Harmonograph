@@ -34,20 +34,33 @@ FlexWindow::FlexWindow(FlexSettings* settings, QWidget* parent) : QMainWindow(pa
 	FPSLimit = settings->FPSLimit;
 	flexTimer->setInterval((int)((1.0/settings->FPSLimit)*1000));
 
-	QAction* max = new QAction(this);
-	max->setShortcut(Qt::Key_F11);
-	QAction* incSpeed = new QAction(this);
-	incSpeed->setShortcut(Qt::Key_Equal);
-	QAction* decSpeed = new QAction(this);
-	decSpeed->setShortcut(Qt::Key_Minus);
-
-	connect(max, SIGNAL(triggered()), this, SLOT(maximize()));
-	connect(incSpeed, SIGNAL(triggered()), this, SLOT(increaseFlexSpeed()));
-	connect(decSpeed, SIGNAL(triggered()), this, SLOT(decreaseFlexSpeed()));
+	maximizeAction = new QAction(this);
+	maximizeAction->setShortcut(Qt::Key_F11);
 	
-	this->addAction(max);
-	this->addAction(incSpeed);
-	this->addAction(decSpeed);
+	incSpeedAction = new QAction(this);
+	incSpeedAction->setShortcut(Qt::Key_Equal);
+	
+	decSpeedAction = new QAction(this);
+	decSpeedAction->setShortcut(Qt::Key_Minus);
+	
+	pauseAction = new QAction(this);
+	pauseAction->setShortcut(Qt::Key_P);
+
+	saveImageAction = new QAction(this);
+	saveImageAction->setShortcut(Qt::Key_S);
+
+	this->addAction(maximizeAction);
+	this->addAction(incSpeedAction);
+	this->addAction(decSpeedAction);
+	this->addAction(pauseAction);
+	this->addAction(saveImageAction);
+
+	connect(maximizeAction, SIGNAL(triggered()), this, SLOT(maximizeWindow()));
+	connect(incSpeedAction, SIGNAL(triggered()), this, SLOT(increaseFlexSpeed()));
+	connect(decSpeedAction, SIGNAL(triggered()), this, SLOT(decreaseFlexSpeed()));
+	connect(pauseAction, SIGNAL(triggered()), this, SLOT(pauseFlex()));
+	connect(saveImageAction, SIGNAL(triggered()), this, SLOT(saveImageToFile()));
+
 
 	srand(time(NULL));
 
@@ -87,15 +100,21 @@ FlexWindow::FlexWindow(FlexSettings* settings, QWidget* parent) : QMainWindow(pa
 	delete settings;
 }
 
-void FlexWindow::closeEvent(QCloseEvent* event) {
-	flexTimer->stop();
-	delete flexGraph;
-	delete gl;
-	delete manager;
+FlexWindow::~FlexWindow() {
+	delete maximizeAction;
+	delete incSpeedAction;
+	delete decSpeedAction;
+	delete pauseAction;
 	delete flexTimer;
+	delete gl;
 }
 
-void FlexWindow::maximize() {
+void FlexWindow::closeEvent(QCloseEvent* event) {
+	flexTimer->stop();
+	delete manager;
+}
+
+void FlexWindow::maximizeWindow() {
 	if (this->isFullScreen()) {
 		this->showNormal();
 	}
@@ -121,6 +140,42 @@ void FlexWindow::decreaseFlexSpeed(){
 		ySpeedValues.at(i) -= flexSpeedChangeFactor;
 	}
 	flexTimer->start();
+}
+
+void FlexWindow::pauseFlex() {
+	if(isFlexPaused) {
+		flexTimer->start();
+	}else {
+		flexTimer->stop();
+	}
+	isFlexPaused = !isFlexPaused;
+}
+
+void FlexWindow::saveImageToFile() {
+	if(isFlexPaused) {
+		int code = saveImageDialog->exec();
+
+		if (code == 1) {
+			QString fileName = QFileDialog::getSaveFileName(this,
+				tr("Save Harmonograph Image"), "",
+				tr("png image (*.png);;All Files (*)"));
+			if (!fileName.isEmpty()) {
+				ImageSettings* imageSettings = new ImageSettings();
+				imageSettings->parameters = manager->getDrawParameters();
+
+				imageSettings->filename = fileName;
+				if (saveImageDialog->transpBack) imageSettings->parameters.backgroundColor = QColor(0, 0, 0, 0);
+				imageSettings->parameters.penWidth = saveImageDialog->penWidth;
+				imageSettings->parameters.useAntiAliasing = saveImageDialog->useAntialiasing;
+				imageSettings->useSquareImage = saveImageDialog->useSquareImage;
+				imageSettings->saveWidth = saveImageDialog->saveWidth;
+				imageSettings->saveHeight = saveImageDialog->saveHeight;
+				imageSettings->borderPercentage = saveImageDialog->borderPercentage;
+
+				manager->saveCurrentImage(imageSettings);
+			}
+		}
+	}
 }
 
 void FlexWindow::frequencyFlex() {

@@ -2,7 +2,17 @@
 
 HarmonographManager::HarmonographManager() {
     harmonograph = new Harmonograph(3);
-    imageSaver = new HarmonographSaver();
+    harmonographSaver = new HarmonographSaver();
+}
+
+HarmonographManager::HarmonographManager(Harmonograph* harm) {
+    this->harmonograph = harm;
+    harmonographSaver = new HarmonographSaver();
+}
+
+HarmonographManager::~HarmonographManager() {
+    delete harmonograph;
+	delete harmonographSaver;
 }
 
 Harmonograph* HarmonographManager::getHarmCopy() {
@@ -32,15 +42,15 @@ void HarmonographManager::rotateXY(float x, float y) {
 void HarmonographManager::saveCurrentImage(ImageSettings* settings){
     Harmonograph* copyHarm = new Harmonograph(harmonograph);
 
-    imageSaver->saveImage(copyHarm, settings);
+    harmonographSaver->saveImage(copyHarm, settings);
 }
 void HarmonographManager::saveParametersToFile(QString filename) {
     Harmonograph* copyHarmonograph = new Harmonograph(harmonograph);
-    imageSaver->saveParametersToFile(filename, copyHarmonograph);
+    harmonographSaver->saveParametersToFile(filename, copyHarmonograph);
 }
 
 void HarmonographManager::loadParametersFromFile(QString filename) {
-    Harmonograph* loadedHarmonograph = imageSaver->loadParametersFromFile(filename);
+    Harmonograph* loadedHarmonograph = harmonographSaver->loadParametersFromFile(filename);
     if (loadedHarmonograph != nullptr) {
         delete harmonograph;
         harmonograph = loadedHarmonograph;

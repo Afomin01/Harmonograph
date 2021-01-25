@@ -56,6 +56,7 @@ void HarmonographOpenGLWidget::initializeGL() {
 	glClear(GL_COLOR_BUFFER_BIT);
 	glLineWidth(manager->getDrawParameters().penWidth);
 	glPointSize(manager->getDrawParameters().penWidth);
+	glEnable(GL_POINT_SMOOTH);
 }
 
 void HarmonographOpenGLWidget::resizeGL(int w, int h){

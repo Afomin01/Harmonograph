@@ -1,11 +1,12 @@
 #include "Harmonograph.h"
 
 
-Harmonograph::Harmonograph(int n) {
-	for (int i = 0; i < n; i++) {
+Harmonograph::Harmonograph(int numOfPendulums) {
+	for (int i = 0; i < numOfPendulums; i++) {
 		Pendulum *createdPendulum = new Pendulum();
 		pendlums.push_back(createdPendulum);
 	}
+	this->numOfPendulums = numOfPendulums;
 }
 
 Harmonograph::Harmonograph(Harmonograph* harmonograph) {
@@ -31,9 +32,6 @@ Harmonograph::Harmonograph(std::vector<Pendulum*> newPendulums, int firstRatioVa
 }
 
 Harmonograph::~Harmonograph() {
-	for(Pendulum *p : pendlums){
-		delete p;
-	}
 }
 
 float Harmonograph::getCoordinateByTime(Dimension demension, float t) {

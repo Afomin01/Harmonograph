@@ -17,9 +17,8 @@ public:
 	int const sliderMaxValue = 150;
 
 	HarmonographManager();
-	HarmonographManager(Harmonograph* harm){
-		this->harmonograph = harm;
-	}
+	HarmonographManager(Harmonograph* harm);
+	~HarmonographManager();
 
 	Harmonograph* getHarmCopy();
 
@@ -65,7 +64,7 @@ public:
 
 private:
 	Harmonograph* harmonograph;
-	HarmonographSaver* imageSaver;
+	HarmonographSaver* harmonographSaver;
 	std::deque<Harmonograph*> history;
 	DrawParameters drawParameters = DrawParameters();
 };
