@@ -1,6 +1,5 @@
 #pragma once
 
-#include <Qwidget>
 #include <QtWidgets>
 #include <QFileDialog>
 #include "Harmonograph.h"
