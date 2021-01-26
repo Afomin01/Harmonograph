@@ -52,7 +52,7 @@
     </Link>
     <ClCompile>
       <FloatingPointModel>Fast</FloatingPointModel>
-      <AdditionalIncludeDirectories>D:\Projects\VS projects\Harmonograph\src\cpp;D:\Projects\VS projects\Harmonograph\src\ui;D:\Projects\VS projects\Harmonograph\src\headers;D:\Projects\VS projects\Harmonograph\libs;$(ProjectDir)include;.\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)src\cpp;$(ProjectDir)src\ui;$(ProjectDir)src\headers;$(ProjectDir)libs;$(ProjectDir)include;.\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <ResourceCompile>
       <AdditionalIncludeDirectories>$(ProjectDir)include</AdditionalIncludeDirectories>
