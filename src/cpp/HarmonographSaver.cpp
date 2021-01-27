@@ -104,7 +104,7 @@ public:
 			}
 		}
 
-		imageToSave->save(filename);
+		imageToSave->save(filename, "PNG");
 
 		delete savePainter;
 		delete imageToSave;
