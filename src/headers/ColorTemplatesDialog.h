@@ -3,11 +3,8 @@
 #include <QDialog>
 #include "ui_ColorTemplatesDialog.h"
 #include "ui_ColorTemplatesDialog.h"
-#include "json.hpp"
 #include <QtWidgets>
 #include "settings.h"
-
-using json = nlohmann::json;
 
 class ColorTemplatesDialog : public QDialog
 {

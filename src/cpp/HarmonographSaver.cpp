@@ -122,35 +122,52 @@ void HarmonographSaver::saveImage(Harmonograph* harmonograph, ImageSettings* set
 }
 
 void HarmonographSaver::saveParametersToFile(QString filename, Harmonograph* harmonograph) {
-	json j;
-	j["numOfPendulums"] = harmonograph->getNumOfPendulums();
-	j["frequencyRatio"] = std::to_string(harmonograph->firstRatioValue) + ":" + std::to_string(harmonograph->secondRatioValue);
-	j["frequencyPoint"] = harmonograph->frequencyPoint;
-	j["isStar"] = harmonograph->isStar;
-	j["isCircle"] = harmonograph->isCircle;
+	QFile jsonFile(filename);
+
+	QJsonDocument document = QJsonDocument();
+	QJsonObject root = QJsonObject();
+	QJsonArray pendulumsArray = QJsonArray();
 
 	std::vector<Pendulum*> pendulums = harmonograph->getPundlumsCopy();
 
-	for (int i = 0; i < pendulums.size(); i++) {
-		std::vector<PendulumDimension*> demensions = pendulums.at(i)->getDimensionsCopy();
-		
-		for (int k = 0; k < demensions.size(); k++) {
-			PendulumDimension* d = demensions.at(k);
+	for (int i = 0; i < pendulums.size();i++) {
+		std::vector<PendulumDimension*> dimensions = pendulums.at(i)->getDimensionsCopy();
 
-			j["pendulums"][i][k]["amplitude"] = d->amplitude;
-			j["pendulums"][i][k]["dumping"] = d->dumping;
-			j["pendulums"][i][k]["frequency"] = d->frequency;
-			j["pendulums"][i][k]["frequencyNoise"] = d->frequencyNoise;
-			j["pendulums"][i][k]["phase"] = d->phase;
+		QJsonArray dimensionsArray = QJsonArray();
+		
+		for (int j = 0; j < dimensions.size();j++) {
+
+			PendulumDimension* dim = dimensions.at(j);
+
+			QJsonObject dimObject = QJsonObject();
+
+			dimObject.insert("amplitude", dim->amplitude);
+			dimObject.insert("dumping", dim->dumping);
+			dimObject.insert("frequency", dim->frequency);
+			dimObject.insert("frequencyNoise", dim->frequencyNoise);
+			dimObject.insert("phase", dim->phase);
+
+			dimensionsArray.insert(j, dimObject);
 		}
+
+		pendulumsArray.insert(i, dimensionsArray);
 	}
 
-	QFile file(filename);
-	file.open(QIODevice::ReadWrite);
-	QTextStream out(&file);
-	out << QString::fromStdString(j.dump(4)) << endl;
+	try {
+		jsonFile.open(QIODevice::WriteOnly);
 
-	file.close();
+		root.insert("frequencyPoint", QJsonValue(harmonograph->frequencyPoint));
+		root.insert("frequencyRatio", QJsonValue(QString::fromStdString(std::to_string(harmonograph->firstRatioValue) + ":" + std::to_string(harmonograph->secondRatioValue))));
+		root.insert("isStar", QJsonValue(harmonograph->isStar));
+		root.insert("isCircle", QJsonValue(harmonograph->isCircle));
+		root.insert("pendulums", pendulumsArray);
+		document.setObject(root);
+
+		jsonFile.write(QJsonDocument(document).toJson(QJsonDocument::Indented));
+	}
+	catch (...) {}
+
+	jsonFile.close();
 
 	delete harmonograph;
 }
@@ -158,38 +175,37 @@ void HarmonographSaver::saveParametersToFile(QString filename, Harmonograph* har
 
 Harmonograph* HarmonographSaver::loadParametersFromFile(QString filename) {
 	if (!filename.isEmpty()) {
-		QFile qFile(filename);
+		QFile jsonFile(filename);
 		try {
-			qFile.open(QIODevice::ReadWrite);
-			QTextStream in(&qFile);
-			QString fileString(in.readAll());
+			jsonFile.open(QIODevice::ReadOnly);
 
-			qInfo() << fileString;
+			QByteArray saveData = jsonFile.readAll();
+			QJsonDocument jsonDocument(QJsonDocument::fromJson(saveData));
+			QJsonObject root = jsonDocument.object();
 
-			json j = json::parse(fileString.toStdString());
-			int numOfPendulums = j["numOfPendulums"];
-			std::string ratio = j["frequencyRatio"];
+			std::string ratio = root.value("frequencyRatio").toString().toStdString();
 			int firstRatioValue = std::stoi(ratio.substr(0, ratio.find(':')));
-			int secondRatioValue = std::stoi(ratio.substr(ratio.find(':')+1, ratio.size()-1));
-			float frequencyPoint = j["frequencyPoint"];
-			bool isStar = j["isStar"];
-			bool isCircle = j["isCircle"];
+			int secondRatioValue = std::stoi(ratio.substr(ratio.find(':') + 1, ratio.size() - 1));
+			
+			float frequencyPoint = root.value("frequencyPoint").toDouble();
+			bool isStar = root.value("isStar").toBool();
+			bool isCircle = root.value("isCircle").toBool();
 
 			std::vector<Pendulum*> pendulums;
-			json pendulumArray = j["pendulums"];
+			QJsonArray pendulumArray = root.value("pendulums").toArray();
 
-			for (int i = 0; i < numOfPendulums; i++) {
-				auto dimensionsArray = pendulumArray[i];
+			for (auto dimArr : pendulumArray) {
+				QJsonArray dimensionsArray = dimArr.toArray();
 
 				std::vector<PendulumDimension*> dimensions;
 
 				for (auto d : dimensionsArray) {
 					PendulumDimension* dim = new PendulumDimension(
-						d["amplitude"],
-						d["frequency"],
-						d["phase"],
-						d["dumping"],
-						d["frequencyNoise"]);
+						d.toObject().value("amplitude").toDouble(),
+						d.toObject().value("frequency").toDouble(),
+						d.toObject().value("phase").toDouble(),
+						d.toObject().value("dumping").toDouble(),
+						d.toObject().value("frequencyNoise").toDouble());
 					dimensions.push_back(dim);
 				}
 
@@ -197,16 +213,15 @@ Harmonograph* HarmonographSaver::loadParametersFromFile(QString filename) {
 				pendulums.push_back(pendulum);
 			}
 
-			qFile.close();
-
 			Harmonograph* harmonograph = new Harmonograph(pendulums, firstRatioValue, secondRatioValue, isStar, isCircle, frequencyPoint);
 			return harmonograph;
 		}
 		catch (...) {
-			qFile.close();
+			jsonFile.close();
 			return nullptr;
 		}
-
 	}
 	return nullptr;
+
+	
 }

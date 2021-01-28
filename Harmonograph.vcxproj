@@ -136,7 +136,6 @@
     <Image Include="assets\update.png" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="libs\json.hpp" />
     <ClInclude Include="resource.h" />
     <QtMoc Include="src\headers\ColorTemplatesDialog.h" />
     <ClInclude Include="src\headers\Dimension.h" />
