@@ -65,7 +65,7 @@
     </Link>
     <ClCompile>
       <FloatingPointModel>Fast</FloatingPointModel>
-      <AdditionalIncludeDirectories>D:\Projects\VS projects\Harmonograph\libs;D:\Projects\VS projects\Harmonograph\src\cpp;D:\Projects\VS projects\Harmonograph\src\headers;D:\Projects\VS projects\Harmonograph\src\ui;.\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\Projects\VS projects\Harmonograph\libs;D:\Projects\VS projects\Harmonograph\src\cpp;D:\Projects\VS projects\Harmonograph\src\headers;D:\Projects\VS projects\Harmonograph\src\ui;.\;.\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <ResourceCompile>
       <AdditionalIncludeDirectories>$(ProjectDir)include</AdditionalIncludeDirectories>
@@ -114,6 +114,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <QtRcc Include="HarmonographApp.qrc" />
+    <QtUic Include="src\ui\ColorTemplatesDialog.ui" />
     <QtUic Include="src\ui\FlexDialog.ui" />
     <QtUic Include="src\ui\FlexWindow.ui" />
     <QtUic Include="src\ui\HarmonographApp.ui">
@@ -135,6 +136,7 @@
   <ItemGroup>
     <ClInclude Include="libs\json.hpp" />
     <ClInclude Include="resource.h" />
+    <QtMoc Include="src\headers\ColorTemplatesDialog.h" />
     <ClInclude Include="src\headers\Dimension.h" />
     <ClInclude Include="src\headers\DrawParameteres.h" />
     <ClInclude Include="src\headers\FlexModesEnum.h" />
@@ -152,6 +154,7 @@
     <QtMoc Include="src\headers\FlexDialog.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\cpp\ColorTemplatesDialog.cpp" />
     <ClCompile Include="src\cpp\FlexDialog.cpp" />
     <ClCompile Include="src\cpp\FlexWindow.cpp" />
     <ClCompile Include="src\cpp\Harmonograph.cpp" />
