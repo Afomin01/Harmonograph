@@ -52,6 +52,9 @@
     <Image Include="assets\icon1024.ico">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="assets\icon.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\headers\Dimension.h">
