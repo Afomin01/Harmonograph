@@ -166,6 +166,7 @@ void ColorTemplatesDialog::deleteColorTemplate() {
 				templates.erase(it);
 				break;
 			}
+			++it;
 		}
 
 		ui.colorsTable->removeRow(ui.colorsTable->selectedRanges().at(0).topRow());
