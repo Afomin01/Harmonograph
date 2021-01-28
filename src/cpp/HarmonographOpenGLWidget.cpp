@@ -1,5 +1,4 @@
 #include "HarmonographOpenGLWidget.h"
-#include <qdebug.h>
 
 HarmonographOpenGLWidget::HarmonographOpenGLWidget(QWidget* parent, HarmonographManager* manager){
 	this->manager = manager;

@@ -8,6 +8,7 @@
 #include <cstdlib>
 #include "HarmonographManager.h"
 #include <ui_HarmonographApp.h>
+#include "ColorTemplatesDialog.h"
 #include "Dimension.h"
 #include "PendulumEquationParametersEnum.h"
 #include "FlexWindow.h"
@@ -37,6 +38,10 @@ private:
 
     FlexDialog* flexDialog = new FlexDialog(this);
     SaveImageDialog* saveImageDialog = new SaveImageDialog(this);
+    ColorTemplatesDialog* colorTemplatesDialog = new ColorTemplatesDialog(this);
+
+    const QString preferencesDirPath = "./Preferences";
+    const QString userTemplatesFileName = "UserTemplates.json";
 
     void redrawImage();
     void changeParameter(int pendulumNum, EquationParameter parameter, Dimension dimension, int value);
@@ -63,6 +68,7 @@ private slots:
     void primaryColorBtnClicked();
     void secondColorBtnClicked();
     void backgroundColorBtnClicked();
+    void loadColorPreferencesBtnClicked();
 
 
     void firstXDampingChanged(int value);

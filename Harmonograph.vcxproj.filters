@@ -87,9 +87,6 @@
     <ClInclude Include="src\headers\settings.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="libs\json.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="resource.h">
       <Filter>Resource Files</Filter>
     </ClInclude>
@@ -105,6 +102,9 @@
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="src\headers\SaveImageDialog.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="src\headers\ColorTemplatesDialog.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>
@@ -142,6 +142,12 @@
     <ClCompile Include="src\cpp\SaveImageDialog.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\cpp\ColorTemplatesDialog.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\settings.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="src\ui\FlexDialog.ui">
@@ -154,6 +160,9 @@
       <Filter>Form Files</Filter>
     </QtUic>
     <QtUic Include="src\ui\HarmonographApp.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="src\ui\ColorTemplatesDialog.ui">
       <Filter>Form Files</Filter>
     </QtUic>
   </ItemGroup>
