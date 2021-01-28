@@ -130,8 +130,8 @@
   <ItemGroup>
     <Image Include="assets\autoRotate.png" />
     <Image Include="assets\FlexMode.png" />
+    <Image Include="assets\icon.png" />
     <Image Include="assets\icon1024.ico" />
-    <Image Include="assets\icon256.ico" />
     <Image Include="assets\undo.png" />
     <Image Include="assets\update.png" />
   </ItemGroup>

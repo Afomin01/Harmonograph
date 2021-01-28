@@ -1,8 +1,9 @@
 <RCC>
-  <qresource prefix="/HarmonographApp">
-    <file>assets/FlexMode.png</file>
-    <file>assets/undo.png</file>
-    <file>assets/update.png</file>
-    <file>assets/autoRotate.png</file>
-  </qresource>
+    <qresource prefix="/HarmonographApp">
+        <file>assets/FlexMode.png</file>
+        <file>assets/undo.png</file>
+        <file>assets/update.png</file>
+        <file>assets/autoRotate.png</file>
+        <file>assets/icon.png</file>
+    </qresource>
 </RCC>

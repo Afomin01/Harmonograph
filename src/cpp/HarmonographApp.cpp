@@ -5,7 +5,7 @@ HarmonographApp::HarmonographApp(QWidget *parent) : QMainWindow(parent)
 {
     ui.setupUi(this);
     QApplication::setStyle(QStyleFactory::create("Fusion"));
-    QApplication::setWindowIcon(QIcon("icon256.ico"));
+    QApplication::setWindowIcon(QIcon(":/HarmonographApp/assets/icon.png"));
 
 	/*creating Preferences folder and empty color templates file*/
     const QFileInfo userTemplatesFileInfo(QDir(preferencesDirPath), userTemplatesFileName);

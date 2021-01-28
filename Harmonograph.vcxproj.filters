@@ -46,7 +46,7 @@
     <Image Include="assets\FlexMode.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="assets\icon256.ico">
+    <Image Include="assets\icon.png">
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="assets\icon1024.ico">
