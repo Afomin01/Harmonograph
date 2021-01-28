@@ -30,6 +30,7 @@ public:
 		float const tStep = 1e-04;
 		QPainter* savePainter = new QPainter(imageToSave);
 		QPen savePen;
+		savePen.setCapStyle(Qt::RoundCap);
 
 		if (parameters.useAntiAliasing) savePainter->setRenderHint(QPainter::Antialiasing, true);
 		savePen.setColor(Qt::black);

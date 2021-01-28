@@ -3,8 +3,6 @@
 ColorTemplatesDialog::ColorTemplatesDialog(QWidget* parent) : QDialog(parent) {
 	ui.setupUi(this);
 
-	//ui.colorsTable->setColumnHidden(0, true);
-
 	QString expression = "[A-Za-z0-9 ]{0,20}";
 	QRegularExpression rx(expression);
 	QValidator* validator = new QRegularExpressionValidator(rx, this);
