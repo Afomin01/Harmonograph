@@ -24,11 +24,20 @@ public:
 
 class ColorTemplate {
 public:
-	ColorTemplate(QString name, QColor primary, QColor secondary, QColor background);
+	ColorTemplate(QColor primary, QColor secondary, QColor background);
 	ColorTemplate() = default;
 
-	QString name = "";
 	QColor primaryColor = Qt::blue;
 	QColor secondaryColor = Qt::red;
 	QColor backgroundColor = Qt::white;
+};
+
+class NamedColorTemplate {
+public:
+	NamedColorTemplate(long long id, QString filename, QString name, ColorTemplate colorTemplate);
+
+	long long id = 0;
+	QString filename = "";
+	QString name = "";
+	ColorTemplate colorTemplate;
 };

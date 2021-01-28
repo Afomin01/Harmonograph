@@ -478,7 +478,7 @@ void HarmonographApp::loadColorPreferencesBtnClicked() {
     colorTemplatesDialog->userTemplatesFileName = userTemplatesFileName;
 
     DrawParameters params = manager->getDrawParameters();
-    colorTemplatesDialog->currentTemplate = ColorTemplate("", params.primaryColor, params.secondColor, params.backgroundColor);
+    colorTemplatesDialog->currentTemplate = ColorTemplate(params.primaryColor, params.secondColor, params.backgroundColor);
 	
     int code = colorTemplatesDialog->exec();
 

@@ -24,12 +24,14 @@ public:
 private:
 	Ui::ColorTemplatesDialog ui;
 
-	std::vector<ColorTemplate*> templates;
+	std::vector<NamedColorTemplate*> templates;
 
 	int selectedRow = 0;
+	long long maxTemplateID = 0;
 
-	void readTemplatesFromFile(QString filename, std::vector<ColorTemplate*> & templates);
-	void insertNewColorRow(int numOfRow, ColorTemplate temp);
+	void readTemplatesFromFile(QString filename, std::vector<NamedColorTemplate*> & templates);
+	void insertNewColorRow(int numOfRow, NamedColorTemplate namedTemplate);
+	void writeTemplatesToFile(QString filename, std::vector<NamedColorTemplate*> templates);
 	
 
 private slots:
