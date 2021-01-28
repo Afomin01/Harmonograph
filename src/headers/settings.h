@@ -21,3 +21,14 @@ public:
 	int saveWidth = 1920;
 	int saveHeight = 1080;
 };
+
+class ColorTemplate {
+public:
+	ColorTemplate(QString name, QColor primary, QColor secondary, QColor background);
+	ColorTemplate() = default;
+
+	QString name = "";
+	QColor primaryColor = Qt::blue;
+	QColor secondaryColor = Qt::red;
+	QColor backgroundColor = Qt::white;
+};

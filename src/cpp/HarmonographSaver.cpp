@@ -164,6 +164,8 @@ Harmonograph* HarmonographSaver::loadParametersFromFile(QString filename) {
 			QTextStream in(&qFile);
 			QString fileString(in.readAll());
 
+			qInfo() << fileString;
+
 			json j = json::parse(fileString.toStdString());
 			int numOfPendulums = j["numOfPendulums"];
 			std::string ratio = j["frequencyRatio"];

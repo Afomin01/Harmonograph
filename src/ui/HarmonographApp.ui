@@ -1215,7 +1215,7 @@
   </action>
   <action name="actionUpdate">
    <property name="icon">
-    <iconset resource="HarmonographApp.qrc">
+    <iconset resource="../../HarmonographApp.qrc">
      <normaloff>:/HarmonographApp/assets/update.png</normaloff>:/HarmonographApp/assets/update.png</iconset>
    </property>
    <property name="text">
@@ -1230,7 +1230,7 @@
     <bool>true</bool>
    </property>
    <property name="icon">
-    <iconset resource="HarmonographApp.qrc">
+    <iconset resource="../../HarmonographApp.qrc">
      <normaloff>:/HarmonographApp/assets/autoRotate.png</normaloff>:/HarmonographApp/assets/autoRotate.png</iconset>
    </property>
    <property name="text">
@@ -1260,7 +1260,7 @@
     <bool>false</bool>
    </property>
    <property name="icon">
-    <iconset resource="HarmonographApp.qrc">
+    <iconset resource="../../HarmonographApp.qrc">
      <normaloff>:/HarmonographApp/assets/undo.png</normaloff>:/HarmonographApp/assets/undo.png</iconset>
    </property>
    <property name="text">
@@ -1272,7 +1272,7 @@
   </action>
   <action name="actionStartFlexMode">
    <property name="icon">
-    <iconset resource="HarmonographApp.qrc">
+    <iconset resource="../../HarmonographApp.qrc">
      <normaloff>:/HarmonographApp/assets/FlexMode.png</normaloff>:/HarmonographApp/assets/FlexMode.png</iconset>
    </property>
    <property name="text">
@@ -1285,7 +1285,7 @@
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources>
-  <include location="HarmonographApp.qrc"/>
+  <include location="../../HarmonographApp.qrc"/>
  </resources>
  <connections>
   <connection>

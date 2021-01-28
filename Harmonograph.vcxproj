@@ -53,6 +53,7 @@
     <ClCompile>
       <FloatingPointModel>Fast</FloatingPointModel>
       <AdditionalIncludeDirectories>$(ProjectDir)src\cpp;$(ProjectDir)src\ui;$(ProjectDir)src\headers;$(ProjectDir)libs;$(ProjectDir)include;.\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <ResourceCompile>
       <AdditionalIncludeDirectories>$(ProjectDir)include</AdditionalIncludeDirectories>
@@ -66,6 +67,7 @@
     <ClCompile>
       <FloatingPointModel>Fast</FloatingPointModel>
       <AdditionalIncludeDirectories>D:\Projects\VS projects\Harmonograph\libs;D:\Projects\VS projects\Harmonograph\src\cpp;D:\Projects\VS projects\Harmonograph\src\headers;D:\Projects\VS projects\Harmonograph\src\ui;.\;.\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <ResourceCompile>
       <AdditionalIncludeDirectories>$(ProjectDir)include</AdditionalIncludeDirectories>
@@ -166,6 +168,7 @@
     <ClCompile Include="src\cpp\Pendulum.cpp" />
     <ClCompile Include="src\cpp\PendulumDimension.cpp" />
     <ClCompile Include="src\cpp\SaveImageDialog.cpp" />
+    <ClCompile Include="src\cpp\settings.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

@@ -1,10 +1,37 @@
 #include "HarmonographApp.h"
 
+
 HarmonographApp::HarmonographApp(QWidget *parent) : QMainWindow(parent)
 {
     ui.setupUi(this);
     QApplication::setStyle(QStyleFactory::create("Fusion"));
     QApplication::setWindowIcon(QIcon("icon256.ico"));
+
+	/*creating Preferences folder and empty color templates file*/
+    const QFileInfo userTemplatesFileInfo(QDir(preferencesDirPath), userTemplatesFileName);
+	
+	if(!userTemplatesFileInfo.exists()) {
+        QFile file(userTemplatesFileInfo.absoluteFilePath());
+        try {
+            QDir().mkpath(userTemplatesFileInfo.absolutePath());
+
+
+            file.open(QIODevice::ReadWrite);
+
+            QJsonDocument document;
+            QJsonObject root;
+            QJsonArray array;
+
+            root.insert("preferences", array);
+            document.setObject(root);
+
+            file.write(QJsonDocument(document).toJson(QJsonDocument::Indented));
+
+
+        }catch (...) {   
+        }
+        file.close();
+	}
 
     manager = new HarmonographManager();
 
@@ -85,6 +112,12 @@ HarmonographApp::HarmonographApp(QWidget *parent) : QMainWindow(parent)
     backColorBtn->setText("Background color");
     ui.mainToolBar->addWidget(backColorBtn);
 
+    ui.mainToolBar->addSeparator();
+
+    QPushButton* loadColorPreferencesBtn = new QPushButton(this);
+    loadColorPreferencesBtn->setText("Color templates...");
+    ui.mainToolBar->addWidget(loadColorPreferencesBtn);
+
     connect(autoRotationTimer, SIGNAL(timeout()), this, SLOT(autoRotationTimerTimeout()));
 
     connect(useTwoColorsCheckBox, SIGNAL(clicked(bool)), this, SLOT(useTwoColorsCheckBoxChanged(bool)));
@@ -97,6 +130,7 @@ HarmonographApp::HarmonographApp(QWidget *parent) : QMainWindow(parent)
     connect(primaryColorBtn, SIGNAL(clicked()), this, SLOT(primaryColorBtnClicked()));
     connect(secondColorBtn, SIGNAL(clicked()), this, SLOT(secondColorBtnClicked()));
     connect(backColorBtn, SIGNAL(clicked()), this, SLOT(backgroundColorBtnClicked()));
+    connect(loadColorPreferencesBtn, SIGNAL(clicked()), this, SLOT(loadColorPreferencesBtnClicked()));
 
     redrawImage();
 }
@@ -437,6 +471,26 @@ void HarmonographApp::backgroundColorBtnClicked() {
         GLWidget2D->update();
     	
     }
+}
+
+void HarmonographApp::loadColorPreferencesBtnClicked() {
+    colorTemplatesDialog->preferencesDirPath = preferencesDirPath;
+    colorTemplatesDialog->userTemplatesFileName = userTemplatesFileName;
+
+    DrawParameters params = manager->getDrawParameters();
+    colorTemplatesDialog->currentTemplate = ColorTemplate("", params.primaryColor, params.secondColor, params.backgroundColor);
+	
+    int code = colorTemplatesDialog->exec();
+
+	if(code == 1) {
+        ColorTemplate templ = colorTemplatesDialog->pickedTemplate;
+
+        manager->setPrimaryColor(templ.primaryColor);
+        manager->setSecondColor(templ.secondaryColor);
+        manager->setBackgroundColor(templ.backgroundColor);
+
+        redrawImage();
+	}
 }
 
 void HarmonographApp::firstXDampingChanged(int value) {
