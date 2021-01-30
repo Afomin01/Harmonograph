@@ -20,4 +20,7 @@ Real pendulums are affected by external forces that slow their movement over tim
      
 where _A_ is amplitude, _t_ is the moment in time, _f_ is frequency, _φ_ is phase, and _d_ is damping.
 
+This equation gives us point with coordinates  _X_ and _Y_ at the moment _t_, so if _Δt_ will be small, we can get several points and connect
+them with a straight line, which will give us something awesome:
+
 ![Gui](https://user-images.githubusercontent.com/38016689/106353471-cbc60e00-62fb-11eb-85a0-80facf180765.png)
