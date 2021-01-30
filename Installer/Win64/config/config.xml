@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Installer>
+    <Name>Harmonograph</Name>
+    <Version>1.0.0</Version>
+    <Title>Harmonograph Installer</Title>
+    <Publisher>Lantromipis</Publisher>
+	<InstallerApplicationIcon>icon</InstallerApplicationIcon>
+	<InstallerWindowIcon>icon2.png</InstallerWindowIcon>
+	<WizardStyle>Modern</WizardStyle>
+    <StartMenuDir>Harmonograph</StartMenuDir>
+    <TargetDir>@HomeDir@/Harmonograph</TargetDir>
+	<RemoveTargetDir>true</RemoveTargetDir>
+</Installer>
