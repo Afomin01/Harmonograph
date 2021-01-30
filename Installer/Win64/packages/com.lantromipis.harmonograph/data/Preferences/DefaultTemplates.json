@@ -47,6 +47,24 @@
             "name": "Evil Black",
             "primary": "#ffffff",
             "secondary": "#000000"
+        },
+        {
+            "background": "#262423",
+            "name": "Light Toxic",
+            "primary": "#00a86b",
+            "secondary": "#db7093"
+        },
+        {
+            "background": "#27282d",
+            "name": "Coffee",
+            "primary": "#8d6852",
+            "secondary": "#fbefdf"
+        },
+        {
+            "background": "#f7f7e8",
+            "name": "Pastel",
+            "primary": "#cd5d7d",
+            "secondary": "#6d3243"
         }
     ]
 }
