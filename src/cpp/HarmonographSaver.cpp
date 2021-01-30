@@ -18,9 +18,8 @@
  *
  */
 
+#pragma once
 #include "HarmonographSaver.h"
-#include <QRunnable>
-#include <QThreadPool>
 
 class SaveImageTask : public QRunnable {
 public:

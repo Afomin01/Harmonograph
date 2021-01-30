@@ -25,6 +25,8 @@
 #include "Pendulum.h"
 #include "PendulumDimension.h"
 #include "settings.h"
+#include <QRunnable>
+#include <QThreadPool>
 
 class HarmonographSaver {
 public:

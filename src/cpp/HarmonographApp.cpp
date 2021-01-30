@@ -76,7 +76,7 @@ HarmonographApp::HarmonographApp(QWidget *parent) : QMainWindow(parent)
     penWidthSpinBox = new QSpinBox(this);
     penWidthSpinBox->setMinimum(1);
     penWidthSpinBox->setMaximum(5);
-    penWidthSpinBox->setValue(1);
+    penWidthSpinBox->setValue(2);
     ui.mainToolBar->addWidget(penWidthSpinBox);
 
     ui.mainToolBar->addSeparator();

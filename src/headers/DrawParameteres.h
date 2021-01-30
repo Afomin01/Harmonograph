@@ -32,7 +32,7 @@ public:
 	bool useTwoColors = true;
 	bool useAntiAliasing = true;
 	DrawModes drawMode = DrawModes::linesMode;
-	int penWidth = 1;
+	int penWidth = 2;
 	float zoom = 0.25;
 	float timeStep = 0.01;
 	

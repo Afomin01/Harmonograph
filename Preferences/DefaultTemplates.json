@@ -1,0 +1,52 @@
+{
+    "preferences": [
+        {
+            "background": "#ffffff",
+            "name": "Cursed Blood",
+            "primary": "#d80000",
+            "secondary": "#000000"
+        },
+        {
+            "background": "#000000",
+            "name": "Supernova",
+            "primary": "#fbff00",
+            "secondary": "#c9c1ff"
+        },
+        {
+            "background": "#ffffff",
+            "name": "Grapefruit",
+            "primary": "#fff700",
+            "secondary": "#cb8700"
+        },
+        {
+            "background": "#ffffff",
+            "name": "Forest Fire",
+            "primary": "#19ff00",
+            "secondary": "#ff0000"
+        },
+        {
+            "background": "#000000",
+            "name": "Ghosty White",
+            "primary": "#000000",
+            "secondary": "#ffffff"
+        },
+        {
+            "background": "#ffffff",
+            "name": "Bloody Ocean",
+            "primary": "#0000ff",
+            "secondary": "#ff0000"
+        },
+        {
+            "background": "#00042b",
+            "name": "Midnight Sunset",
+            "primary": "#be0000",
+            "secondary": "#ffe200"
+        },
+        {
+            "background": "#ffffff",
+            "name": "Evil Black",
+            "primary": "#ffffff",
+            "secondary": "#000000"
+        }
+    ]
+}

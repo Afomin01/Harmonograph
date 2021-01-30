@@ -338,4 +338,6 @@ ASALocalRun/
 
 # BeatPulse healthcheck temp database
 healthchecksdb
-/Preferences
+/Installer/Win64/HarmonographInstaller.exe
+/Installer/Win64/Harmonograph-Installer-Win-x64.exe
+/Preferences/UserTemplates.json

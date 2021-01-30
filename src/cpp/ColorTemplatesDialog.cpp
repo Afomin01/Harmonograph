@@ -143,9 +143,9 @@ void ColorTemplatesDialog::writeTemplatesToFile(QString filename, std::vector<Na
 void ColorTemplatesDialog::tableItemDoubleClicked(int row, int column) {
 	ColorTemplate temp;
 	
-	temp.primaryColor = static_cast<QTableWidgetItem*>(ui.colorsTable->item(row, 1))->background().color();
-	temp.secondaryColor = static_cast<QTableWidgetItem*>(ui.colorsTable->item(row, 2))->background().color();
-	temp.backgroundColor = static_cast<QTableWidgetItem*>(ui.colorsTable->item(row, 3))->background().color();
+	temp.primaryColor = static_cast<QTableWidgetItem*>(ui.colorsTable->item(row, 2))->background().color();
+	temp.secondaryColor = static_cast<QTableWidgetItem*>(ui.colorsTable->item(row, 3))->background().color();
+	temp.backgroundColor = static_cast<QTableWidgetItem*>(ui.colorsTable->item(row, 4))->background().color();
 
 	pickedTemplate = temp;
 	emit accept();
@@ -207,7 +207,7 @@ void ColorTemplatesDialog::saveCurrentTemplate() {
 			}
 		}
 
-		NamedColorTemplate* colorTemplateToSave = new NamedColorTemplate(maxTemplateID, info.absoluteFilePath(), name, currentTemplate);
+		NamedColorTemplate* colorTemplateToSave = new NamedColorTemplate(maxTemplateID, userTemplatesFileName, name, currentTemplate);
 
 		userTemplates.push_back(colorTemplateToSave);
 
