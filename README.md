@@ -90,7 +90,7 @@ Just press the Flex mode button on the toolbar, choose one of the modes, and let
 * Time step
 * Colors
 
-### Harmonograph oprions
+## Harmonograph options
 * ⭐ The frequency ratios between 1st and 2-3 pendulums make it possible to create Stars
 * #️⃣ Set number of pendulums. The more pendulums, the more intricate pictures
 * Frequency point
