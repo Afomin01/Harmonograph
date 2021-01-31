@@ -122,3 +122,6 @@ Use _mingw32-make_ or Qt's own _jom_ on Windows.
 ```console
 user@linux:~/Harmonograph$ sudo apt install qt5-default freeglut3 freeglut3-dev
 ```
+
+### Redistributable packages
+Explore Install/Win64 directory for Windows installer and AppDir for linux AppImage.
