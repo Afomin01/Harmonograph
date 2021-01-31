@@ -38,7 +38,7 @@ them with a straight line, which will give us something awesome:
 
 We can randomly set parameters in equation, and get different pictures each time.
 
-## Key Features
+## General Features
 <h3>
     <img src="https://user-images.githubusercontent.com/38016689/106380327-a18b5380-63c2-11eb-86a4-5bcd9db823dd.png"
        alt="Update"
@@ -78,13 +78,23 @@ We need to change one or more parameters about 60 times per minute. That's it!
 
 Just press the Flex mode button on the toolbar, choose one of the modes, and let's go.
 
-## Additional features
+### Other
 * ✋ Click on the figure and drag for manually rotation
-* #️⃣ Set number of pendulums. The more pendulums, the more intricate pictures
-* ⭐ The frequency ratios between 1st and 2-3 pendulums make it possible to create Stars
 * 💾 From file menu you can save figure as PNG image or JSON with parameters
-* Circle mode
+
+## Draw features
+* Pen width
+* Mode
+  * Lines
+  * Points
+* Time step
+* Colors
+
+### Harmonograph oprions
+* ⭐ The frequency ratios between 1st and 2-3 pendulums make it possible to create Stars
+* #️⃣ Set number of pendulums. The more pendulums, the more intricate pictures
 * Frequency point
+* Circle mode
 
 ## Build
 Qt5 (>= 5.10), freeglut, glew32 required.
