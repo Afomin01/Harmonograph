@@ -78,6 +78,30 @@ We need to change one or more parameters about 60 times per minute. That's it!
 
 Just press the Flex mode button on the toolbar, choose one of the modes, and let's go.
 
+### Rotate figure manually
+
+Click on the figure and drag for rotation.
+
+### Number of pendulums
+
+The more pendulums, the more intricate pictures.
+
+### Ratio
+
+The frequency ratios between 1st and 2-3 pendulums make it possible to create Stars.
+
+### Frequency point
+
+Bar
+
+### Save figures
+
+From file menu you can save figure as PNG image or JSON with parameters.
+
+### Circle mode
+
+Foo
+
 ## Build
 Qt5 (>= 5.10), freeglut, glew32 required.
 
