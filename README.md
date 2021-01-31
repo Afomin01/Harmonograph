@@ -79,12 +79,12 @@ We need to change one or more parameters about 60 times per minute. That's it!
 Just press the Flex mode button on the toolbar, choose one of the modes, and let's go.
 
 ## Additional features
-* Click on the figure and drag for manually rotation.
-* Set number of pendulums. The more pendulums, the more intricate pictures.
-* The frequency ratios between 1st and 2-3 pendulums make it possible to create Stars.
-* Frequency point
-* From file menu you can save figure as PNG image or JSON with parameters.
+* ✋ Click on the figure and drag for manually rotation
+* #️⃣ Set number of pendulums. The more pendulums, the more intricate pictures
+* ⭐ The frequency ratios between 1st and 2-3 pendulums make it possible to create Stars
+* 💾 From file menu you can save figure as PNG image or JSON with parameters
 * Circle mode
+* Frequency point
 
 ## Build
 Qt5 (>= 5.10), freeglut, glew32 required.
