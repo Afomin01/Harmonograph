@@ -9,15 +9,17 @@
     </p>
     <img src="https://user-images.githubusercontent.com/38016689/106370030-92c38300-6367-11eb-901a-0f604af8b833.png"
          alt="Qt"
-         height="50">    
+         height="45">    
     <img src="https://user-images.githubusercontent.com/38016689/106370062-d8804b80-6367-11eb-8755-8ff3fe379093.png"
          alt="cpp"
-         height="50">
+         height="45">
     <img src="https://user-images.githubusercontent.com/38016689/106370456-395d5300-636b-11eb-902b-c0d4c4419d19.png"
          alt="cpp"
-         height="50">
+         height="45">
 </div>
-         
+
+&nbsp;
+
 Harmonograph is a C++ application with Qt GUI that simulates a [real Harmonograph Machine](https://youtu.be/S92mZcNIS8w).
 
 A Harmonograph is a mechanical apparatus that employs pendulums to create a geometric image. It usually consists of about 2 or 3 pendulums.
@@ -36,29 +38,49 @@ them with a straight line, which will give us something awesome:
 
 We can randomly set parameters in equation, and get different pictures each time.
 
-## Toolbar options
-Toolbar is our most powerful options place.
-
-* <img src="https://user-images.githubusercontent.com/38016689/106370489-880aed00-636b-11eb-9e57-a3d136525a3c.png"
+<div align="center">
+    <h2>
+        Key Features
+    </h2>
+</div>
+<h3>
+    <img src="https://user-images.githubusercontent.com/38016689/106380327-a18b5380-63c2-11eb-86a4-5bcd9db823dd.png"
        alt="Update"
-       width="16"> - randomly generate a new figure
-* <img src="https://user-images.githubusercontent.com/38016689/106370510-b4bf0480-636b-11eb-9ec2-0e8bc002a8f9.png"
+       width="30">
+    Update
+</h3>
+
+Randomly generate a new figure.
+
+<h3>
+    <img src="https://user-images.githubusercontent.com/38016689/106380441-47d75900-63c3-11eb-9b9c-75ac76605bcf.png"
        alt="AutoRotate"
-       width="16"> - toggle figure auto rotating
-* <img src="https://user-images.githubusercontent.com/38016689/106370536-dd46fe80-636b-11eb-829f-8e25d30c1328.png"
+       width="30">
+    Auto rotate
+</h3>
+
+Toggle figure auto rotating
+
+<h3>
+    <img src="https://user-images.githubusercontent.com/38016689/106380495-c502ce00-63c3-11eb-8f99-059482bd0793.png"
        alt="Undo"
-       width="16"> - undo the last update
-* <img src="https://user-images.githubusercontent.com/38016689/106370545-fea7ea80-636b-11eb-9efd-75b24b2aa0f7.png"
+       width="30">
+    Undo
+</h3>
+
+Undo the last update.
+
+<h3>
+    <img src="https://user-images.githubusercontent.com/38016689/106380298-5b35f480-63c2-11eb-84d6-88a1d11283b2.png"
        alt="Flex"
-       width="16"> - make the figure dance
-* Pen width - figure line width
-* Mode - drawing mode
-* Time step - figure accuracy
-* Primary color - 1st figure gradient color
-* Secondary color - 2nd figure gradient color
-* Use two colors - toggle gradient mode
-* Backgound color - figure baclground color
-* Color templates - color palettes
+       width="30">
+    Flex mode
+</h3>
+
+Imagine how to make those figures dance? Create smooth dynamic images that can fascinate no less than fractals.
+We need to change one or more parameters about 60 times per minute. That's it!
+
+Just press the Flex mode button on the toolbar, choose one of the modes, and let's go.
 
 ## Build
 Qt5 (>= 5.10), freeglut, glew32 required.
