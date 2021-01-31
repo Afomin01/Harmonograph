@@ -38,6 +38,8 @@ them with a straight line, which will give us something awesome:
 
 We can randomly set parameters in equation, and get different pictures each time.
 
+### Check out some of our figures in [Gallery](https://github.com/Afomin01/Harmonograph/wiki/Gallery)
+
 ## General Features
 <h3>
     <img src="https://user-images.githubusercontent.com/38016689/106380327-a18b5380-63c2-11eb-86a4-5bcd9db823dd.png"
