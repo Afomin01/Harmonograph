@@ -124,4 +124,4 @@ user@linux:~/Harmonograph$ sudo apt install qt5-default freeglut3 freeglut3-dev
 ```
 
 ### Redistributable packages
-Explore Install/Win64 directory for Windows installer and AppDir for linux AppImage.
+Explore Redistributable/Win64 directory for Windows installer and Redistributable/AppDir for linux AppImage.
